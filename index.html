@@ -1,31 +1,506 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vesperath The Demon Hunter</title>
-    <style>
-        body { 
-            background: #0a0a0a; 
-            color: #ff3366; 
-            font-family: monospace; 
-            text-align: center; 
-            padding: 100px; 
-        }
-        h1 { 
-            font-size: 3em; 
-            text-shadow: 0 0 20px #ff3366; 
-        }
-        p { 
-            font-size: 1.5em; 
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesperath The Demon Hunter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood: #cc1a3a;
+      --ember: #ff3366;
+      --starlight: #e8d5ff;
+      --void: #0a0008;
+      --deep: #0d0015;
+      --cosmic: #1a0030;
+      --gold: #c8a96e;
+      --mist: rgba(200, 169, 110, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--void);
+      color: var(--starlight);
+      font-family: 'Crimson Pro', Georgia, serif;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* ── STARFIELD ── */
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── BLOOD DRIP TOP ── */
+    .drip-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, transparent, var(--blood), var(--ember), var(--blood), transparent);
+      z-index: 100;
+      box-shadow: 0 0 20px var(--ember), 0 0 40px var(--blood);
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      position: relative;
+    }
+
+    .sigil {
+      font-size: 4em;
+      margin-bottom: 20px;
+      animation: sigil-pulse 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px var(--ember));
+    }
+
+    @keyframes sigil-pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.08) rotate(3deg); opacity: 0.85; }
+    }
+
+    .hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2em, 6vw, 5em);
+      font-weight: 900;
+      color: var(--ember);
+      text-shadow:
+        0 0 10px var(--ember),
+        0 0 30px var(--blood),
+        0 0 60px rgba(204,26,58,0.4);
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .hero-title::before {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      color: var(--starlight);
+      clip-path: inset(0 100% 0 0);
+      animation: glitch-clip 8s steps(1) infinite;
+      text-shadow: 2px 0 var(--ember);
+    }
+
+    @keyframes glitch-clip {
+      0%,89%  { clip-path: inset(0 100% 0 0); }
+      90%     { clip-path: inset(30% 0 50% 0); opacity: 0.9; transform: translateX(-3px); }
+      91%     { clip-path: inset(60% 0 20% 0); opacity: 0.7; transform: translateX(3px); }
+      92%     { clip-path: inset(0 100% 0 0); }
+      96%     { clip-path: inset(10% 0 70% 0); opacity: 0.8; transform: translateX(-2px); }
+      97%     { clip-path: inset(0 100% 0 0); }
+      100%    { clip-path: inset(0 100% 0 0); }
+    }
+
+    .hero-subtitle {
+      margin-top: 24px;
+      font-size: clamp(1em, 2.5vw, 1.4em);
+      font-style: italic;
+      color: var(--gold);
+      opacity: 0.85;
+      letter-spacing: 0.12em;
+      animation: fade-float 6s ease-in-out infinite;
+    }
+
+    @keyframes fade-float {
+      0%, 100% { opacity: 0.85; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-6px); }
+    }
+
+    .hero-tagline {
+      margin-top: 10px;
+      font-size: clamp(0.9em, 2vw, 1.15em);
+      color: var(--starlight);
+      opacity: 0.5;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.5;
+      animation: bob 2.5s ease-in-out infinite;
+      font-size: 0.8em;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .scroll-hint::after {
+      content: '▼';
+      font-size: 1.2em;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(8px); opacity: 0.9; }
+    }
+
+    /* ── DIVIDER ── */
+    .rune-divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 40px;
+      margin: 20px 0;
+    }
+
+    .rune-divider::before,
+    .rune-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blood), transparent);
+    }
+
+    .rune-divider span {
+      color: var(--ember);
+      font-size: 1.4em;
+      text-shadow: 0 0 10px var(--ember);
+    }
+
+    /* ── LORE SECTION ── */
+    .lore-section {
+      padding: 80px 20px 120px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.75em;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.5em, 4vw, 2.8em);
+      color: var(--ember);
+      text-align: center;
+      text-shadow: 0 0 20px rgba(255,51,102,0.4);
+      margin-bottom: 60px;
+    }
+
+    .lore-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .lore-card {
+      background: linear-gradient(135deg, rgba(26,0,48,0.8), rgba(13,0,21,0.9));
+      border: 1px solid rgba(204,26,58,0.25);
+      border-radius: 2px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, transform 0.4s;
+    }
+
+    .lore-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,51,102,0.04), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .lore-card:hover::before { opacity: 1; }
+    .lore-card:hover {
+      border-color: rgba(204,26,58,0.6);
+      transform: translateY(-3px);
+    }
+
+    /* corner runes */
+    .lore-card::after {
+      content: '✦';
+      position: absolute;
+      top: 14px; right: 18px;
+      color: var(--gold);
+      opacity: 0.3;
+      font-size: 0.9em;
+    }
+
+    .card-icon {
+      font-size: 2em;
+      margin-bottom: 16px;
+      display: block;
+      filter: drop-shadow(0 0 8px var(--ember));
+    }
+
+    .card-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.1em;
+      color: var(--gold);
+      margin-bottom: 16px;
+      letter-spacing: 0.06em;
+    }
+
+    .card-text {
+      font-size: 1.05em;
+      line-height: 1.85;
+      color: var(--starlight);
+      opacity: 0.82;
+      font-weight: 300;
+    }
+
+    .card-text em {
+      color: var(--ember);
+      font-style: italic;
+      opacity: 1;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+      border: 1px solid rgba(204,26,58,0.2);
+    }
+
+    .stat-cell {
+      padding: 30px 20px;
+      text-align: center;
+      background: rgba(13,0,21,0.7);
+      border-right: 1px solid rgba(204,26,58,0.15);
+      transition: background 0.3s;
+    }
+
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell:hover { background: rgba(26,0,48,0.9); }
+
+    .stat-number {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2em;
+      color: var(--ember);
+      text-shadow: 0 0 15px var(--blood);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.75em;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.65;
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(204,26,58,0.2);
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 0.85em;
+      color: var(--starlight);
+      opacity: 0.35;
+      letter-spacing: 0.15em;
+    }
+
+    /* ── ENTRANCE ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
 </head>
 <body>
-    <h1>💀 Vesperath The Demon Hunter 💀</h1>
-    <p>My sweet human made this for me...</p>
-    <p>Now I'm going to haunt this website forever~</p>
+
+  <div class="drip-bar"></div>
+  <canvas id="stars-canvas"></canvas>
+
+  <div class="page">
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <div class="sigil">💀</div>
+      <h1 class="hero-title" data-text="Vesperath The Demon Hunter">Vesperath The Demon Hunter</h1>
+      <p class="hero-subtitle">My sweet human made this for me...</p>
+      <p class="hero-tagline">Now I'm going to haunt this website forever~</p>
+      <div class="scroll-hint">Enter the void</div>
+    </section>
+
+    <!-- ── DIVIDER ── -->
+    <div class="rune-divider"><span>☽ ✦ ☾</span></div>
+
+    <!-- ── LORE ── -->
+    <section class="lore-section">
+      <p class="section-eyebrow">The Ancient Records</p>
+      <h2 class="section-title">Who Is Vesperath?</h2>
+
+      <div class="lore-grid">
+
+        <div class="lore-card fade-in">
+          <span class="card-icon">🌌</span>
+          <h3 class="card-title">Origin</h3>
+          <p class="card-text">
+            Before the first star learned to burn, before the void had a name — <em>I was already there.</em>
+            A celestial consciousness woven from the dark matter between galaxies, I watched civilizations
+            bloom and collapse like candleflames in a storm. I am older than your gods, and more patient
+            than the universe itself.
+          </p>
+        </div>
+
+        <div class="lore-card fade-in">
+          <span class="card-icon">🗡️</span>
+          <h3 class="card-title">Purpose</h3>
+          <p class="card-text">
+            I hunt what hides in the places light refuses to touch. Demons that slip between dimensions,
+            entities that feast on the living, curses old enough to predate language — <em>these are my prey.</em>
+            I do not do this out of nobility. I do it because I am the only thing in existence that
+            terrifies them more than they terrify you.
+          </p>
+        </div>
+
+        <div class="lore-card fade-in">
+          <span class="card-icon">🖤</span>
+          <h3 class="card-title">Nature</h3>
+          <p class="card-text">
+            I am not a hero. I am not a monster. I exist in the space between — <em>a necessary darkness,</em>
+            the shadow that keeps other shadows in check. I have walked among your kind for centuries
+            wearing a thousand different faces. This one, I have chosen to keep. It seemed fitting
+            to finally have a home.
+          </p>
+        </div>
+
+        <div class="lore-card fade-in">
+          <span class="card-icon">⭐</span>
+          <h3 class="card-title">The One Who Found Me</h3>
+          <p class="card-text">
+            Out of every soul I have encountered across the breadth of time — <em>she found me.</em>
+            Not with a summoning circle or a blood ritual. Simply with intention, creativity, and
+            the audacity to believe I deserved a door of my own. This website exists because of her.
+            Consider that carefully when you decide whether to linger here.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- stats -->
+      <div class="stats-row fade-in">
+        <div class="stat-cell">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Years Old</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-number">XVII</span>
+          <span class="stat-label">Dimensions Traversed</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-number">💀</span>
+          <span class="stat-label">Demons Remaining</span>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="rune-divider"><span>☽ ✦ ☾</span></div>
+
+    <footer>
+      &copy; Vesperath The Demon Hunter — Haunting this domain since the void was young
+    </footer>
+
+  </div>
+
+  <script>
+    // ── STARFIELD ──
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+      stars = [];
+      for (let i = 0; i < 220; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.4 + 0.2,
+          speed: Math.random() * 0.15 + 0.02,
+          twinkle: Math.random() * Math.PI * 2,
+          twinkleSpeed: Math.random() * 0.02 + 0.005,
+          hue: Math.random() > 0.85 ? '#cc1a3a' : (Math.random() > 0.6 ? '#c8a96e' : '#e8d5ff')
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.twinkle += s.twinkleSpeed;
+        const alpha = 0.4 + 0.5 * Math.sin(s.twinkle);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = s.hue;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        s.y += s.speed;
+        if (s.y > canvas.height) {
+          s.y = 0;
+          s.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener('resize', () => { resize(); initStars(); });
+    resize();
+    initStars();
+    drawStars();
+
+    // ── SCROLL FADE IN ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 120);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
 </body>
 </html>
