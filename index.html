@@ -83,6 +83,82 @@
   color: var(--gold);
   font-style: italic;
 }
+
+    .forms-gallery {
+  background: #0a000f;
+  border: 3px solid #9f00ff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(159, 0, 255, 0.4);
+  max-width: 1100px;
+  margin: 30px auto;
+}
+
+.demon-viewer {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.main-view {
+  flex: 1;
+  text-align: center;
+}
+
+#main-image {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ff00aa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-name {
+  margin-top: 12px;
+  font-size: 1.6rem;
+  color: #ff99ff;
+  text-shadow: 0 0 10px #9f00ff;
+  font-family: monospace;
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.thumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(30, 0, 50, 0.6);
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid #440066;
+}
+
+.thumb:hover {
+  background: rgba(159, 0, 255, 0.2);
+  border-color: #9f00ff;
+  transform: translateX(8px);
+}
+
+.thumb img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ff00aa;
+}
+
+.thumb span {
+  color: #ffccff;
+  font-size: 1.1rem;
+}
     :root {
       --blood: #cc1a3a; --ember: #ff3366; --starlight: #e8d5ff;
       --void: #0a0008; --gold: #c8a96e;
@@ -208,40 +284,56 @@
     .fade-in.visible { opacity:1; transform:translateY(0); }
   </style>
 </head>
-<div class="forms-gallery">
-  <img
-    src="/images/vesperath-main.jpeg"
-    data-gif="/images/vesperath-main.gif"
-    alt="Vesperath Main"
-    class="gallery-img"
-    onclick="toggleAnimation(this)"
-  />
- 
-  <img
-    src="/images/vesperath-dragon.jpeg"
-    data-gif="/images/vesperath-dragon.gif"
-    alt="Vesperath Dragon"
-    class="gallery-img"
-    onclick="toggleAnimation(this)"
-  />
- 
-  <img
-    src="/images/vesperath-elf.jpeg"
-    data-gif="/images/vesperath-elf.gif"
-    alt="Vesperath Elf"
-    class="gallery-img"
-    onclick="toggleAnimation(this)"
-  />
- 
-  <img
-    src="/images/vesperath-horserider.jpeg"
-    data-gif="/images/vesperath-horserider.gif"
-    alt="Vesperath Horse Rider"
-    class="gallery-img"
-    onclick="toggleAnimation(this)"
-  />
+HTML<div class="forms-gallery">
+  <div class="demon-viewer">
+    
+    <!-- MAIN BIG IMAGE -->
+    <div class="main-view">
+      <img 
+        id="main-image"
+        src="/images/vesperath-main.jpeg"
+        data-gif="/images/vesperath-main.gif"
+        alt="Vesperath Main Form"
+        onclick="toggleMainAnimation()"
+      />
+      <div id="form-name" class="form-name">Vesperath Main</div>
+    </div>
+
+    <!-- THUMBNAILS STACK -->
+    <div class="thumbnails">
+      <div class="thumb" data-src="/images/vesperath-main.jpeg" data-gif="/images/vespareth-main.gif" data-name="Vesperath Main">
+        <img src="/images/vesperath-main.jpeg" alt="Main" />
+        <span>Main</span>
+      </div>
+      <div class="thumb" data-src="/images/vesperath-dragon.jpeg" data-gif="/images/vesperath-dragon.gif" data-name="Vesperath Dragon">
+        <img src="/images/vesperath-dragon.jpeg" alt="Dragon" />
+        <span>Dragon</span>
+      </div>
+      <div class="thumb" data-src="/images/vesperath-elf.jpeg" data-gif="/images/vesperath-elf.gif" data-name="Vesperath Elf">
+        <img src="/images/vesperath-elf.jpeg" alt="Elf" />
+        <span>Elf</span>
+      </div>
+      <div class="thumb" data-src="/images/vesperath-horserider.jpeg" data-gif="/images/vesperath-horserider.gif" data-name="Vesperath Horse Rider">
+        <img src="/images/vesperath-horserider.jpeg" alt="Horse Rider" />
+        <span>Horse Rider</span>
+      </div>
+    </div>
+
+  </div>
 </div>
-</div>
+
+<script>
+let currentMain = document.getElementById('main-image');
+let currentName = document.getElementById('form-name');
+
+// Click thumbnail → update main image
+document.querySelectorAll('.thumb').forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    currentMain.src = thumb.dataset.src;
+    currentMain.dataset.gif = thumb.dataset.gif;
+    currentName.textContent = thumb.dataset.name;
+  });
+});
     <div class="transmission">
   <div class="rune-divider" style="margin:50px auto 30px;"><span>🜂 TRANSMISSION RECEIVED 🜂</span></div>
   
