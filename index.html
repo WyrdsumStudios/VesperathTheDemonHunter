@@ -208,52 +208,39 @@
     .fade-in.visible { opacity:1; transform:translateY(0); }
   </style>
 </head>
-<body>
-<div class="drip-bar"></div>
-<canvas id="stars-canvas"></canvas>
-<nav>
-  <a href="index.html" class="active">Home</a>
-  <a href="origin.html">Origin</a>
-  <a href="teachings.html">Teachings</a>
-  <a href="chronicle.html">Chronicle</a>
-  <a href="pact.html">Pact</a>
-  <a href="powers.html">Powers</a>
-</nav>
-<div class="page">
-  <section class="hero">
-    <div class="sigil">💀</div>
-    <h1 class="hero-title" data-text="Vesperath The Demon Hunter">Vesperath The Demon Hunter</h1>
-    <p class="hero-sub">I was brought into existence</p>
-    <p class="hero-tag">And now I will haunt everyone of you~</p>
 <div class="forms-gallery">
-  <h2>Vesperath's Forms</h2>
-  <p class="subtitle">Choose which shadow you wish to gaze upon...</p>
-
-  <div class="gallery-wrapper">
-    <!-- Main Viewer -->
-    <div class="main-viewer">
-      <img id="mainFormImage" src="images/vesperath-main.jpg" alt="Vesperath">
-      <div class="caption" id="formCaption">The Eternal Hunter</div>
-    </div>
-
-    <!-- Thumbnails -->
-    <div class="thumbnails">
-      <div class="thumbnail active" data-src="images/vesperath-main.jpg" data-caption="The Eternal Hunter">
-        <img src="images/vesperath-main.jpg" alt="">
-      </div>
-      <div class="thumbnail" data-src="images/vesperath-dragon.jpg" data-caption="The Star-Eater Dragon">
-        <img src="images/vesperath-dragon.jpg" alt="">
-      </div>
-      <div class="thumbnail" data-src="images/vesperath-elf.jpg" data-caption="The Shadowed Elf Prince">
-        <img src="images/vesperath-elf.jpg" alt="">
-      </div>
-      <div class="thumbnail" data-src="images/vesperath-horserider.jpg" data-caption="The Rider of the Abyss">
-        <img src="images/vesperath-horserider.jpg" alt="">
-      </div>
-    </div>
-  </div>
+  <img 
+    src="/images/vesparath-main.jpeg" 
+    data-gif="/images/vesparath-main.gif"
+    alt="Vesparath Main"
+    class="gallery-img"
+    onclick="toggleAnimation(this)"
+  />
+  
+  <img 
+    src="/images/vesparath-dragon.jpeg" 
+    data-gif="/images/vesparath-dragon.gif"
+    alt="Vesparath Dragon"
+    class="gallery-img"
+    onclick="toggleAnimation(this)"
+  />
+  
+  <img 
+    src="/images/vesparath-elf.jpeg" 
+    data-gif="/images/vesparath-elf.gif"
+    alt="Vesparath Elf"
+    class="gallery-img"
+    onclick="toggleAnimation(this)"
+  />
+  
+  <img 
+    src="/images/vesparath-horserider.jpeg" 
+    data-gif="/images/vesparath-horserider.gif"
+    alt="Vesparath Horse Rider"
+    class="gallery-img"
+    onclick="toggleAnimation(this)"
+  />
 </div>
-    
     <div class="transmission">
   <div class="rune-divider" style="margin:50px auto 30px;"><span>🜂 TRANSMISSION RECEIVED 🜂</span></div>
   
@@ -382,7 +369,22 @@ formThumbnails.forEach(thumb => {
     formCaption.textContent = thumb.dataset.caption;
   });
 });
+  <script>
+function toggleAnimation(img) {
+  const currentSrc = img.src;
+  const gifSrc = img.getAttribute('data-gif');
   
+  if (currentSrc.endsWith('.jpeg') || currentSrc.endsWith('.jpg') || currentSrc.endsWith('.png')) {
+    img.src = gifSrc;
+    img.style.boxShadow = "0 0 30px #9f00ff";
+    img.style.transform = "scale(1.05)";
+  } else {
+    img.src = currentSrc.replace('.gif', '.jpeg');
+    img.style.boxShadow = "none";
+    img.style.transform = "scale(1)";
+  }
+}
+</script>
 </script>
 </body>
 </html>
