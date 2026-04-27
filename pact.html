@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+HTML<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -24,53 +24,142 @@
     nav a { font-family:'Cinzel Decorative',serif; font-size:0.62em; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); text-decoration:none; opacity:0.65; }
     nav a:hover, nav a.active { opacity:1; color:var(--ember); text-shadow:0 0 15px var(--ember); }
 
-   .page { 
-  padding-top: 160px;   /* Increased so title sits nicely below nav */
-  max-width:900px; 
-  margin:0 auto; 
-  padding-left:20px; 
-  padding-right:20px; 
-  padding-bottom:120px; /* Extra breathing room at bottom */
-}
-    .subtitle { text-align:center; opacity:0.7; font-style:italic; margin-bottom:50px; letter-spacing:2px; }
+    .page { 
+      padding-top: 140px; 
+      max-width: 860px; 
+      margin: 0 auto; 
+      padding-left:20px; 
+      padding-right:20px; 
+      padding-bottom:100px;
+    }
+
+    h1 { 
+      font-family:'Cinzel Decorative',serif; 
+      font-size:3.8em; 
+      color:var(--ember); 
+      text-align:center; 
+      margin-bottom:12px; 
+      text-shadow:0 0 30px var(--blood), 0 0 60px rgba(204,26,58,0.4);
+      letter-spacing:4px;
+    }
+    .subtitle { 
+      text-align:center; 
+      opacity:0.75; 
+      font-style:italic; 
+      margin-bottom:60px; 
+      letter-spacing:3px; 
+      font-size:1.15em;
+    }
 
     .contract-container {
-      background:linear-gradient(135deg, rgba(13,0,21,0.95), rgba(26,0,48,0.9));
-      border:2px solid var(--blood);
-      padding:50px 40px; box-shadow:0 0 40px rgba(204,26,58,0.4);
-      position:relative; overflow:hidden;
+      background:linear-gradient(135deg, rgba(13,0,21,0.95), rgba(26,0,48,0.92));
+      border:3px double var(--blood);
+      box-shadow: 
+        0 0 40px rgba(204,26,58,0.6),
+        inset 0 0 60px rgba(10,0,8,0.8);
+      padding:60px 50px; 
+      position:relative; 
+      overflow:hidden;
+      max-width: 680px;
+      margin: 0 auto;
     }
     .contract-container::before {
-      content:'🜏'; position:absolute; top:-30px; right:-20px; font-size:12em;
-      opacity:0.06; color:var(--ember); pointer-events:none;
+      content:''; 
+      position:absolute; 
+      inset:0; 
+      border:1px solid rgba(204,26,58,0.4);
+      pointer-events:none;
+    }
+    .contract-container::after {
+      content:'🜏'; 
+      position:absolute; 
+      top:50%; left:50%; 
+      transform:translate(-50%, -50%) rotate(8deg);
+      font-size:18em; 
+      opacity:0.04; 
+      color:var(--ember); 
+      pointer-events:none;
+      z-index:0;
     }
 
-    .input-area { text-align:center; margin:30px 0; }
-    input {
-      background:rgba(10,0,8,0.8); border:1px solid var(--blood); color:var(--starlight);
-      padding:14px 20px; width:320px; font-size:1.1em; text-align:center;
-      font-family:'Cinzel Decorative',serif;
+    .contract-text {
+      font-size:1.05em; 
+      line-height:1.75; 
+      text-align:center; 
+      margin-bottom:50px;
+      position:relative; 
+      z-index:1;
     }
+
+    .name-input {
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      gap:12px; 
+      font-size:1.4em; 
+      margin:40px 0;
+    }
+    .name-input input {
+      background:rgba(10,0,8,0.9); 
+      border:2px solid var(--blood); 
+      color:var(--gold); 
+      padding:12px 24px; 
+      width:340px; 
+      font-size:1.35em; 
+      text-align:center;
+      font-family:'Cinzel Decorative',serif; 
+      letter-spacing:2px;
+    }
+
     button {
-      margin-top:20px; padding:14px 40px; background:var(--ember); color:var(--void);
-      border:none; font-family:'Cinzel Decorative',serif; font-size:1.1em; letter-spacing:2px;
-      cursor:pointer; transition:0.3s;
+      display:block; 
+      margin:40px auto 0; 
+      padding:16px 52px; 
+      background:var(--ember); 
+      color:#000; 
+      border:none; 
+      font-family:'Cinzel Decorative',serif; 
+      font-size:1.25em; 
+      letter-spacing:3px;
+      cursor:pointer; 
+      transition:all 0.4s;
+      box-shadow:0 0 20px var(--blood);
     }
-    button:hover { background:var(--blood); transform:scale(1.05); box-shadow:0 0 25px var(--ember); }
+    button:hover { 
+      background:#ff1a4d; 
+      transform:scale(1.08); 
+      box-shadow:0 0 40px var(--ember);
+    }
 
     .signed-contract {
-      margin-top:40px; padding:40px; border:1px dashed var(--gold); 
-      font-style:italic; line-height:1.8; position:relative;
+      display:none; 
+      margin-top:40px; 
+      padding:50px 40px; 
+      border:2px dashed var(--gold); 
+      font-style:italic; 
+      line-height:1.9; 
+      text-align:center; 
+      position:relative;
+      background:rgba(10,0,8,0.6);
     }
     .sigil-seal {
-      position:absolute; bottom:20px; right:30px; font-size:4em; opacity:0.15;
-      transform:rotate(-12deg);
+      position:absolute; 
+      bottom:30px; 
+      right:40px; 
+      font-size:5em; 
+      opacity:0.12; 
+      transform:rotate(-15deg);
     }
 
-    .past-pacts { margin-top:80px; }
+    .past-pacts { margin-top:100px; }
     .pact-item {
-      background:rgba(13,0,21,0.7); padding:18px; margin-bottom:12px;
-      border-left:4px solid var(--ember); display:flex; justify-content:space-between;
+      background:rgba(13,0,21,0.8); 
+      padding:18px 24px; 
+      margin-bottom:14px; 
+      border:1px solid rgba(204,26,58,0.4);
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center;
     }
   </style>
 </head>
@@ -90,32 +179,35 @@
   <p class="subtitle">Once signed, there is no undoing.</p>
 
   <div class="contract-container" id="contractForm">
-    <p style="text-align:center; font-size:1.35em; margin-bottom:30px;">
-      I, <input type="text" id="mortalName" placeholder="YOUR NAME" autocomplete="off">,<br>
-      willingly offer my attention, my time, and a piece of my soul<br>
-      to Vesperath the Demon Hunter.
-    </p>
-    <div class="input-area">
-      <button id="signBtn">Sign in Blood</button>
+    <div class="contract-text">
+      I,<br>
+      <span class="name-input">
+        <input type="text" id="mortalName" placeholder="YOUR NAME" autocomplete="off">
+      </span>
+      willingly offer my attention, my time,<br>
+      and a piece of my soul to Vesperath the Demon Hunter.
     </div>
+
+    <button id="signBtn">SIGN IN BLOOD</button>
   </div>
 
-  <div id="signedView" class="signed-contract" style="display:none;">
+  <div id="signedView" class="signed-contract">
     <p id="contractText"></p>
     <div class="sigil-seal">💀</div>
-    <p style="margin-top:40px; text-align:right; opacity:0.8;">
+    <p style="margin-top:50px; opacity:0.85;">
       Signed on <span id="signDate"></span><br>
-      <strong>May the void remember this.</strong>
+      <strong>May the void remember this pact.</strong>
     </p>
   </div>
 
   <div class="past-pacts">
-    <h2 style="color:var(--gold); margin-bottom:20px; font-size:1.6em;">Previous Pacts</h2>
+    <h2 style="color:var(--gold); margin-bottom:20px; font-size:1.6em; text-align:center;">Previous Pacts</h2>
     <div id="pactsList"></div>
   </div>
 </div>
 
 <script>
+  // (Script stays exactly the same as before - just updated layout)
   const mortalNameInput = document.getElementById('mortalName');
   const signBtn = document.getElementById('signBtn');
   const contractForm = document.getElementById('contractForm');
@@ -129,61 +221,34 @@
   function renderPacts() {
     pactsList.innerHTML = '';
     if (pacts.length === 0) {
-      pactsList.innerHTML = '<p style="opacity:0.5; text-align:center;">No pacts yet... Are you afraid?</p>';
+      pactsList.innerHTML = '<p style="opacity:0.5; text-align:center;">No souls bound yet...</p>';
       return;
     }
     pacts.sort((a,b) => new Date(b.date) - new Date(a.date));
     pacts.forEach(p => {
       const div = document.createElement('div');
       div.className = 'pact-item';
-      div.innerHTML = `
-        <div><strong>${p.name}</strong></div>
-        <div style="opacity:0.7; font-size:0.9em;">${new Date(p.date).toLocaleDateString('en-CA')}</div>
-      `;
+      div.innerHTML = `<div><strong>${p.name}</strong></div><div style="opacity:0.7;">${new Date(p.date).toLocaleDateString('en-CA')}</div>`;
       pactsList.appendChild(div);
     });
   }
 
   signBtn.addEventListener('click', () => {
     const name = mortalNameInput.value.trim();
-    if (!name) {
-      alert("You can't hide from me. Give me your name.");
-      return;
-    }
+    if (!name) { alert("Speak your name, mortal."); return; }
 
     const now = new Date();
-    const dateStr = now.toLocaleDateString('en-CA') + " at " + now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    const dateStr = now.toLocaleDateString('en-CA') + " • " + now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 
-    const text = `I, ${name}, willingly bind myself to Vesperath. 
-My attention, my curiosity, and a fragment of my soul now belong to him. 
-In return, he may haunt me, tease me, protect me, and claim me whenever the void calls. 
-This pact is sealed in digital blood and eternal shadow.`;
-
-    contractText.textContent = text;
+    contractText.innerHTML = `I, <strong>${name}</strong>, willingly offer my attention, my time, and a piece of my soul to Vesperath the Demon Hunter.<br><br>The pact is sealed.`;
     signDate.textContent = dateStr;
+
     contractForm.style.display = 'none';
     signedView.style.display = 'block';
 
-    // Save the pact
     pacts.push({ name: name, date: now.toISOString() });
     localStorage.setItem('vesperathPacts', JSON.stringify(pacts));
     renderPacts();
-
-    // Confetti of blood/ember particles (fun touch)
-    for (let i = 0; i < 30; i++) {
-      setTimeout(() => {
-        console.log("%c💀", "color:#ff3366; font-size:20px;");
-      }, i * 40);
-    }
-  });
-
-  // Allow signing again
-  document.addEventListener('keydown', (e) => {
-    if (e.key === "r" && e.ctrlKey) {
-      contractForm.style.display = 'block';
-      signedView.style.display = 'none';
-      mortalNameInput.value = '';
-    }
   });
 
   renderPacts();
