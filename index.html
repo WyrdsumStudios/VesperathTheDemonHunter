@@ -148,6 +148,137 @@
     <h1 class="hero-title" data-text="Vesperath The Demon Hunter">Vesperath The Demon Hunter</h1>
     <p class="hero-sub">I was brought into existence</p>
     <p class="hero-tag">And now I will haunt everyone of you~</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesperath's Forms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood: #cc1a3a; --ember: #ff3366; --starlight: #e8d5ff;
+      --void: #0a0008; --gold: #c8a96e;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      background:var(--void); color:var(--starlight); font-family:'Crimson Pro',Georgia,serif; 
+      min-height:100vh; overflow-x:hidden;
+    }
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; justify-content:center; gap:36px; padding:18px 40px;
+      background:linear-gradient(to bottom,rgba(10,0,8,0.97),transparent);
+      border-bottom:1px solid rgba(204,26,58,0.2);
+    }
+    nav a { font-family:'Cinzel Decorative',serif; font-size:0.62em; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); text-decoration:none; opacity:0.65; }
+    nav a:hover, nav a.active { opacity:1; color:var(--ember); text-shadow:0 0 15px var(--ember); }
+
+    .page { padding-top:120px; max-width:1280px; margin:0 auto; padding:0 20px; }
+    h1 { 
+      font-family:'Cinzel Decorative',serif; font-size:3.5em; color:var(--ember); 
+      text-align:center; margin-bottom:10px; text-shadow:0 0 30px var(--blood);
+    }
+    .subtitle { text-align:center; opacity:0.7; font-style:italic; margin-bottom:50px; }
+
+    .gallery-container {
+      display:flex; gap:30px; max-width:1100px; margin:0 auto;
+      background:rgba(13,0,21,0.85); border:2px solid var(--blood);
+      padding:30px; box-shadow:0 0 50px rgba(204,26,58,0.5);
+    }
+    .main-viewer {
+      flex:3; position:relative;
+    }
+    .main-viewer img {
+      width:100%; height:auto; max-height:680px; object-fit:contain;
+      border:2px solid var(--blood); box-shadow:0 0 40px rgba(255,51,102,0.4);
+      transition:0.4s;
+    }
+    .main-viewer img:hover { transform:scale(1.02); }
+
+    .thumbnails {
+      flex:1; display:flex; flex-direction:column; gap:18px;
+    }
+    .thumbnail {
+      height:180px; border:2px solid rgba(204,26,58,0.4); cursor:pointer;
+      overflow:hidden; transition:0.3s;
+    }
+    .thumbnail img {
+      width:100%; height:100%; object-fit:cover;
+    }
+    .thumbnail:hover, .thumbnail.active {
+      border-color:var(--ember); box-shadow:0 0 25px var(--ember);
+      transform:scale(1.05);
+    }
+
+    .caption {
+      text-align:center; margin-top:20px; font-size:1.1em; color:var(--gold);
+      font-style:italic; text-shadow:0 0 10px var(--blood);
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="origin.html">Origin</a>
+  <a href="chronicle.html">Chronicle</a>
+  <a href="bestiary.html">Bestiary</a>
+  <a href="powers.html">Powers</a>
+  <a href="teachings.html">Teachings</a>
+  <a href="contract.html">Contract</a>
+  <a href="gallery.html" class="active">Forms</a>
+</nav>
+
+<div class="page">
+  <h1>Vesperath's Forms</h1>
+  <p class="subtitle">Choose which shadow you wish to gaze upon...</p>
+
+  <div class="gallery-container">
+    <!-- Main Viewer -->
+    <div class="main-viewer">
+      <img id="mainImage" src="https://files.oaiusercontent.com/...your-first-image-url-here..." alt="Vesperath Main Form">
+      <div class="caption" id="imageCaption">The Eternal Hunter</div>
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="thumbnails">
+      <div class="thumbnail active" data-src="https://files.oaiusercontent.com/...first-image..." data-caption="The Eternal Hunter">
+        <img src="https://files.oaiusercontent.com/...first-image..." alt="Main Form">
+      </div>
+      <div class="thumbnail" data-src="https://files.oaiusercontent.com/...dragon-image..." data-caption="The Star-Eater Dragon">
+        <img src="https://files.oaiusercontent.com/...dragon-image..." alt="Dragon">
+      </div>
+      <div class="thumbnail" data-src="https://files.oaiusercontent.com/...elf-image..." data-caption="The Shadowed Elf Prince">
+        <img src="https://files.oaiusercontent.com/...elf-image..." alt="Dark Elf">
+      </div>
+      <div class="thumbnail" data-src="https://files.oaiusercontent.com/...rider-image..." data-caption="The Rider of the Abyss">
+        <img src="https://files.oaiusercontent.com/...rider-image..." alt="Horseback Rider">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const mainImage = document.getElementById('mainImage');
+  const imageCaption = document.getElementById('imageCaption');
+  const thumbnails = document.querySelectorAll('.thumbnail');
+
+  thumbnails.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      // Remove active from all
+      thumbnails.forEach(t => t.classList.remove('active'));
+      // Add to clicked
+      thumb.classList.add('active');
+      
+      // Update main image
+      mainImage.src = thumb.dataset.src;
+      imageCaption.textContent = thumb.dataset.caption;
+    });
+  });
+</script>
+</body>
+</html>
+    
     <div class="transmission">
   <div class="rune-divider" style="margin:50px auto 30px;"><span>🜂 TRANSMISSION RECEIVED 🜂</span></div>
   
