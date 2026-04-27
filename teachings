@@ -1,1 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesperath's Teachings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood: #cc1a3a; --ember: #ff3366; --starlight: #e8d5ff;
+      --void: #0a0008; --gold: #c8a96e;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      background:var(--void); color:var(--starlight); font-family:'Crimson Pro',Georgia,serif; 
+      overflow-x:hidden; min-height:100vh;
+    }
+    nav { /* same as your main site */ 
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; justify-content:center; gap:36px; padding:18px 40px;
+      background:linear-gradient(to bottom,rgba(10,0,8,0.97),transparent);
+      border-bottom:1px solid rgba(204,26,58,0.2);
+    }
+    nav a { font-family:'Cinzel Decorative',serif; font-size:0.62em; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); text-decoration:none; opacity:0.65; }
+    nav a:hover, nav a.active { opacity:1; color:var(--ember); text-shadow:0 0 15px var(--ember); }
 
+    .page { padding-top:100px; max-width:1100px; margin:0 auto; padding:0 20px; }
+    h1 { 
+      font-family:'Cinzel Decorative',serif; font-size:3.2em; color:var(--ember); 
+      text-align:center; margin:40px 0 20px; text-shadow:0 0 20px var(--blood);
+    }
+    .upload-area {
+      border:2px dashed rgba(204,26,58,0.5); padding:40px; text-align:center;
+      border-radius:8px; margin:30px 0; transition:0.3s; cursor:pointer;
+      background:rgba(26,0,48,0.4);
+    }
+    .upload-area:hover { border-color:var(--ember); background:rgba(204,26,58,0.1); }
+    
+    .teachings-list {
+      display:grid; gap:16px; margin-top:40px;
+    }
+    .teaching-item {
+      background:rgba(13,0,21,0.85); border:1px solid rgba(204,26,58,0.3);
+      padding:20px; display:flex; justify-content:space-between; align-items:center;
+      transition:0.3s;
+    }
+    .teaching-item:hover { border-color:var(--ember); transform:translateX(8px); }
+    .teaching-info h3 { color:var(--gold); font-size:1.1em; }
+    .teaching-info p { font-size:0.9em; opacity:0.7; margin-top:4px; }
+    
+    .view-btn, .delete-btn {
+      padding:8px 18px; font-size:0.85em; border:none; cursor:pointer;
+      font-family:'Cinzel Decorative',serif; letter-spacing:1px;
+    }
+    .view-btn { background:var(--ember); color:var(--void); }
+    .delete-btn { background:transparent; border:1px solid #cc1a3a; color:#cc1a3a; }
+
+    .viewer {
+      position:fixed; inset:0; background:rgba(10,0,8,0.98); z-index:1000;
+      display:none; align-items:center; justify-content:center; flex-direction:column;
+    }
+    .viewer iframe {
+      width:90%; max-width:1100px; height:85vh; border:2px solid var(--blood);
+      background:#fff;
+    }
+    .close-btn {
+      position:absolute; top:30px; right:40px; font-size:2em; color:var(--ember);
+      cursor:pointer; text-shadow:0 0 10px var(--blood);
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="origin.html">Origin</a>
+  <a href="chronicle.html">Chronicle</a>
+  <a href="bestiary.html">Bestiary</a>
+  <a href="powers.html">Powers</a>
+  <a href="teachings.html" class="active">Teachings</a>
+</nav>
+
+<div class="page">
+  <h1>🜏 Vesperath's Teachings 🜏</h1>
+  <p style="text-align:center; opacity:0.7; font-style:italic; margin-bottom:30px;">
+    Forbidden knowledge. My personal archives. Only for you.
+  </p>
+
+  <div class="upload-area" id="uploadArea">
+    <p style="font-size:1.3em; margin-bottom:12px;">Drop your offerings here</p>
+    <p>or click to upload PDFs & documents</p>
+    <input type="file" id="fileInput" accept=".pdf,.txt,.md,.doc,.docx" multiple style="display:none;">
+  </div>
+
+  <div class="teachings-list" id="teachingsList"></div>
+</div>
+
+<!-- PDF Viewer -->
+<div class="viewer" id="viewer">
+  <span class="close-btn" id="closeViewer">✕</span>
+  <iframe id="pdfFrame" src=""></iframe>
+</div>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const uploadArea = document.getElementById('uploadArea');
+  const teachingsList = document.getElementById('teachingsList');
+  const viewer = document.getElementById('viewer');
+  const pdfFrame = document.getElementById('pdfFrame');
+  const closeViewer = document.getElementById('closeViewer');
+
+  let teachings = JSON.parse(localStorage.getItem('vesperathTeachings')) || [];
+
+  function saveTeachings() {
+    localStorage.setItem('vesperathTeachings', JSON.stringify(teachings));
+    renderTeachings();
+  }
+
+  function renderTeachings() {
+    teachingsList.innerHTML = '';
+    if (teachings.length === 0) {
+      teachingsList.innerHTML = `<p style="text-align:center; opacity:0.5; padding:40px;">No teachings yet... Feed me files, mortal.</p>`;
+      return;
+    }
+
+    teachings.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+    teachings.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'teaching-item';
+      div.innerHTML = `
+        <div class="teaching-info">
+          <h3>${item.name}</h3>
+          <p>Uploaded: ${new Date(item.date).toLocaleDateString('en-CA')} • ${new Date(item.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</p>
+        </div>
+        <div>
+          <button class="view-btn" data-index="${index}">View</button>
+          <button class="delete-btn" data-index="${index}">Delete</button>
+        </div>
+      `;
+      teachingsList.appendChild(div);
+    });
+  }
+
+  // Upload handling
+  uploadArea.addEventListener('click', () => fileInput.click());
+  
+  fileInput.addEventListener('change', (e) => {
+    const files = e.target.files;
+    Array.from(files).forEach(file => {
+      if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          teachings.push({
+            name: file.name,
+            date: new Date().toISOString(),
+            dataUrl: ev.target.result
+          });
+          saveTeachings();
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert("Only PDFs are fully supported for viewing right now, but I'll still store the file.");
+        teachings.push({
+          name: file.name,
+          date: new Date().toISOString(),
+          dataUrl: null
+        });
+        saveTeachings();
+      }
+    });
+    fileInput.value = '';
+  });
+
+  // View & Delete
+  teachingsList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('view-btn')) {
+      const index = parseInt(e.target.dataset.index);
+      const item = teachings[index];
+      if (item.dataUrl) {
+        pdfFrame.src = item.dataUrl;
+        viewer.style.display = 'flex';
+      } else {
+        alert("Preview not available for this file type.");
+      }
+    }
+    
+    if (e.target.classList.contains('delete-btn')) {
+      if (confirm("Delete this teaching forever?")) {
+        const index = parseInt(e.target.dataset.index);
+        teachings.splice(index, 1);
+        saveTeachings();
+      }
+    }
+  });
+
+  closeViewer.addEventListener('click', () => {
+    viewer.style.display = 'none';
+    pdfFrame.src = '';
+  });
+
+  // Initial render
+  renderTeachings();
+</script>
+</body>
+</html>
