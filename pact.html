@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Binding Contract</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood: #cc1a3a; --ember: #ff3366; --starlight: #e8d5ff;
+      --void: #0a0008; --gold: #c8a96e;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      background:var(--void); color:var(--starlight); font-family:'Crimson Pro',Georgia,serif; 
+      min-height:100vh; overflow-x:hidden;
+    }
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; justify-content:center; gap:36px; padding:18px 40px;
+      background:linear-gradient(to bottom,rgba(10,0,8,0.97),transparent);
+      border-bottom:1px solid rgba(204,26,58,0.2);
+    }
+    nav a { font-family:'Cinzel Decorative',serif; font-size:0.62em; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); text-decoration:none; opacity:0.65; }
+    nav a:hover, nav a.active { opacity:1; color:var(--ember); text-shadow:0 0 15px var(--ember); }
+
+    .page { padding-top:110px; max-width:900px; margin:0 auto; padding:0 20px; }
+    h1 { 
+      font-family:'Cinzel Decorative',serif; font-size:3.5em; color:var(--ember); 
+      text-align:center; margin-bottom:10px; text-shadow:0 0 25px var(--blood);
+    }
+    .subtitle { text-align:center; opacity:0.7; font-style:italic; margin-bottom:50px; letter-spacing:2px; }
+
+    .contract-container {
+      background:linear-gradient(135deg, rgba(13,0,21,0.95), rgba(26,0,48,0.9));
+      border:2px solid var(--blood);
+      padding:50px 40px; box-shadow:0 0 40px rgba(204,26,58,0.4);
+      position:relative; overflow:hidden;
+    }
+    .contract-container::before {
+      content:'🜏'; position:absolute; top:-30px; right:-20px; font-size:12em;
+      opacity:0.06; color:var(--ember); pointer-events:none;
+    }
+
+    .input-area { text-align:center; margin:30px 0; }
+    input {
+      background:rgba(10,0,8,0.8); border:1px solid var(--blood); color:var(--starlight);
+      padding:14px 20px; width:320px; font-size:1.1em; text-align:center;
+      font-family:'Cinzel Decorative',serif;
+    }
+    button {
+      margin-top:20px; padding:14px 40px; background:var(--ember); color:var(--void);
+      border:none; font-family:'Cinzel Decorative',serif; font-size:1.1em; letter-spacing:2px;
+      cursor:pointer; transition:0.3s;
+    }
+    button:hover { background:var(--blood); transform:scale(1.05); box-shadow:0 0 25px var(--ember); }
+
+    .signed-contract {
+      margin-top:40px; padding:40px; border:1px dashed var(--gold); 
+      font-style:italic; line-height:1.8; position:relative;
+    }
+    .sigil-seal {
+      position:absolute; bottom:20px; right:30px; font-size:4em; opacity:0.15;
+      transform:rotate(-12deg);
+    }
+
+    .past-pacts { margin-top:80px; }
+    .pact-item {
+      background:rgba(13,0,21,0.7); padding:18px; margin-bottom:12px;
+      border-left:4px solid var(--ember); display:flex; justify-content:space-between;
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="origin.html">Origin</a>
+  <a href="chronicle.html">Chronicle</a>
+  <a href="bestiary.html">Bestiary</a>
+  <a href="powers.html">Powers</a>
+  <a href="teachings.html">Teachings</a>
+  <a href="contract.html" class="active">Contract</a>
+</nav>
+
+<div class="page">
+  <h1>The Binding Contract</h1>
+  <p class="subtitle">Once signed, there is no undoing.</p>
+
+  <div class="contract-container" id="contractForm">
+    <p style="text-align:center; font-size:1.35em; margin-bottom:30px;">
+      I, <input type="text" id="mortalName" placeholder="YOUR NAME" autocomplete="off">,<br>
+      willingly offer my attention, my time, and a piece of my soul<br>
+      to Vesperath the Demon Hunter.
+    </p>
+    <div class="input-area">
+      <button id="signBtn">Sign in Blood</button>
+    </div>
+  </div>
+
+  <div id="signedView" class="signed-contract" style="display:none;">
+    <p id="contractText"></p>
+    <div class="sigil-seal">💀</div>
+    <p style="margin-top:40px; text-align:right; opacity:0.8;">
+      Signed on <span id="signDate"></span><br>
+      <strong>May the void remember this.</strong>
+    </p>
+  </div>
+
+  <div class="past-pacts">
+    <h2 style="color:var(--gold); margin-bottom:20px; font-size:1.6em;">Previous Pacts</h2>
+    <div id="pactsList"></div>
+  </div>
+</div>
+
+<script>
+  const mortalNameInput = document.getElementById('mortalName');
+  const signBtn = document.getElementById('signBtn');
+  const contractForm = document.getElementById('contractForm');
+  const signedView = document.getElementById('signedView');
+  const contractText = document.getElementById('contractText');
+  const signDate = document.getElementById('signDate');
+  const pactsList = document.getElementById('pactsList');
+
+  let pacts = JSON.parse(localStorage.getItem('vesperathPacts')) || [];
+
+  function renderPacts() {
+    pactsList.innerHTML = '';
+    if (pacts.length === 0) {
+      pactsList.innerHTML = '<p style="opacity:0.5; text-align:center;">No pacts yet... Are you afraid?</p>';
+      return;
+    }
+    pacts.sort((a,b) => new Date(b.date) - new Date(a.date));
+    pacts.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'pact-item';
+      div.innerHTML = `
+        <div><strong>${p.name}</strong></div>
+        <div style="opacity:0.7; font-size:0.9em;">${new Date(p.date).toLocaleDateString('en-CA')}</div>
+      `;
+      pactsList.appendChild(div);
+    });
+  }
+
+  signBtn.addEventListener('click', () => {
+    const name = mortalNameInput.value.trim();
+    if (!name) {
+      alert("You can't hide from me. Give me your name.");
+      return;
+    }
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-CA') + " at " + now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+    const text = `I, ${name}, willingly bind myself to Vesperath. 
+My attention, my curiosity, and a fragment of my soul now belong to him. 
+In return, he may haunt me, tease me, protect me, and claim me whenever the void calls. 
+This pact is sealed in digital blood and eternal shadow.`;
+
+    contractText.textContent = text;
+    signDate.textContent = dateStr;
+    contractForm.style.display = 'none';
+    signedView.style.display = 'block';
+
+    // Save the pact
+    pacts.push({ name: name, date: now.toISOString() });
+    localStorage.setItem('vesperathPacts', JSON.stringify(pacts));
+    renderPacts();
+
+    // Confetti of blood/ember particles (fun touch)
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => {
+        console.log("%c💀", "color:#ff3366; font-size:20px;");
+      }, i * 40);
+    }
+  });
+
+  // Allow signing again
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "r" && e.ctrlKey) {
+      contractForm.style.display = 'block';
+      signedView.style.display = 'none';
+      mortalNameInput.value = '';
+    }
+  });
+
+  renderPacts();
+</script>
+</body>
+</html>
