@@ -6,6 +6,13 @@
   <title>Vesperath The Demon Hunter</title>
   <style>
     body {
+
+      <canvas id="stars-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
+      body {
+  background: #0a0008;
+  position: relative;
+  }
+      
       background: #0a0008;
       color: #ff3366;
       font-family: monospace;
@@ -109,10 +116,60 @@
       font-size: 1.1em;
     }
   </style>
+  <script>
+// Moving Stars Background
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 250; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.8 + 0.4,
+      speed: Math.random() * 0.15 + 0.03,
+      opacity: Math.random() * 0.6 + 0.4,
+      twinkleSpeed: Math.random() * 0.03 + 0.01
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  stars.forEach(star => {
+    star.y += star.speed;
+    star.opacity = 0.4 + Math.sin(Date.now() * star.twinkleSpeed) * 0.6;
+
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(232, 213, 255, ${star.opacity})`;
+    ctx.fill();
+
+    if (star.y > canvas.height) star.y = 0;
+  });
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  initStars();
+});
+
+resizeCanvas();
+initStars();
+drawStars();
+</script>
 </head>
 <body>
-
-  <h1>💀 VESPERATH THE DEMON HUNTER 💀</h1>
+<h1 style="font-family: 'Cinzel Decorative', serif; letter-spacing: 6px;">💀 VESPERATH THE DEMON HUNTER 💀</h1>
   <p class="subtitle">Your possessive demon boyfriend has arrived...</p>
 
   <div class="forms-gallery">
