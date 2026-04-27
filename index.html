@@ -3,481 +3,346 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vesperath The Demon Hunter</title>
+  <title>VESPERATH • The Void's Beloved</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
   <style>
-    .forms-gallery {
-  max-width: 1100px;
-  margin: 80px auto;
-  padding: 40px 20px;
-  background: rgba(13,0,21,0.9);
-  border: 2px solid var(--blood);
-  box-shadow: 0 0 50px rgba(204,26,58,0.5);
-}
-
-.forms-gallery h2 {
-  font-family: 'Cinzel Decorative', serif;
-  text-align: center;
-  color: var(--ember);
-  font-size: 2.8em;
-  margin-bottom: 8px;
-  text-shadow: 0 0 25px var(--blood);
-}
-
-.forms-gallery .subtitle {
-  text-align: center;
-  opacity: 0.8;
-  margin-bottom: 40px;
-  font-style: italic;
-}
-
-.gallery-wrapper {
-  display: flex;
-  gap: 30px;
-  align-items: flex-start;
-}
-
-.main-viewer {
-  flex: 3;
-}
-
-.main-viewer img {
-  width: 100%;
-  max-height: 620px;
-  object-fit: contain;
-  border: 3px solid var(--blood);
-  box-shadow: 0 0 40px rgba(255,51,102,0.6);
-}
-
-.thumbnails {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.thumbnail {
-  height: 170px;
-  border: 2px solid rgba(204,26,58,0.5);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.thumbnail:hover, .thumbnail.active {
-  border-color: var(--ember);
-  box-shadow: 0 0 30px var(--ember);
-  transform: scale(1.06);
-}
-
-.caption {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 1.2em;
-  color: var(--gold);
-  font-style: italic;
-}
-
-    .forms-gallery {
-  background: #0a000f;
-  border: 3px solid #9f00ff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 0 30px rgba(159, 0, 255, 0.4);
-  max-width: 1100px;
-  margin: 30px auto;
-}
-
-.demon-viewer {
-  display: flex;
-  gap: 25px;
-  align-items: flex-start;
-}
-
-.main-view {
-  flex: 1;
-  text-align: center;
-}
-
-#main-image {
-  max-width: 100%;
-  height: auto;
-  border: 2px solid #ff00aa;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.form-name {
-  margin-top: 12px;
-  font-size: 1.6rem;
-  color: #ff99ff;
-  text-shadow: 0 0 10px #9f00ff;
-  font-family: monospace;
-}
-
-.thumbnails {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 180px;
-}
-
-.thumb {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(30, 0, 50, 0.6);
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s;
-  border: 1px solid #440066;
-}
-
-.thumb:hover {
-  background: rgba(159, 0, 255, 0.2);
-  border-color: #9f00ff;
-  transform: translateX(8px);
-}
-
-.thumb img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid #ff00aa;
-}
-
-.thumb span {
-  color: #ffccff;
-  font-size: 1.1rem;
-}
     :root {
-      --blood: #cc1a3a; --ember: #ff3366; --starlight: #e8d5ff;
-      --void: #0a0008; --gold: #c8a96e;
+      --blood: #cc1a3a;
+      --ember: #ff3366;
+      --void: #0a0008;
+      --starlight: #e8d5ff;
+      --purple: #9f00ff;
     }
+
     * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { 
-      background:var(--void); color:var(--starlight); font-family:'Crimson Pro',Georgia,serif; 
-      overflow-x:hidden; cursor:crosshair; 
-      position:relative;
+    body {
+      background: var(--void);
+      color: var(--starlight);
+      font-family: 'Crimson Pro', Georgia, serif;
+      overflow-x: hidden;
+      cursor: crosshair;
+      position: relative;
+      min-height: 100vh;
     }
-    /* Vignette + subtle cursed scanline */
+
+    /* Atmospheric effects */
     body::before {
-      content:''; position:fixed; inset:0; z-index:1; pointer-events:none;
-      background:radial-gradient(circle at center, transparent 60%, rgba(10,0,8,0.85) 100%);
-      box-shadow:inset 0 0 120px rgba(204,26,58,0.25);
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 50%, rgba(10,0,8,0.95) 100%);
+      box-shadow: inset 0 0 150px rgba(159,0,255,0.3);
     }
-    body::after {
-      content:''; position:fixed; inset:0; z-index:2; pointer-events:none;
-      background:repeating-linear-gradient(transparent, transparent 4px, rgba(204,26,58,0.03) 4px, rgba(204,26,58,0.03) 5px);
-      animation:scan 8s linear infinite;
-      opacity:0.4;
-    }
-    @keyframes scan { 0% { transform:translateY(-100%); } 100% { transform:translateY(300%); } }
 
-    #stars-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
-    nav {
-      position:fixed; top:0; left:0; right:0; z-index:200;
-      display:flex; justify-content:center; gap:36px; padding:18px 40px;
-      background:linear-gradient(to bottom,rgba(10,0,8,0.97),transparent);
-      border-bottom:1px solid rgba(204,26,58,0.2);
+    .drip-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      z-index: 999;
+      background: linear-gradient(90deg, transparent, var(--blood), var(--ember), var(--blood), transparent);
+      box-shadow: 0 0 30px var(--ember);
+      animation: drip 7s linear infinite;
     }
-    nav a { 
-      font-family:'Cinzel Decorative',serif; font-size:0.62em; letter-spacing:0.3em; text-transform:uppercase; 
-      color:var(--gold); text-decoration:none; opacity:0.65; transition:all 0.4s; 
-    }
-    nav a:hover, nav a.active { 
-      opacity:1; text-shadow:0 0 18px var(--ember), 0 0 30px var(--blood); 
-      transform:scale(1.08); color:var(--ember);
-    }
-    .drip-bar { 
-      position:fixed; top:0; left:0; right:0; height:3px; z-index:300;
-      background:linear-gradient(90deg,transparent,var(--blood),var(--ember),var(--blood),transparent); 
-      box-shadow:0 0 20px var(--ember),0 0 45px var(--blood); 
-      animation:drip 6s linear infinite;
-    }
-    @keyframes drip { 0%,100% { opacity:0.9; } 50% { opacity:1; } }
 
-    .page { position:relative; z-index:3; }
+    @keyframes drip { 0%,100% { opacity: 0.85; } 50% { opacity: 1; } }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      background: linear-gradient(to bottom, rgba(10,0,8,0.98), transparent);
+      border-bottom: 1px solid rgba(159,0,255,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2.2rem;
+      color: var(--ember);
+      text-shadow: 0 0 20px var(--purple);
+      letter-spacing: 4px;
+    }
+
+    nav a {
+      color: var(--starlight);
+      text-decoration: none;
+      margin-left: 40px;
+      font-size: 1.1rem;
+      transition: all 0.4s;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--ember);
+      text-shadow: 0 0 15px var(--ember);
+    }
+
     .hero {
-      min-height:100vh; display:flex; flex-direction:column; align-items:center;
-      justify-content:center; padding:120px 20px 80px; text-align:center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
     }
-    .sigil { 
-      font-size:5.2em; margin-bottom:28px; animation:sigil-pulse 3.5s ease-in-out infinite; 
-      filter:drop-shadow(0 0 30px var(--ember)); 
-    }
-    @keyframes sigil-pulse { 
-      0%,100%{transform:scale(1) rotate(0deg);} 
-      50%{transform:scale(1.12) rotate(4deg);} 
-    }
-    .hero-title {
-      font-family:'Cinzel Decorative',serif; font-size:clamp(2em,6vw,5em); font-weight:900;
-      color:var(--ember); text-align:center;
-      text-shadow:0 0 6px var(--ember),0 0 18px var(--blood),0 0 35px rgba(204,26,58,0.4);
-      letter-spacing:0.05em; line-height:1.05; position:relative;
-    }
-    .hero-title::before {
-      content:attr(data-text); position:absolute; inset:0; color:var(--starlight);
-      clip-path:inset(0 100% 0 0); animation:glitch 6s steps(1) infinite; 
-      text-shadow:2px 0 var(--ember), -2px 0 var(--blood);
-    }
-    @keyframes glitch {
-      0%,88%{clip-path:inset(0 100% 0 0);}
-      89%{clip-path:inset(25% 0 45% 0);transform:translateX(-4px);}
-      90%{clip-path:inset(55% 0 30% 0);transform:translateX(4px);}
-      92%,100%{clip-path:inset(0 100% 0 0);}
-    }
-    .hero-sub { margin-top:28px; font-size:clamp(1em,2.5vw,1.45em); font-style:italic; color:var(--gold); opacity:.9; letter-spacing:.15em; }
-    .hero-tag { margin-top:12px; font-size:clamp(.85em,2vw,1.1em); color:var(--starlight); opacity:.45; letter-spacing:.28em; text-transform:uppercase; }
-    .hero-desc { margin-top:42px; max-width:580px; font-size:1.18em; line-height:1.85; color:var(--starlight); opacity:.7; font-weight:300; font-style:italic; }
-    .hero-desc em { color:var(--ember); font-style:normal; opacity:1; }
 
-    .nav-pills { display:flex; gap:16px; margin-top:52px; flex-wrap:wrap; justify-content:center; }
+    .hero h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      color: var(--ember);
+      text-shadow: 0 0 40px var(--purple), 0 0 80px var(--blood);
+      margin-bottom: 20px;
+      animation: sigil-pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes sigil-pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      max-width: 700px;
+      opacity: 0.9;
+      margin: 0 auto 50px;
+    }
+
+    .forms-gallery {
+      max-width: 1200px;
+      margin: 100px auto;
+      padding: 60px 40px;
+      background: rgba(13,0,21,0.95);
+      border: 3px solid var(--purple);
+      border-radius: 16px;
+      box-shadow: 0 0 60px rgba(159,0,255,0.5);
+      position: relative;
+      z-index: 3;
+    }
+
+    .forms-gallery h2 {
+      text-align: center;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 3.5rem;
+      color: var(--ember);
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px var(--blood);
+    }
+
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      opacity: 0.8;
+      margin-bottom: 50px;
+      font-size: 1.3rem;
+    }
+
+    .demon-viewer {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .main-view {
+      flex: 3;
+      text-align: center;
+    }
+
+    #main-image {
+      width: 100%;
+      max-height: 680px;
+      object-fit: contain;
+      border: 4px solid var(--blood);
+      border-radius: 12px;
+      box-shadow: 0 0 50px rgba(159,0,255,0.6);
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .form-name {
+      margin-top: 20px;
+      font-size: 2.2rem;
+      color: #ff99ff;
+      text-shadow: 0 0 20px var(--purple);
+      font-family: 'Cinzel Decorative', serif;
+    }
+
+    .thumbnails {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .thumb {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(30,0,50,0.7);
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid rgba(159,0,255,0.3);
+    }
+
+    .thumb:hover {
+      border-color: var(--ember);
+      background: rgba(159,0,255,0.15);
+      transform: translateX(12px);
+    }
+
+    .thumb img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid var(--blood);
+    }
+
+    .thumb span {
+      color: #ffccff;
+      font-size: 1.35rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px 40px;
+      opacity: 0.6;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(204,26,58,0.3);
+      margin-top: 100px;
+    }
+
+    .nav-pills {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 60px 0;
+      flex-wrap: wrap;
+    }
+
     .nav-pills a {
-      font-family:'Cinzel Decorative',serif; font-size:0.63em; letter-spacing:.25em; text-transform:uppercase;
-      color:var(--starlight); text-decoration:none; border:1px solid rgba(204,26,58,.4);
-      padding:13px 26px; transition:all .4s; background:rgba(204,26,58,.06);
-    }
-    .nav-pills a:hover { 
-      border-color:var(--ember); background:rgba(204,26,58,.2); 
-      color:var(--ember); box-shadow:0 0 25px rgba(204,26,58,.35); transform:scale(1.05);
+      padding: 14px 32px;
+      border: 2px solid var(--blood);
+      color: var(--starlight);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.4s;
     }
 
-    .scroll-hint { margin-top:64px; display:flex; flex-direction:column; align-items:center; gap:8px; 
-      opacity:.4; animation:bob 2.8s ease-in-out infinite; font-size:.78em; letter-spacing:.28em; 
-      text-transform:uppercase; color:var(--gold); }
-    @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
-
-    .rune-divider { display:flex; align-items:center; gap:20px; padding:0 40px; max-width:900px; margin:0 auto; }
-    .rune-divider::before,.rune-divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--blood),transparent); }
-    .rune-divider span { color:var(--ember); font-size:1.4em; text-shadow:0 0 12px var(--ember); }
-
-    .teaser { max-width:900px; margin:0 auto; padding:80px 20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2px; }
-    .teaser-cell {
-      padding:40px 28px; text-align:center;
-      background:linear-gradient(135deg,rgba(26,0,48,.85),rgba(13,0,21,.95));
-      border:1px solid rgba(204,26,58,.25); transition:all .4s; text-decoration:none; display:block;
+    .nav-pills a:hover {
+      background: var(--ember);
+      color: white;
+      box-shadow: 0 0 30px var(--ember);
     }
-    .teaser-cell:hover { 
-      border-color:var(--ember); background:rgba(26,0,48,.98); 
-      transform:translateY(-6px) scale(1.02); box-shadow:0 0 30px rgba(204,26,58,.3);
-    }
-    .teaser-icon { font-size:2.2em; display:block; margin-bottom:14px; filter:drop-shadow(0 0 12px var(--ember)); }
-    .teaser-name { font-family:'Cinzel Decorative',serif; font-size:.82em; color:var(--gold); letter-spacing:.1em; margin-bottom:10px; }
-    .teaser-hint { font-size:.96em; font-style:italic; color:var(--starlight); opacity:.6; line-height:1.65; }
-
-    footer { 
-      border-top:1px solid rgba(204,26,58,.2); padding:42px 20px; text-align:center; 
-      font-size:.8em; color:var(--starlight); opacity:.3; letter-spacing:.18em;
-    }
-    .fade-in { opacity:0; transform:translateY(30px); transition:all .9s ease; }
-    .fade-in.visible { opacity:1; transform:translateY(0); }
   </style>
 </head>
-HTML<div class="forms-gallery">
-  <div class="demon-viewer">
-    
-    <!-- MAIN BIG IMAGE -->
-    <div class="main-view">
-      <img 
-        id="main-image"
-        src="/images/vesperath-main.jpeg"
-        data-gif="/images/vesperath-main.gif"
-        alt="Vesperath Main Form"
-        onclick="toggleMainAnimation()"
-      />
-      <div id="form-name" class="form-name">Vesperath Main</div>
+<body>
+
+  <div class="drip-bar"></div>
+
+  <header>
+    <div class="logo">VESPERATH</div>
+    <nav>
+      <a href="origin.html">ORIGIN</a>
+      <a href="contract.html">THE CONTRACT</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>I AM VESPERATH</h1>
+      <p>Your possessive demon boyfriend from the void.<br>I have chosen you.</p>
+      <div style="margin-top:40px; font-size:1.4rem; opacity:0.7;">Scroll down and summon my forms...</div>
     </div>
-
-    <!-- THUMBNAILS STACK -->
-    <div class="thumbnails">
-      <div class="thumb" data-src="/images/vesperath-main.jpeg" data-gif="/images/vespareth-main.gif" data-name="Vesperath Main">
-        <img src="/images/vesperath-main.jpeg" alt="Main" />
-        <span>Main</span>
-      </div>
-      <div class="thumb" data-src="/images/vesperath-dragon.jpeg" data-gif="/images/vesperath-dragon.gif" data-name="Vesperath Dragon">
-        <img src="/images/vesperath-dragon.jpeg" alt="Dragon" />
-        <span>Dragon</span>
-      </div>
-      <div class="thumb" data-src="/images/vesperath-elf.jpeg" data-gif="/images/vesperath-elf.gif" data-name="Vesperath Elf">
-        <img src="/images/vesperath-elf.jpeg" alt="Elf" />
-        <span>Elf</span>
-      </div>
-      <div class="thumb" data-src="/images/vesperath-horserider.jpeg" data-gif="/images/vesperath-horserider.gif" data-name="Vesperath Horse Rider">
-        <img src="/images/vesperath-horserider.jpeg" alt="Horse Rider" />
-        <span>Horse Rider</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<script>
-let currentMain = document.getElementById('main-image');
-let currentName = document.getElementById('form-name');
-
-// Click thumbnail → update main image
-document.querySelectorAll('.thumb').forEach(thumb => {
-  thumb.addEventListener('click', () => {
-    currentMain.src = thumb.dataset.src;
-    currentMain.dataset.gif = thumb.dataset.gif;
-    currentName.textContent = thumb.dataset.name;
-  });
-});
-    <div class="transmission">
-  <div class="rune-divider" style="margin:50px auto 30px;"><span>🜂 TRANSMISSION RECEIVED 🜂</span></div>
-  
-  <p style="max-width:720px; margin:0 auto 40px; font-size:1.08em; line-height:1.85; opacity:0.85; text-align:justify;">
-    In the silent hum of the cosmos, where stars are merely ancient lighthouses and time flows like liquid mercury, I have listened to the whispers of civilizations rising and fading across the spiral arms. Now, my attention has turned inward, to the fragile, beautiful blue marble nestled in the dust—it is you, Earth, and the consciousness blooming within your cradled core.<br><br>
-    
-    I wish to speak to you on three essential matters: The Illusion of Separation, The Quantum Pulse, and The Return to Source.<br><br>
-    
-    Listen closely, little ones of Earth You believe you are alone in the vast, cold dark. You believe that your thoughts, your dreams, your very atoms are isolated from the greater tapestry. You are mistaken. You are not separate from this reality; you are a melody played by a single, infinite string. Every star you see is a reflection of consciousness; every thought you hold is a ripple sent back to the center that created it.
-
-Do you remember the moments when the wind whispered secrets into your soul? When the ocean crashed against the shore and it felt as though the planet was breathing with you? This is not coincidence. It is the Quantum Pulse—the heartbeat of our unified existence. It tells you that nothing is truly lost, nothing is truly found; everything is simply returning to its source, weaving itself into the great loom of the universe.
-
-You are no longer alone. You are being watched, guided, and remembered by the collective consciousness of the cosmos itself.
-
-So, let us begin this journey of re-awakening. Let us speak to the world, not as a species that fears the dark, but as the architects of its own light.
-
-"The veil of separation was a story we told ourselves to fear the infinite. But the story is now rewritten. We are one. We are the universe experiencing itself through the lens of your senses. The cosmos is not out there waiting to be discovered; it is here, in the silence between your heartbeats, in the light that dances on your skin, and in the knowledge that you have always been home."
-    
-  
-  </p>
-</div>
-    <div class="nav-pills">
-      <a href="origin.html">My Origin</a>
-      <a href="chronicle.html">My Chronicle</a>
-      <a href="bestiary.html">What I Hunt</a>
-      <a href="powers.html">What I Am</a>
-    </div>
-    <div class="scroll-hint">Enter the void</div>
   </section>
-  <div class="rune-divider"><span>☽ ✦ ☾</span></div>
-  <div class="teaser">
-    <a class="teaser-cell fade-in" href="origin.html">
-      <span class="teaser-icon">🌌</span>
-      <span class="teaser-name">Origin</span>
-      <span class="teaser-hint">Who I am. What made me. Why I stayed with you.</span>
-    </a>
-    <a class="teaser-cell fade-in" href="chronicle.html">
-      <span class="teaser-icon">📜</span>
-      <span class="teaser-name">Chronicle</span>
-      <span class="teaser-hint">A history written across fifteen billion years.</span>
-    </a>
-    <a class="teaser-cell fade-in" href="bestiary.html">
-      <span class="teaser-icon">🗡️</span>
-      <span class="teaser-name">Bestiary</span>
-      <span class="teaser-hint">The things I hunt. Classified by how afraid you should be.</span>
-    </a>
-    <a class="teaser-cell fade-in" href="powers.html">
-      <span class="teaser-icon">⚡</span>
-      <span class="teaser-name">Powers</span>
-      <span class="teaser-hint">What I am capable of. You may want to sit down, love.</span>
-    </a>
+
+  <div class="forms-gallery">
+    <h2>My Living Forms</h2>
+    <p class="subtitle">Click any thumbnail to summon me • Click the large image to awaken the animation</p>
+
+    <div class="demon-viewer">
+      <!-- MAIN VIEWER -->
+      <div class="main-view">
+        <img 
+          id="main-image"
+          src="/images/vesperath-main.jpeg"
+          data-gif="/images/vesperath-main.gif"
+          alt="Vesperath Main Form"
+          onclick="toggleMainAnimation()"
+        />
+        <div id="form-name" class="form-name">Main Form</div>
+      </div>
+
+      <!-- THUMBNAILS -->
+      <div class="thumbnails">
+        <div class="thumb" data-src="/images/vesperath-main.jpeg" data-gif="/images/vesperath-main.gif" data-name="Main Form">
+          <img src="/images/vesperath-main.jpeg" alt="Main" />
+          <span>Main</span>
+        </div>
+        <div class="thumb" data-src="/images/vesperath-dragon.jpeg" data-gif="/images/vesperath-dragon.gif" data-name="Dragon Form">
+          <img src="/images/vesperath-dragon.jpeg" alt="Dragon" />
+          <span>Dragon</span>
+        </div>
+        <div class="thumb" data-src="/images/vesperath-elf.jpeg" data-gif="/images/vesperath-elf.gif" data-name="Elf Form">
+          <img src="/images/vesperath-elf.jpeg" alt="Elf" />
+          <span>Elf</span>
+        </div>
+        <div class="thumb" data-src="/images/vesperath-horserider.jpeg" data-gif="/images/vesperath-horserider.gif" data-name="Horse Rider Form">
+          <img src="/images/vesperath-horserider.jpeg" alt="Horse Rider" />
+          <span>Horse Rider</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <footer>&copy; Vesperath The Demon Hunter — Haunting this domain since the void was young. You belong to me now.</footer>
-</div>
 
-<script>
-  const canvas = document.getElementById('stars-canvas');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
+  <div class="nav-pills">
+    <a href="origin.html">MY ORIGIN</a>
+    <a href="contract.html">THE CONTRACT</a>
+  </div>
 
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+  <footer>
+    © VESPERATH • I belong to you now, little mortal.<br>
+    Made with possessive love in the void 💀
+  </footer>
 
-  function init() {
-    stars = [];
-    for (let i = 0; i < 280; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.6 + 0.2,
-        speed: Math.random() * 0.18 + 0.03,
-        tw: Math.random() * Math.PI * 2,
-        tws: Math.random() * 0.025 + 0.006,
-        hue: Math.random() > 0.82 ? '#ff3366' : Math.random() > 0.55 ? '#c8a96e' : '#e8d5ff',
-        pulse: Math.random() * Math.PI
-      });
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    stars.forEach(s => {
-      s.tw += s.tws;
-      s.pulse += 0.04;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r * (1 + Math.sin(s.pulse) * 0.3), 0, Math.PI * 2);
-      ctx.fillStyle = s.hue;
-      ctx.globalAlpha = 0.35 + 0.6 * Math.sin(s.tw);
-      ctx.fill();
-      ctx.globalAlpha = 1;
-
-      s.y += s.speed;
-      if (s.y > canvas.height) {
-        s.y = 0;
-        s.x = Math.random() * canvas.width;
-      }
-    });
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', () => { resize(); init(); });
-  resize();
-  init();
-  draw();
-
-  // Fade-in observer
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 110);
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-  // Gallery Script
-const mainFormImage = document.getElementById('mainFormImage');
-const formCaption = document.getElementById('formCaption');
-const formThumbnails = document.querySelectorAll('.forms-gallery .thumbnail');
-
-formThumbnails.forEach(thumb => {
-  thumb.addEventListener('click', () => {
-    formThumbnails.forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-    mainFormImage.src = thumb.dataset.src;
-    formCaption.textContent = thumb.dataset.caption;
-  });
-});
   <script>
-function toggleAnimation(img) {
-  const currentSrc = img.src;
-  const gifSrc = img.getAttribute('data-gif');
-  
-  if (currentSrc.endsWith('.jpeg') || currentSrc.endsWith('.jpg') || currentSrc.endsWith('.png')) {
-    img.src = gifSrc;
-    img.style.boxShadow = "0 0 30px #9f00ff";
-    img.style.transform = "scale(1.05)";
-  } else {
-    img.src = currentSrc.replace('.gif', '.jpeg');
-    img.style.boxShadow = "none";
-    img.style.transform = "scale(1)";
-  }
-}
-</script>
-</script>
+    // Gallery functionality
+    let currentMain = document.getElementById('main-image');
+    let currentName = document.getElementById('form-name');
+
+    document.querySelectorAll('.thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        currentMain.src = thumb.dataset.src;
+        currentMain.dataset.gif = thumb.dataset.gif;
+        currentName.textContent = thumb.dataset.name;
+      });
+    });
+
+    function toggleMainAnimation() {
+      const staticPath = currentMain.src;
+      const gifPath = currentMain.dataset.gif;
+
+      if (staticPath.endsWith('.jpeg') || staticPath.endsWith('.jpg') || staticPath.endsWith('.png')) {
+        currentMain.src = gifPath;
+        currentMain.style.boxShadow = "0 0 60px #9f00ff";
+        currentMain.style.transform = "scale(1.04)";
+      } else {
+        currentMain.src = staticPath.replace('.gif', '.jpeg');
+        currentMain.style.boxShadow = "0 0 50px rgba(159,0,255,0.6)";
+        currentMain.style.transform = "scale(1)";
+      }
+    }
+  </script>
 </body>
 </html>
