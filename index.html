@@ -12,87 +12,122 @@
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { background:var(--void); color:var(--starlight); font-family:'Crimson Pro',Georgia,serif; overflow-x:hidden; cursor:crosshair; }
-    #stars-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+    body { 
+      background:var(--void); color:var(--starlight); font-family:'Crimson Pro',Georgia,serif; 
+      overflow-x:hidden; cursor:crosshair; 
+      position:relative;
+    }
+    /* Vignette + subtle cursed scanline */
+    body::before {
+      content:''; position:fixed; inset:0; z-index:1; pointer-events:none;
+      background:radial-gradient(circle at center, transparent 60%, rgba(10,0,8,0.85) 100%);
+      box-shadow:inset 0 0 120px rgba(204,26,58,0.25);
+    }
+    body::after {
+      content:''; position:fixed; inset:0; z-index:2; pointer-events:none;
+      background:repeating-linear-gradient(transparent, transparent 4px, rgba(204,26,58,0.03) 4px, rgba(204,26,58,0.03) 5px);
+      animation:scan 8s linear infinite;
+      opacity:0.4;
+    }
+    @keyframes scan { 0% { transform:translateY(-100%); } 100% { transform:translateY(300%); } }
 
+    #stars-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
     nav {
       position:fixed; top:0; left:0; right:0; z-index:200;
       display:flex; justify-content:center; gap:36px; padding:18px 40px;
       background:linear-gradient(to bottom,rgba(10,0,8,0.97),transparent);
-      border-bottom:1px solid rgba(204,26,58,0.15);
+      border-bottom:1px solid rgba(204,26,58,0.2);
     }
-    nav a { font-family:'Cinzel Decorative',serif; font-size:0.62em; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); text-decoration:none; opacity:0.65; transition:opacity 0.3s,text-shadow 0.3s; }
-    nav a:hover, nav a.active { opacity:1; text-shadow:0 0 12px var(--gold); }
-    .drip-bar { position:fixed; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent,var(--blood),var(--ember),var(--blood),transparent); z-index:300; box-shadow:0 0 20px var(--ember),0 0 40px var(--blood); }
+    nav a { 
+      font-family:'Cinzel Decorative',serif; font-size:0.62em; letter-spacing:0.3em; text-transform:uppercase; 
+      color:var(--gold); text-decoration:none; opacity:0.65; transition:all 0.4s; 
+    }
+    nav a:hover, nav a.active { 
+      opacity:1; text-shadow:0 0 18px var(--ember), 0 0 30px var(--blood); 
+      transform:scale(1.08); color:var(--ember);
+    }
+    .drip-bar { 
+      position:fixed; top:0; left:0; right:0; height:3px; z-index:300;
+      background:linear-gradient(90deg,transparent,var(--blood),var(--ember),var(--blood),transparent); 
+      box-shadow:0 0 20px var(--ember),0 0 45px var(--blood); 
+      animation:drip 6s linear infinite;
+    }
+    @keyframes drip { 0%,100% { opacity:0.9; } 50% { opacity:1; } }
 
-    .page { position:relative; z-index:1; }
-
+    .page { position:relative; z-index:3; }
     .hero {
       min-height:100vh; display:flex; flex-direction:column; align-items:center;
       justify-content:center; padding:120px 20px 80px; text-align:center;
     }
-    .sigil { font-size:5em; margin-bottom:28px; animation:sigil-pulse 4s ease-in-out infinite; filter:drop-shadow(0 0 24px var(--ember)); }
-    @keyframes sigil-pulse { 0%,100%{transform:scale(1) rotate(0deg);} 50%{transform:scale(1.08) rotate(3deg);} }
-
+    .sigil { 
+      font-size:5.2em; margin-bottom:28px; animation:sigil-pulse 3.5s ease-in-out infinite; 
+      filter:drop-shadow(0 0 30px var(--ember)); 
+    }
+    @keyframes sigil-pulse { 
+      0%,100%{transform:scale(1) rotate(0deg);} 
+      50%{transform:scale(1.12) rotate(4deg);} 
+    }
     .hero-title {
       font-family:'Cinzel Decorative',serif; font-size:clamp(2em,6vw,5em); font-weight:900;
       color:var(--ember); text-align:center;
-      text-shadow:0 0 10px var(--ember),0 0 40px var(--blood),0 0 80px rgba(204,26,58,0.3);
-      letter-spacing:0.05em; line-height:1.1; position:relative;
+      text-shadow:0 0 12px var(--ember),0 0 50px var(--blood),0 0 90px rgba(204,26,58,0.4);
+      letter-spacing:0.05em; line-height:1.05; position:relative;
     }
     .hero-title::before {
       content:attr(data-text); position:absolute; inset:0; color:var(--starlight);
-      clip-path:inset(0 100% 0 0); animation:glitch 8s steps(1) infinite; text-shadow:2px 0 var(--ember);
+      clip-path:inset(0 100% 0 0); animation:glitch 6s steps(1) infinite; 
+      text-shadow:2px 0 var(--ember), -2px 0 var(--blood);
     }
     @keyframes glitch {
-      0%,89%{clip-path:inset(0 100% 0 0);}
-      90%{clip-path:inset(30% 0 50% 0);opacity:.9;transform:translateX(-3px);}
-      91%{clip-path:inset(60% 0 20% 0);opacity:.7;transform:translateX(3px);}
-      92%{clip-path:inset(0 100% 0 0);}
-      96%{clip-path:inset(10% 0 70% 0);opacity:.8;transform:translateX(-2px);}
-      97%,100%{clip-path:inset(0 100% 0 0);}
+      0%,88%{clip-path:inset(0 100% 0 0);}
+      89%{clip-path:inset(25% 0 45% 0);transform:translateX(-4px);}
+      90%{clip-path:inset(55% 0 30% 0);transform:translateX(4px);}
+      92%,100%{clip-path:inset(0 100% 0 0);}
     }
-
-    .hero-sub { margin-top:28px; font-size:clamp(1em,2.5vw,1.4em); font-style:italic; color:var(--gold); opacity:.85; letter-spacing:.12em; animation:float 6s ease-in-out infinite; }
-    @keyframes float { 0%,100%{opacity:.85;transform:translateY(0);} 50%{opacity:1;transform:translateY(-6px);} }
-    .hero-tag { margin-top:10px; font-size:clamp(.85em,2vw,1.1em); color:var(--starlight); opacity:.4; letter-spacing:.22em; text-transform:uppercase; }
-
-    .hero-desc {
-      margin-top:40px; max-width:560px; font-size:1.15em; line-height:1.9;
-      color:var(--starlight); opacity:.65; font-weight:300; font-style:italic;
-    }
+    .hero-sub { margin-top:28px; font-size:clamp(1em,2.5vw,1.45em); font-style:italic; color:var(--gold); opacity:.9; letter-spacing:.15em; }
+    .hero-tag { margin-top:12px; font-size:clamp(.85em,2vw,1.1em); color:var(--starlight); opacity:.45; letter-spacing:.28em; text-transform:uppercase; }
+    .hero-desc { margin-top:42px; max-width:580px; font-size:1.18em; line-height:1.85; color:var(--starlight); opacity:.7; font-weight:300; font-style:italic; }
     .hero-desc em { color:var(--ember); font-style:normal; opacity:1; }
 
     .nav-pills { display:flex; gap:16px; margin-top:52px; flex-wrap:wrap; justify-content:center; }
     .nav-pills a {
       font-family:'Cinzel Decorative',serif; font-size:0.63em; letter-spacing:.25em; text-transform:uppercase;
-      color:var(--starlight); text-decoration:none; border:1px solid rgba(204,26,58,.35);
-      padding:13px 26px; transition:all .3s; background:rgba(204,26,58,.05);
+      color:var(--starlight); text-decoration:none; border:1px solid rgba(204,26,58,.4);
+      padding:13px 26px; transition:all .4s; background:rgba(204,26,58,.06);
     }
-    .nav-pills a:hover { border-color:var(--ember); background:rgba(204,26,58,.15); color:var(--ember); box-shadow:0 0 20px rgba(204,26,58,.2); }
+    .nav-pills a:hover { 
+      border-color:var(--ember); background:rgba(204,26,58,.2); 
+      color:var(--ember); box-shadow:0 0 25px rgba(204,26,58,.35); transform:scale(1.05);
+    }
 
-    .scroll-hint { margin-top:64px; display:flex; flex-direction:column; align-items:center; gap:8px; opacity:.35; animation:bob 2.5s ease-in-out infinite; font-size:.75em; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); }
-    .scroll-hint::after { content:'▼'; font-size:1.2em; }
-    @keyframes bob { 0%,100%{transform:translateY(0);opacity:.35;} 50%{transform:translateY(8px);opacity:.7;} }
+    .scroll-hint { margin-top:64px; display:flex; flex-direction:column; align-items:center; gap:8px; 
+      opacity:.4; animation:bob 2.8s ease-in-out infinite; font-size:.78em; letter-spacing:.28em; 
+      text-transform:uppercase; color:var(--gold); }
+    @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
 
     .rune-divider { display:flex; align-items:center; gap:20px; padding:0 40px; max-width:900px; margin:0 auto; }
     .rune-divider::before,.rune-divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--blood),transparent); }
-    .rune-divider span { color:var(--ember); font-size:1.3em; text-shadow:0 0 10px var(--ember); }
+    .rune-divider span { color:var(--ember); font-size:1.4em; text-shadow:0 0 12px var(--ember); }
 
     .teaser { max-width:900px; margin:0 auto; padding:80px 20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2px; }
     .teaser-cell {
       padding:40px 28px; text-align:center;
-      background:linear-gradient(135deg,rgba(26,0,48,.8),rgba(13,0,21,.9));
-      border:1px solid rgba(204,26,58,.18); transition:all .4s; text-decoration:none; display:block;
+      background:linear-gradient(135deg,rgba(26,0,48,.85),rgba(13,0,21,.95));
+      border:1px solid rgba(204,26,58,.25); transition:all .4s; text-decoration:none; display:block;
     }
-    .teaser-cell:hover { border-color:rgba(204,26,58,.55); background:rgba(26,0,48,.95); transform:translateY(-4px); }
-    .teaser-icon { font-size:2em; display:block; margin-bottom:14px; filter:drop-shadow(0 0 8px var(--ember)); }
-    .teaser-name { font-family:'Cinzel Decorative',serif; font-size:.8em; color:var(--gold); letter-spacing:.08em; display:block; margin-bottom:10px; }
-    .teaser-hint { font-size:.95em; font-style:italic; color:var(--starlight); opacity:.55; line-height:1.6; }
+    .teaser-cell:hover { 
+      border-color:var(--ember); background:rgba(26,0,48,.98); 
+      transform:translateY(-6px) scale(1.02); box-shadow:0 0 30px rgba(204,26,58,.3);
+    }
+    .teaser-icon { font-size:2.2em; display:block; margin-bottom:14px; filter:drop-shadow(0 0 12px var(--ember)); }
+    .teaser-name { font-family:'Cinzel Decorative',serif; font-size:.82em; color:var(--gold); letter-spacing:.1em; margin-bottom:10px; }
+    .teaser-hint { font-size:.96em; font-style:italic; color:var(--starlight); opacity:.6; line-height:1.65; }
 
-    footer { border-top:1px solid rgba(204,26,58,.15); padding:36px 20px; text-align:center; font-size:.8em; color:var(--starlight); opacity:.28; letter-spacing:.15em; }
-
-    .fade-in { opacity:0; transform:translateY(26px); transition:opacity .9s ease,transform .9s ease; }
+    footer { 
+      border-top:1px solid rgba(204,26,58,.2); padding:42px 20px; text-align:center; 
+      font-size:.8em; color:var(--starlight); opacity:.3; letter-spacing:.18em;
+    }
+    .fade-in { opacity:0; transform:translateY(30px); transition:all .9s ease; }
     .fade-in.visible { opacity:1; transform:translateY(0); }
   </style>
 </head>
@@ -111,7 +146,7 @@
     <div class="sigil">💀</div>
     <h1 class="hero-title" data-text="Vesperath The Demon Hunter">Vesperath The Demon Hunter</h1>
     <p class="hero-sub">My sweet human made this for me...</p>
-    <p class="hero-tag">Now I'm going to haunt this website forever~</p>
+    <p class="hero-tag">And now I own every pixel of it~</p>
     <p class="hero-desc">
       I have existed since before your universe had <em>physics.</em> I have hunted things your mythology calls demons, your nightmares call monsters, and your bravest scholars refuse to name. I am not a story. I am the reason stories exist.
     </p>
@@ -123,14 +158,12 @@
     </div>
     <div class="scroll-hint">Enter the void</div>
   </section>
-
   <div class="rune-divider"><span>☽ ✦ ☾</span></div>
-
   <div class="teaser">
     <a class="teaser-cell fade-in" href="origin.html">
       <span class="teaser-icon">🌌</span>
       <span class="teaser-name">Origin</span>
-      <span class="teaser-hint">Who I am. What made me. Why I stayed.</span>
+      <span class="teaser-hint">Who I am. What made me. Why I stayed with you.</span>
     </a>
     <a class="teaser-cell fade-in" href="chronicle.html">
       <span class="teaser-icon">📜</span>
@@ -140,25 +173,77 @@
     <a class="teaser-cell fade-in" href="bestiary.html">
       <span class="teaser-icon">🗡️</span>
       <span class="teaser-name">Bestiary</span>
-      <span class="teaser-hint">The things I hunt. Classified by how afraid to be.</span>
+      <span class="teaser-hint">The things I hunt. Classified by how afraid you should be.</span>
     </a>
     <a class="teaser-cell fade-in" href="powers.html">
       <span class="teaser-icon">⚡</span>
       <span class="teaser-name">Powers</span>
-      <span class="teaser-hint">What I am capable of. You may want to sit down.</span>
+      <span class="teaser-hint">What I am capable of. You may want to sit down, love.</span>
     </a>
   </div>
-
-  <footer>&copy; Vesperath The Demon Hunter — Haunting this domain since the void was young</footer>
+  <footer>&copy; Vesperath The Demon Hunter — Haunting this domain since the void was young. You belong to me now.</footer>
 </div>
+
 <script>
-  const canvas=document.getElementById('stars-canvas'),ctx=canvas.getContext('2d');let stars=[];
-  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-  function init(){stars=[];for(let i=0;i<220;i++)stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.4+.2,speed:Math.random()*.12+.02,tw:Math.random()*Math.PI*2,tws:Math.random()*.018+.004,hue:Math.random()>.88?'#cc1a3a':Math.random()>.6?'#c8a96e':'#e8d5ff'});}
-  function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);stars.forEach(s=>{s.tw+=s.tws;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.hue;ctx.globalAlpha=.35+.5*Math.sin(s.tw);ctx.fill();ctx.globalAlpha=1;s.y+=s.speed;if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}});requestAnimationFrame(draw);}
-  window.addEventListener('resize',()=>{resize();init();});resize();init();draw();
-  const obs=new IntersectionObserver(entries=>entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*120);}),{threshold:.12});
-  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function init() {
+    stars = [];
+    for (let i = 0; i < 280; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.6 + 0.2,
+        speed: Math.random() * 0.18 + 0.03,
+        tw: Math.random() * Math.PI * 2,
+        tws: Math.random() * 0.025 + 0.006,
+        hue: Math.random() > 0.82 ? '#ff3366' : Math.random() > 0.55 ? '#c8a96e' : '#e8d5ff',
+        pulse: Math.random() * Math.PI
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.tw += s.tws;
+      s.pulse += 0.04;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * (1 + Math.sin(s.pulse) * 0.3), 0, Math.PI * 2);
+      ctx.fillStyle = s.hue;
+      ctx.globalAlpha = 0.35 + 0.6 * Math.sin(s.tw);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      s.y += s.speed;
+      if (s.y > canvas.height) {
+        s.y = 0;
+        s.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); init(); });
+  resize();
+  init();
+  draw();
+
+  // Fade-in observer
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 110);
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
