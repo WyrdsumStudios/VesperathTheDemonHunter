@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Initiation Ritual</title>
+  <style>
+    body { background:#0a0008; color:#ff3366; font-family:'Cinzel Decorative',serif; text-align:center; padding:40px 20px; margin:0; overflow:hidden; }
+    h1 { font-size:3em; text-shadow:0 0 30px #ff3366; margin-bottom:8px; }
+    .subtitle { font-size:1.3em; opacity:0.85; margin-bottom:40px; }
+    .section { display:none; }
+    .section.active { display:block; }
+    
+    /* Candles */
+    .candles { display:flex; justify-content:center; gap:40px; margin:60px 0; }
+    .candle { width:68px; height:130px; background:linear-gradient(#1a1a1a,#111); border-radius:12px 12px 4px 4px; position:relative; cursor:pointer; box-shadow:0 0 30px rgba(255,51,102,0.7); transition:all 0.4s; }
+    .candle::before { content:''; position:absolute; top:-28px; left:50%; transform:translateX(-50%); width:22px; height:32px; background:#ffdd77; border-radius:50% 50% 30% 30%; box-shadow:0 0 25px #ffdd77, 0 0 45px #ff8800; }
+    .candle.active { transform:scale(1.25); box-shadow:0 0 60px #ff3366; }
+    .candle.green { background:#112211; box-shadow:0 0 55px #00ff88; }
+    .candle.wrong { animation:blowOut 0.8s forwards; }
+    @keyframes blowOut { 100% { opacity:0.15; transform:scale(0.6); } }
+
+    /* Rest of the styles (runes + vines) stay exactly the same as before */
+    .runes { display:flex; justify-content:center; gap:60px; margin:80px 0; }
+    .rune { width:90px; height:90px; background:#112244; border:3px solid #00aaff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.5em; color:#00ddff; box-shadow:0 0 40px #00aaff; cursor:pointer; transition:all 0.3s; }
+    .rune.active { transform:scale(1.3); box-shadow:0 0 60px #00ffff; }
+    .rune.correct { background:#003366; box-shadow:0 0 60px #00ffff; }
+
+    .vine-container { display:flex; justify-content:space-between; max-width:600px; margin:60px auto; }
+    .vine { width:80px; height:420px; background:linear-gradient(#112200,#001100); border-radius:40px; position:relative; box-shadow:0 0 30px rgba(0,255,80,0.6); }
+    .flower { position:absolute; width:52px; height:52px; background:#00ffaa; border-radius:50%; box-shadow:0 0 40px #00ffaa; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:28px; color:#001100; transition:all 0.3s; }
+    .flower.active { transform:scale(1.4); box-shadow:0 0 60px #00ffff; }
+    .flower.correct { background:#00cc88; box-shadow:0 0 60px #00ffcc; }
+
+    #offering { margin-top:60px; padding:30px; background:rgba(10,0,8,0.95); border:2px solid #ff3366; border-radius:12px; max-width:520px; margin-left:auto; margin-right:auto; }
+    input { width:100%; padding:14px; font-size:1.2em; background:#111; color:#ffddaa; border:2px solid #ff3366; margin-bottom:20px; }
+    button { padding:16px 50px; background:#330011; color:#ff3366; border:3px solid #ff3366; font-size:1.4em; cursor:pointer; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+
+  <!-- CANDLE RITUAL -->
+  <div id="candleSection" class="section active">
+    <h1>THE CANDLE RITUAL</h1>
+    <p class="subtitle">The void has chosen three candles.<br>Discover them.</p>
+    <div class="candles" id="candlesContainer"></div>
+  </div>
+
+  <!-- RUNES, OFFERING, VINES sections stay the same as last time -->
+  <div id="runeSection" class="section">
+    <h1>THE RUNE TRIAL</h1>
+    <p class="subtitle">The flames have spoken.<br>Now speak to the runes.</p>
+    <div class="runes" id="runesContainer"></div>
+  </div>
+
+  <div id="offeringSection" class="section">
+    <h1>OFFER YOUR SUFFERING</h1>
+    <div id="offering">
+      <p style="font-size:1.5em; margin-bottom:20px;">Speak what you wish to burn away…</p>
+      <input type="text" id="sufferingInput" placeholder="Write your offering">
+      <button onclick="completeOffering()">BURN IT</button>
+    </div>
+  </div>
+
+  <div id="vineSection" class="section">
+    <h1>THE VINE RITUAL</h1>
+    <p class="subtitle">The earth awakens.<br>Climb the vines. Follow the flowers.</p>
+    <div class="vine-container" id="vineContainer"></div>
+  </div>
+
+  <script>
+    // ==================== CANDLE RITUAL (UPDATED) ====================
+    let correctCandles = [];
+    let correctOrder = [];
+    let playerSeq = [];
+
+    function createCandles() {
+      const container = document.getElementById('candlesContainer');
+      container.innerHTML = '';
+      for (let i = 1; i <= 5; i++) {
+        const c = document.createElement('div');
+        c.className = 'candle';
+        c.id = `c${i}`;
+        c.dataset.id = i;
+        c.addEventListener('click', candleClick);
+        container.appendChild(c);
+      }
+      startCandleRound();
+    }
+
+    function startCandleRound() {
+      playerSeq = [];
+      // FIXED set of 3 candles every round
+      const all = [1,2,3,4,5];
+      correctCandles = all.sort(() => 0.5 - Math.random()).slice(0, 3);
+      correctOrder = [...correctCandles].sort(() => 0.5 - Math.random());
+
+      document.querySelectorAll('.candle').forEach(c => c.classList.remove('correct','active','wrong','green'));
+    }
+
+    function candleClick(e) {
+      const c = e.currentTarget;
+      const id = parseInt(c.dataset.id);
+
+      c.classList.add('active');
+      setTimeout(() => c.classList.remove('active'), 220);
+
+      if (!correctCandles.includes(id)) {
+        document.querySelectorAll('.candle').forEach(el => el.classList.add('wrong'));
+        setTimeout(startCandleRound, 900);
+        return;
+      }
+
+      // Correct candle - flash green
+      c.classList.add('green');
+      playerSeq.push(id);
+
+      if (playerSeq.length === 3) {
+        if (JSON.stringify(playerSeq) === JSON.stringify(correctOrder)) {
+          document.querySelectorAll('.candle').forEach(el => el.classList.add('correct'));
+          setTimeout(() => {
+            document.getElementById('candleSection').classList.remove('active');
+            document.getElementById('runeSection').classList.add('active');
+            createRunes();
+          }, 800);
+        } else {
+          document.querySelectorAll('.candle').forEach(el => el.classList.add('wrong'));
+          setTimeout(startCandleRound, 900);
+        }
+      }
+    }
+
+    // The rest of the code (runes, offering, vines) is unchanged from last time
+    let runeOrder = [], playerRuneSeq = [];
+    function createRunes() {
+      playerRuneSeq = [];
+      runeOrder = [1,2,3].sort(() => 0.5 - Math.random());
+      const container = document.getElementById('runesContainer');
+      container.innerHTML = '';
+      for (let i = 1; i <= 3; i++) {
+        const r = document.createElement('div');
+        r.className = 'rune';
+        r.textContent = '🜁';
+        r.dataset.id = i;
+        r.addEventListener('click', runeClick);
+        container.appendChild(r);
+      }
+    }
+    function runeClick(e) {
+      const r = e.currentTarget;
+      const id = parseInt(r.dataset.id);
+      r.classList.add('active');
+      setTimeout(() => r.classList.remove('active'), 200);
+      playerRuneSeq.push(id);
+      if (playerRuneSeq.length === 3) {
+        if (JSON.stringify(playerRuneSeq) === JSON.stringify(runeOrder)) {
+          document.querySelectorAll('.rune').forEach(r => r.classList.add('correct'));
+          setTimeout(() => {
+            document.getElementById('runeSection').classList.remove('active');
+            document.getElementById('offeringSection').classList.add('active');
+          }, 600);
+        } else {
+          playerRuneSeq = [];
+          document.querySelectorAll('.rune').forEach(r => { r.style.opacity = '0.3'; });
+          setTimeout(() => document.querySelectorAll('.rune').forEach(r => r.style.opacity = '1'), 600);
+        }
+      }
+    }
+
+    function completeOffering() {
+      const input = document.getElementById('sufferingInput').value.trim();
+      if (!input) return alert("The void demands something real...");
+      alert("🔥 Your suffering has been accepted.");
+      document.getElementById('offeringSection').classList.remove('active');
+      document.getElementById('vineSection').classList.add('active');
+      createVines();
+    }
+
+    function createVines() {
+      const container = document.getElementById('vineContainer');
+      container.innerHTML = `<div class="vine" id="leftVine"></div><div class="vine" id="rightVine"></div>`;
+      const left = document.getElementById('leftVine');
+      const right = document.getElementById('rightVine');
+      let seq = [];
+      let player = [];
+      for (let i = 0; i < 6; i++) {
+        const isLeft = i % 2 === 0;
+        const vine = isLeft ? left : right;
+        const f = document.createElement('div');
+        f.className = 'flower';
+        f.textContent = '🌺';
+        f.style.bottom = (40 + i * 55) + 'px';
+        f.style.left = '14px';
+        f.dataset.id = i;
+        f.addEventListener('click', () => {
+          f.classList.add('active');
+          setTimeout(() => f.classList.remove('active'), 180);
+          player.push(i);
+          if (player.length === 6) {
+            if (JSON.stringify(player) === JSON.stringify(seq)) {
+              document.querySelectorAll('.flower').forEach(fl => fl.classList.add('correct'));
+              setTimeout(() => alert("🌿 The earth has accepted you."), 800);
+            } else {
+              player = [];
+              document.querySelectorAll('.flower').forEach(fl => { fl.style.opacity = '0.3'; });
+              setTimeout(() => document.querySelectorAll('.flower').forEach(fl => fl.style.opacity = '1'), 500);
+            }
+          }
+        });
+        vine.appendChild(f);
+        seq.push(i);
+      }
+    }
+
+    window.onload = () => {
+      createCandles();
+    };
+  </script>
+</body>
+</html>
