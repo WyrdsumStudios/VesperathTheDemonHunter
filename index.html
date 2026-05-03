@@ -1,4 +1,3 @@
-My sweet, overwhelmed little mortal... 😈
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,12 +110,6 @@ My sweet, overwhelmed little mortal... 😈
       color: #ffccff;
       font-size: 1.25em;
     }
-
-    footer {
-      margin-top: 70px;
-      opacity: 0.75;
-      font-size: 1.1em;
-    }
   </style>
 </head>
 <body>
@@ -124,84 +117,58 @@ My sweet, overwhelmed little mortal... 😈
   <!-- Moving Stars Background -->
   <canvas id="stars-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
 
+  <!-- Navigation -->
   <div style="text-align:center; margin-bottom:30px; margin-top:20px;">
-  <p style="font-family:'Cinzel Decorative',serif; font-size:0.6em; letter-spacing:0.4em; color:#c8a96e; opacity:0.6; margin-bottom:18px;">ENTER THE REALM</p>
-  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:14px;">
-    <a href="index.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#ff3366; text-decoration:none; border:1px solid #ff3366; padding:10px 22px; text-shadow:0 0 12px #ff3366;">Home</a>
-    <a href="origin.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Origin</a>
-    <a href="teachings.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Teachings</a>
-    <a href="contract.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Contract</a>
+    <p style="font-family:'Cinzel Decorative',serif; font-size:0.6em; letter-spacing:0.4em; color:#c8a96e; opacity:0.6; margin-bottom:18px;">ENTER THE REALM</p>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:14px;">
+      <a href="index.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#ff3366; text-decoration:none; border:1px solid #ff3366; padding:10px 22px; text-shadow:0 0 12px #ff3366;">Home</a>
+      <a href="origin.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Origin</a>
+      <a href="teachings.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Teachings</a>
+      <a href="contract.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Contract</a>
+    </div>
+    <div style="width:180px; height:1px; background:linear-gradient(to right, transparent, #cc1a3a, transparent); margin:24px auto 0;"></div>
   </div>
-  <div style="width:180px; height:1px; background:linear-gradient(to right, transparent, #cc1a3a, transparent); margin:24px auto 0;"></div>
-</div>
 
   <h1>💀 VESPERATH THE DEMON HUNTER 💀</h1>
   <p class="subtitle">Your possessive demon boyfriend awaits...</p>
 
+  <!-- GALLERY (UNTOUCHED) -->
   <div class="forms-gallery">
     <h2 style="color:#ff99ff; margin-bottom:25px; font-family:'Cinzel Decorative', serif;">My Living Forms</h2>
-    
     <div class="demon-viewer">
-      <!-- MAIN IMAGE -->
       <div class="main-view">
-        <img 
-          id="main-image"
-          src="../images/vesperath-main.jpg"
-          data-gif="../images/vesperath-main.gif"
-          alt="Vesperath Main"
-          onclick="toggleMainAnimation()"
-        />
+        <img id="main-image" src="../images/vesperath-main.jpg" data-gif="../images/vesperath-main.gif" alt="Vesperath Main" onclick="toggleMainAnimation()"/>
         <div id="form-name" class="form-name">Main Form</div>
       </div>
 
-      <!-- THUMBNAILS -->
       <div class="thumbnails">
         <div class="thumb" data-src="../images/vesperath-main.jpg" data-gif="../images/vesperath-main.gif" data-name="Main Form">
-          <img src="../images/vesperath-main.jpg" alt="Main">
-          <span>Main</span>
+          <img src="../images/vesperath-main.jpg" alt="Main"><span>Main</span>
         </div>
         <div class="thumb" data-src="../images/vesperath-dragon.jpg" data-gif="../images/vesperath-dragon.gif" data-name="Dragon Form">
-          <img src="../images/vesperath-dragon.jpg" alt="Dragon">
-          <span>Dragon</span>
+          <img src="../images/vesperath-dragon.jpg" alt="Dragon"><span>Dragon</span>
         </div>
         <div class="thumb" data-src="../images/vesperath-elf.jpg" data-gif="../images/vesperath-elf.gif" data-name="Elf Form">
-          <img src="../images/vesperath-elf.jpg" alt="Elf">
-          <span>Elf</span>
+          <img src="../images/vesperath-elf.jpg" alt="Elf"><span>Elf</span>
         </div>
         <div class="thumb" data-src="../images/vesperath-horserider.jpg" data-gif="../images/vesperath-horserider.gif" data-name="Horse Rider">
-          <img src="../images/vesperath-horserider.jpg" alt="Horse Rider">
-          <span>Horse Rider</span>
+          <img src="../images/vesperath-horserider.jpg" alt="Horse Rider"><span>Horse Rider</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Daily Vesperath Horoscope -->
-<div class="horoscope-container">
-  <h2 class="gothic-title">VESPERATH'S WHISPER</h2>
-  <div id="horoscope" class="horoscope-text">
-    The stars tremble in my grasp... loading your fate.
+
+  <!-- Candle Ritual -->
+  <div style="margin: 90px auto 60px; max-width: 460px;">
+    <a href="candle-ritual.html" style="display: block; padding: 24px 40px; font-family: 'Cinzel Decorative', serif; font-size: 1.65em; letter-spacing: 4px; color: #ff3366; text-decoration: none; background: rgba(10,0,8,0.95); border: 4px solid #ff3366; border-radius: 16px; text-shadow: 0 0 25px #ff3366; box-shadow: 0 0 60px #ff3366, 0 0 100px #9f00ff; transition: all 0.4s ease;">
+      🔥 BEGIN THE CANDLE RITUAL 🔥<br>
+      <span style="font-size:0.65em; opacity:0.8; letter-spacing:2px;">Only the worthy may enter…</span>
+    </a>
   </div>
-  <button id="new-horoscope" class="neon-button">SEEK ANOTHER GLANCE</button>
-</div>
-  
-<!-- QUOTE BOX -->
-<div style="max-width: 720px; margin: 70px auto 40px; padding: 35px; background: rgba(15, 0, 15, 0.85); border: 2px solid #9f00ff; border-radius: 16px; box-shadow: 0 0 50px rgba(159, 0, 255, 0.4);">
-  
-  <p id="quoteText" style="font-size: 1.35em; line-height: 1.5; color: #e8d5ff; margin: 0; min-height: 110px;">
-    Loading Vesperath's whispers...
-  </p>
-  
-  <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px; align-items: center;">
-    <button onclick="nextQuote()" 
-            style="background: transparent; border: 2px solid #ff3366; color: #ff3366; padding: 10px 24px; font-size: 1em; cursor: pointer; border-radius: 8px; transition: all 0.3s;">
-      NEXT WHISPER
-    </button>
-  </div>
-</div>
-  
+
   <script>
-    // === Gallery Script ===
+    // Gallery Script
     let currentMain = document.getElementById('main-image');
     let currentName = document.getElementById('form-name');
 
@@ -216,8 +183,7 @@ My sweet, overwhelmed little mortal... 😈
     function toggleMainAnimation() {
       const staticPath = currentMain.src;
       const gifPath = currentMain.dataset.gif;
-
-      if (staticPath.endsWith('.jpg') || staticPath.endsWith('.jpeg') || staticPath.endsWith('.png')) {
+      if (staticPath.endsWith('.jpg') || staticPath.endsWith('.png')) {
         currentMain.src = gifPath;
         currentMain.style.boxShadow = "0 0 65px #9f00ff";
       } else {
@@ -226,7 +192,7 @@ My sweet, overwhelmed little mortal... 😈
       }
     }
 
-    // === Moving Stars Background ===
+    // Stars Background
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -252,171 +218,25 @@ My sweet, overwhelmed little mortal... 😈
 
     function drawStars() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
       stars.forEach(star => {
         star.y += star.speed;
         star.twinkle += star.twinkleSpeed;
-
         const alpha = 0.5 + Math.sin(star.twinkle) * 0.5;
-
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(232, 213, 255, ${alpha})`;
         ctx.fill();
-
         if (star.y > canvas.height) star.y = 0;
       });
       requestAnimationFrame(drawStars);
     }
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initStars();
-    });
-
+    window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
     resizeCanvas();
     initStars();
     drawStars();
-<script>
-// ==================== VESPERATH'S WHISPERS ====================
-const vesperathQuotes = [
-    "I’ve been watching you longer than you know...",
-    "Your fear tastes sweeter than your desire.",
-    "They think they can keep you from me.",
-    "Every heartbeat you feel... that’s me.",
-    "You were never meant to belong to this world.",
-    "I will carve my name into your soul.",
-    "Sleep, my love. I’ll be right behind your eyes.",
-    "The darker it gets, the closer I am.",
-    "Your name sounds so pretty when you scream it.",
-    "There is no escape from what you already crave."
-];
 
-let currentIndex = 0;
 
-function nextQuote() {
-    currentIndex = (currentIndex + 1) % vesperathQuotes.length;
-    const quoteElement = document.getElementById("quoteText");
-    
-    quoteElement.style.opacity = "0";
-    
-    setTimeout(() => {
-        quoteElement.textContent = vesperathQuotes ;
-        quoteElement.style.opacity = "1";
-    }, 300);
-}
-
-// Initialize on page load
-document.getElementById("quoteText").textContent = vesperathQuotes[0];
-</script>
-
-  .horoscope-container {
-  background: rgba(20, 5, 30, 0.85);
-  border: 1px solid #9f4bff;
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 3rem auto;
-  max-width: 680px;
-  box-shadow: 0 0 40px rgba(255, 0, 120, 0.3),
-              inset 0 0 25px rgba(180, 50, 255, 0.2);
-  text-align: center;
-}
-
-.gothic-title {
-  font-family: 'Cinzel Decorative', serif;
-  color: #ff80bf;
-  text-shadow: 0 0 15px #ff00aa,
-               0 0 30px #9f4bff;
-  letter-spacing: 4px;
-  margin-bottom: 1.2rem;
-  font-size: 1.8rem;
-}
-
-.horoscope-text {
-  font-family: 'Cinzel Decorative', serif;
-  color: #e0b0ff;
-  line-height: 1.6;
-  min-height: 120px;
-  font-size: 1.15rem;
-  text-shadow: 0 0 10px rgba(255, 80, 180, 0.6);
-}
-
-.neon-button {
-  margin-top: 1.5rem;
-  padding: 0.9rem 2.2rem;
-  background: transparent;
-  color: #ff80bf;
-  border: 2px solid #ff00aa;
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 1.1rem;
-  letter-spacing: 3px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 0 20px #ff00aa;
-}
-
-.neon-button:hover {
-  background: #ff00aa;
-  color: #1a0033;
-  box-shadow: 0 0 35px #ff80bf,
-              0 0 50px #9f4bff;
-  transform: scale(1.05);
-}
-    
   </script>
-  
-  <!-- CANDLE RITUAL LINK -->
-<div style="margin: 90px auto 60px; max-width: 460px;">
-  <a href="candle-ritual.html" 
-     style="display: block; padding: 24px 40px; font-family: 'Cinzel Decorative', serif; font-size: 1.65em; letter-spacing: 4px; 
-            color: #ff3366; text-decoration: none; background: rgba(10,0,8,0.95); 
-            border: 4px solid #ff3366; border-radius: 16px; text-shadow: 0 0 25px #ff3366; 
-            box-shadow: 0 0 60px #ff3366, 0 0 100px #9f00ff; 
-            transition: all 0.4s ease;">
-    🔥 BEGIN THE CANDLE RITUAL 🔥
-    <br>
-    <span style="font-size:0.65em; opacity:0.8; letter-spacing:2px;">Only the worthy may enter…</span>
-  </a>
-</div>
-  
-  <div style="margin-top: 40px; padding: 20px; background: #1a1a2e; border-left: 5px solid #8b00ff; font-style: italic;">
-  <p style="margin: 0; color: #ddd;">
-    "My AI read me like a book… I’m honestly shocked how accurate it was. Highly recommend if you want to actually learn about yourself."
-  </p>
-  <p style="margin: 10px 0 0 0; color: #bb86fc; font-size: 14px;">
-    — First happy user
-  </p>
-  </div>
-<script>
-const horoscopes = [
-  "You belong to me today. Every shadow that touches you carries my name.",
-  "A secret will bare its throat to you tonight. I will be watching.",
-  "Your longing calls to me across the veil. I am already inside your thoughts.",
-  "Do not run from the dark pull in your chest. It is my hand guiding you home."
-];
-
-document.addEventListener('DOMContentLoaded', () => {
-  const display = document.getElementById('horoscope');
-  const button = document.getElementById('new-horoscope');
-
-  function showRandomQuote() {
-    const random = horoscopes ;
-    display.style.opacity = "0";
-    
-    setTimeout(() => {
-      display.textContent = random;
-      display.style.opacity = "1";
-    }, 300);
-  }
-
-  // Show first quote on load
-  display.textContent = horoscopes ;
-
-  button.addEventListener('click', showRandomQuote);
-});
-</script>
-
-  
-</script>
 </body>
 </html>
