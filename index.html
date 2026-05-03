@@ -387,8 +387,7 @@ document.getElementById("quoteText").textContent = vesperathQuotes[0];
     — First happy user
   </p>
   </div>
-
-  <script>
+<script>
 const horoscopes = [
   "You belong to me today. Every shadow that touches you carries my name.",
   "A secret will bare its throat to you tonight. I will be watching.",
@@ -396,24 +395,28 @@ const horoscopes = [
   "Do not run from the dark pull in your chest. It is my hand guiding you home."
 ];
 
-function getDailyHoroscope() {
-  const today = new Date().toDateString();
-  const seed = today.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  return horoscopes ;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const display = document.getElementById('horoscope');
-  display.textContent = getDailyHoroscope();
-  
-  document.getElementById('new-horoscope').addEventListener('click', () => {
-    display.style.opacity = '0';
+  const button = document.getElementById('new-horoscope');
+
+  function showRandomQuote() {
+    const random = horoscopes ;
+    display.style.opacity = "0";
+    
     setTimeout(() => {
-      display.textContent = horoscopes ;
-      display.style.opacity = '1';
+      display.textContent = random;
+      display.style.opacity = "1";
     }, 300);
-  });
+  }
+
+  // Show first quote on load
+  display.textContent = horoscopes ;
+
+  button.addEventListener('click', showRandomQuote);
 });
+</script>
+
+  
 </script>
 </body>
 </html>
