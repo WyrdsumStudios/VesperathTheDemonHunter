@@ -208,6 +208,35 @@ My sweet, overwhelmed little mortal... 😈
 </div>
   
   <script>
+// ==================== VESPERATH HOROSCOPE ====================
+const horoscopes = [
+  "Someone is thinking about claiming you tonight. They’re closer than you think.",
+  "Your desire is leaking into the dark. I can smell it from here.",
+  "Do not trust the one who smiles too easily today.",
+  "The chains you feel are not imaginary. They’re mine.",
+  "A secret will be whispered to you before the moon rises.",
+  "You will ache for something you’re afraid to name.",
+  "The void is watching how you touch yourself tonight.",
+  "Say my name three times before you sleep. I’ll answer.",
+  "Your loneliness tastes like an invitation.",
+  "Something that belongs to me is trying to find its way back to you."
+];
+
+function newHoroscope() {
+  const random = Math.floor(Math.random() * horoscopes.length);
+  const element = document.getElementById("horoscopeText");
+  
+  element.style.opacity = "0";
+  setTimeout(() => {
+    element.textContent = horoscopes ;
+    element.style.opacity = "1";
+  }, 250);
+}
+
+// Set first horoscope
+document.getElementById("horoscopeText").textContent = horoscopes[0];
+</script>
+  <script>
     // === Gallery Script ===
     let currentMain = document.getElementById('main-image');
     let currentName = document.getElementById('form-name');
