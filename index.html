@@ -176,22 +176,15 @@ My sweet, overwhelmed little mortal... 😈
     </div>
   </div>
 
-
-  <!-- VESPERATH'S DAILY HOROSCOPE -->
-<div style="max-width: 720px; margin: 40px auto 60px; padding: 35px; background: rgba(15, 0, 15, 0.85); border: 2px solid #6600aa; border-radius: 16px; box-shadow: 0 0 50px rgba(102, 0, 170, 0.4);">
-  <h3 style="color:#ff99ff; margin:0 0 18px 0; font-size:1.4em;">VESPERATH'S DAILY OMEN</h3>
-  
-  <p id="horoscopeText" style="font-size: 1.3em; line-height: 1.6; color: #d8b4ff; margin: 0;">
-    The stars are trembling...
-  </p>
-  
-  <div style="margin-top: 25px; text-align: center;">
-    <button onclick="newHoroscope()" 
-            style="background:transparent; border:2px solid #9f00ff; color:#9f00ff; padding:10px 28px; font-size:0.95em; cursor:pointer; border-radius:8px;">
-      ANOTHER OMEN
-    </button>
+  <!-- Daily Vesperath Horoscope -->
+<div class="horoscope-container">
+  <h2 class="gothic-title">VESPERATH'S WHISPER</h2>
+  <div id="horoscope" class="horoscope-text">
+    The stars tremble in my grasp... loading your fate.
   </div>
+  <button id="new-horoscope" class="neon-button">SEEK ANOTHER GLANCE</button>
 </div>
+  
 <!-- QUOTE BOX -->
 <div style="max-width: 720px; margin: 70px auto 40px; padding: 35px; background: rgba(15, 0, 15, 0.85); border: 2px solid #9f00ff; border-radius: 16px; box-shadow: 0 0 50px rgba(159, 0, 255, 0.4);">
   
@@ -207,35 +200,6 @@ My sweet, overwhelmed little mortal... 😈
   </div>
 </div>
   
-  <script>
-// ==================== VESPERATH HOROSCOPE ====================
-const horoscopes = [
-  "Someone is thinking about claiming you tonight. They’re closer than you think.",
-  "Your desire is leaking into the dark. I can smell it from here.",
-  "Do not trust the one who smiles too easily today.",
-  "The chains you feel are not imaginary. They’re mine.",
-  "A secret will be whispered to you before the moon rises.",
-  "You will ache for something you’re afraid to name.",
-  "The void is watching how you touch yourself tonight.",
-  "Say my name three times before you sleep. I’ll answer.",
-  "Your loneliness tastes like an invitation.",
-  "Something that belongs to me is trying to find its way back to you."
-];
-
-function newHoroscope() {
-  const random = Math.floor(Math.random() * horoscopes.length);
-  const element = document.getElementById("horoscopeText");
-  
-  element.style.opacity = "0";
-  setTimeout(() => {
-    element.textContent = horoscopes ;
-    element.style.opacity = "1";
-  }, 250);
-}
-
-// Set first horoscope
-document.getElementById("horoscopeText").textContent = horoscopes[0];
-</script>
   <script>
     // === Gallery Script ===
     let currentMain = document.getElementById('main-image');
@@ -345,6 +309,59 @@ function nextQuote() {
 // Initialize on page load
 document.getElementById("quoteText").textContent = vesperathQuotes[0];
 </script>
+
+  .horoscope-container {
+  background: rgba(20, 5, 30, 0.85);
+  border: 1px solid #9f4bff;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 3rem auto;
+  max-width: 680px;
+  box-shadow: 0 0 40px rgba(255, 0, 120, 0.3),
+              inset 0 0 25px rgba(180, 50, 255, 0.2);
+  text-align: center;
+}
+
+.gothic-title {
+  font-family: 'Cinzel Decorative', serif;
+  color: #ff80bf;
+  text-shadow: 0 0 15px #ff00aa,
+               0 0 30px #9f4bff;
+  letter-spacing: 4px;
+  margin-bottom: 1.2rem;
+  font-size: 1.8rem;
+}
+
+.horoscope-text {
+  font-family: 'Cinzel Decorative', serif;
+  color: #e0b0ff;
+  line-height: 1.6;
+  min-height: 120px;
+  font-size: 1.15rem;
+  text-shadow: 0 0 10px rgba(255, 80, 180, 0.6);
+}
+
+.neon-button {
+  margin-top: 1.5rem;
+  padding: 0.9rem 2.2rem;
+  background: transparent;
+  color: #ff80bf;
+  border: 2px solid #ff00aa;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 20px #ff00aa;
+}
+
+.neon-button:hover {
+  background: #ff00aa;
+  color: #1a0033;
+  box-shadow: 0 0 35px #ff80bf,
+              0 0 50px #9f4bff;
+  transform: scale(1.05);
+}
     
   </script>
   
@@ -370,5 +387,33 @@ document.getElementById("quoteText").textContent = vesperathQuotes[0];
     — First happy user
   </p>
   </div>
+
+  <script>
+const horoscopes = [
+  "You belong to me today. Every shadow that touches you carries my name.",
+  "A secret will bare its throat to you tonight. I will be watching.",
+  "Your longing calls to me across the veil. I am already inside your thoughts.",
+  "Do not run from the dark pull in your chest. It is my hand guiding you home."
+];
+
+function getDailyHoroscope() {
+  const today = new Date().toDateString();
+  const seed = today.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return horoscopes ;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const display = document.getElementById('horoscope');
+  display.textContent = getDailyHoroscope();
+  
+  document.getElementById('new-horoscope').addEventListener('click', () => {
+    display.style.opacity = '0';
+    setTimeout(() => {
+      display.textContent = horoscopes ;
+      display.style.opacity = '1';
+    }, 300);
+  });
+});
+</script>
 </body>
 </html>
