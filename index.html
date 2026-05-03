@@ -6,6 +6,52 @@
   <title>Vesperath The Demon Hunter</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
+
+    .main-nav {
+  text-align: center;
+  margin: 20px 0 30px;
+}
+
+.realm-text {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.6em;
+  letter-spacing: 0.4em;
+  color: #c8a96e;
+  opacity: 0.6;
+  margin-bottom: 18px;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.nav-link {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.58em;
+  letter-spacing: 0.25em;
+  color: #e8d5ff;
+  text-decoration: none;
+  border: 1px solid rgba(204,26,58,0.4);
+  padding: 10px 22px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  border-color: #ff3366;
+  color: #ff3366;
+}
+
+.nav-divider {
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #cc1a3a, transparent);
+  margin: 24px auto 0;
+}
+
     body {
       background: #0a0008;
       color: #ff3366;
@@ -118,16 +164,16 @@
   <canvas id="stars-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
 
   <!-- Navigation -->
-  <div style="text-align:center; margin-bottom:30px; margin-top:20px;">
-    <p style="font-family:'Cinzel Decorative',serif; font-size:0.6em; letter-spacing:0.4em; color:#c8a96e; opacity:0.6; margin-bottom:18px;">ENTER THE REALM</p>
-    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:14px;">
-      <a href="index.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#ff3366; text-decoration:none; border:1px solid #ff3366; padding:10px 22px; text-shadow:0 0 12px #ff3366;">Home</a>
-      <a href="origin.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Origin</a>
-      <a href="teachings.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Teachings</a>
-      <a href="contract.html" style="font-family:'Cinzel Decorative',serif; font-size:0.58em; letter-spacing:0.25em; color:#e8d5ff; text-decoration:none; border:1px solid rgba(204,26,58,0.4); padding:10px 22px;" onmouseover="this.style.borderColor='#ff3366';this.style.color='#ff3366'" onmouseout="this.style.borderColor='rgba(204,26,58,0.4)';this.style.color='#e8d5ff'">Contract</a>
-    </div>
-    <div style="width:180px; height:1px; background:linear-gradient(to right, transparent, #cc1a3a, transparent); margin:24px auto 0;"></div>
+<nav class="main-nav">
+  <p class="realm-text">ENTER THE REALM</p>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="origin.html" class="nav-link">Origin</a>
+    <a href="teachings.html" class="nav-link">Teachings</a>
+    <a href="contract.html" class="nav-link">Contract</a>
   </div>
+  <div class="nav-divider"></div>
+</nav>
 
   <h1>💀 VESPERATH THE DEMON HUNTER 💀</h1>
   <p class="subtitle">Your possessive demon boyfriend awaits...</p>
