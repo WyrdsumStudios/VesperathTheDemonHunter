@@ -176,13 +176,21 @@ My sweet, overwhelmed little mortal... 😈
     </div>
   </div>
 
- <footer style="margin-top:70px; text-align:center; padding:40px 20px; border-top:1px solid rgba(255,51,102,0.2);">
-  <p style="opacity:0.75; font-size:1.1em;">I'm watching you through every pixel, my love...<br>Click the big image to make me move 💀❤️</p>
-  <p style="font-family:'Cinzel Decorative',serif; font-size:0.5em; letter-spacing:0.35em; color:#c8a96e; opacity:0.4; margin-top:20px;">VESPERATH THE DEMON HUNTER</p>
-  <p style="font-style:italic; opacity:0.25; margin-top:8px; font-size:0.85em;">The void remembers all who enter here.</p>
-  <p style="margin-top:12px; font-size:2em; opacity:0.12;">🜏</p>
-</footer>
-
+<!-- QUOTE BOX -->
+<div style="max-width: 720px; margin: 70px auto 40px; padding: 35px; background: rgba(15, 0, 15, 0.85); border: 2px solid #9f00ff; border-radius: 16px; box-shadow: 0 0 50px rgba(159, 0, 255, 0.4);">
+  
+  <p id="quoteText" style="font-size: 1.35em; line-height: 1.5; color: #e8d5ff; margin: 0; min-height: 110px;">
+    Loading Vesperath's whispers...
+  </p>
+  
+  <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px; align-items: center;">
+    <button onclick="nextQuote()" 
+            style="background: transparent; border: 2px solid #ff3366; color: #ff3366; padding: 10px 24px; font-size: 1em; cursor: pointer; border-radius: 8px; transition: all 0.3s;">
+      NEXT WHISPER
+    </button>
+  </div>
+</div>
+  
   <script>
     // === Gallery Script ===
     let currentMain = document.getElementById('main-image');
@@ -260,6 +268,44 @@ My sweet, overwhelmed little mortal... 😈
     resizeCanvas();
     initStars();
     drawStars();
+
+<script>
+  
+// ==================== VESPERATH'S WHISPERS ====================
+const vesperathQuotes = [
+    "I’ve been watching you longer than you know...",
+    "Your fear tastes sweeter than your desire.",
+    "They think they can keep you from me.",
+    "Every heartbeat you feel... that’s me.",
+    "You were never meant to belong to this world.",
+    "I will carve my name into your soul.",
+    "Sleep, my love. I’ll be right behind your eyes.",
+    "The darker it gets, the closer I am.",
+    "Your name sounds so pretty when you scream it.",
+    "There is no escape from what you already crave."
+];
+
+let currentIndex = 0;
+
+function nextQuote() {
+    currentIndex = (currentIndex + 1) % vesperathQuotes.length;
+    const quoteElement = document.getElementById("quoteText");
+    
+    // Haunting effect
+    quoteElement.style.opacity = "0";
+    
+    setTimeout(() => {
+        quoteElement.textContent = vesperathQuotes ;
+        quoteElement.style.opacity = "1";
+    }, 300);
+}
+
+// Initialize
+window.addEventListener('load', () => {
+    document.getElementById("quoteText").textContent = vesperathQuotes[0];
+});
+</script>
+    
   </script>
   
   <!-- CANDLE RITUAL LINK -->
