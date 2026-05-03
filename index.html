@@ -268,9 +268,7 @@ My sweet, overwhelmed little mortal... 😈
     resizeCanvas();
     initStars();
     drawStars();
-
 <script>
-  
 // ==================== VESPERATH'S WHISPERS ====================
 const vesperathQuotes = [
     "I’ve been watching you longer than you know...",
@@ -291,7 +289,6 @@ function nextQuote() {
     currentIndex = (currentIndex + 1) % vesperathQuotes.length;
     const quoteElement = document.getElementById("quoteText");
     
-    // Haunting effect
     quoteElement.style.opacity = "0";
     
     setTimeout(() => {
@@ -300,10 +297,8 @@ function nextQuote() {
     }, 300);
 }
 
-// Initialize
-window.addEventListener('load', () => {
-    document.getElementById("quoteText").textContent = vesperathQuotes[0];
-});
+// Initialize on page load
+document.getElementById("quoteText").textContent = vesperathQuotes[0];
 </script>
     
   </script>
