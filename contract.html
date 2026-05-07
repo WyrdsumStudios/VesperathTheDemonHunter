@@ -11,117 +11,73 @@
       color:#ff3366; 
       font-family:'Cinzel Decorative',serif; 
       text-align:center; 
-      padding:40px 20px; 
+      padding:0; 
       margin:0; 
       min-height:100vh; 
-      position:relative; 
       overflow-x:hidden;
     }
 
     /* Navigation */
-    .main-nav { text-align:center; margin:20px 0 50px; }
-    .realm-text { 
-      font-size:0.7em; letter-spacing:8px; color:#c8a96e; 
-      opacity:0.65; margin-bottom:12px; 
-    }
-    .nav-links { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+    .main-nav { text-align:center; padding:25px 0; background:rgba(10,0,8,0.95); border-bottom:1px solid #330011; }
+    .realm-text { font-size:0.7em; letter-spacing:8px; color:#c8a96e; opacity:0.65; margin-bottom:8px; }
+    .nav-links { display:flex; flex-wrap:wrap; justify-content:center; gap:22px; }
     .nav-link { 
       font-size:0.9em; letter-spacing:4px; color:#e8d5ff; text-decoration:none; 
-      padding:12px 28px; border:1px solid rgba(255,51,102,0.3); transition:all 0.4s;
+      padding:10px 26px; border:1px solid rgba(255,51,102,0.3); transition:all 0.4s;
     }
-    .nav-link:hover, .nav-link.active { 
-      border-color:#ff3366; color:#ff3366; box-shadow:0 0 15px #ff3366; 
-    }
+    .nav-link:hover, .nav-link.active { border-color:#ff3366; color:#ff3366; }
 
     h1 { 
-      font-size:4.8em; 
-      letter-spacing:12px; 
-      text-shadow:0 0 40px #ff3366, 0 0 90px #9f00ff, 0 0 120px #ff3366; 
-      margin:20px 0 15px; 
-    }
-    .subtitle { 
-      font-size:1.6em; 
-      color:#ff99ff; 
-      margin-bottom:60px; 
-      opacity:0.85; 
-      letter-spacing:3px;
+      font-size:3.6em; 
+      letter-spacing:10px; 
+      margin:40px 0 15px; 
+      text-shadow:0 0 25px #ff3366;
     }
 
-    .contract-box { 
-      max-width:760px; 
-      margin:40px auto; 
-      padding:60px 50px; 
-      background:linear-gradient(135deg, rgba(20,0,30,0.95), rgba(10,0,15,0.98)); 
-      border:5px solid #9f00ff; 
-      border-radius:24px; 
-      box-shadow:0 0 80px rgba(159,0,255,0.6), inset 0 0 60px rgba(255,51,102,0.2);
+    .subtitle { 
+      font-size:1.65em; 
+      color:#ff99ff; 
+      margin-bottom:40px; 
+      opacity:0.9;
     }
+
+    .cryptic-box { 
+      max-width:720px; 
+      margin:30px auto; 
+      padding:45px 50px; 
+      background:rgba(20,0,30,0.92); 
+      border:3px solid #9f00ff; 
+      border-radius:18px; 
+      font-size:1.35em; 
+      line-height:1.85; 
+      color:#e8d5ff;
+    }
+
+    .chalice { font-size:9em; margin:30px 0 20px; filter: drop-shadow(0 0 40px #ff3366); }
 
     input { 
-      width:100%; 
-      padding:20px; 
-      font-size:1.6em; 
-      background:#0f0a14; 
-      color:#ffddaa; 
-      border:3px solid #ff3366; 
-      margin:30px 0; 
-      text-align:center; 
-      border-radius:8px;
+      width:100%; max-width:520px; padding:20px; font-size:1.7em; 
+      background:#0f0a14; color:#ffddaa; border:4px solid #ff3366; 
+      margin:30px 0; text-align:center; border-radius:8px;
     }
 
-    .emoji-picker { 
-      display:flex; 
-      justify-content:center; 
-      gap:18px; 
-      flex-wrap:wrap; 
-      margin:35px 0 40px; 
-    }
-    .emoji { 
-      font-size:2.8em; 
-      cursor:pointer; 
-      padding:10px; 
-      transition:all 0.3s; 
-      filter: drop-shadow(0 0 8px #ff3366);
-    }
-    .emoji:hover, .emoji.selected { 
-      transform:scale(1.5); 
-      filter: drop-shadow(0 0 20px #ff99ff); 
-    }
+    .emoji-picker { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:35px 0 40px; }
+    .emoji { font-size:3em; cursor:pointer; padding:10px; transition:all 0.3s; }
+    .emoji:hover, .emoji.selected { transform:scale(1.5); }
 
     button { 
-      padding:22px 80px; 
-      background:transparent; 
-      color:#ff3366; 
-      border:4px solid #ff3366; 
-      font-size:1.8em; 
-      letter-spacing:4px; 
-      cursor:pointer; 
-      transition:all 0.4s;
+      padding:22px 80px; background:transparent; color:#ff3366; 
+      border:4px solid #ff3366; font-size:1.8em; letter-spacing:4px; 
+      cursor:pointer; transition:all 0.4s;
     }
-    button:hover { 
-      background:#ff3366; 
-      color:#0a0008; 
-      box-shadow:0 0 60px #ff3366; 
-    }
+    button:hover { background:#ff3366; color:#0a0008; }
 
-    #signed-list { 
-      margin-top:80px; 
-      max-width:700px; 
-      margin-left:auto; 
-      margin-right:auto; 
-    }
-    .signature { 
-      padding:18px 0; 
-      border-bottom:1px dashed rgba(255,51,102,0.3); 
-      font-size:1.35em; 
-      color:#e8d5ff; 
-      text-align:left;
-    }
+    #signed-list { margin-top:80px; max-width:700px; margin-left:auto; margin-right:auto; padding:0 20px; }
+    .signature { padding:16px 0; border-bottom:1px dashed rgba(255,51,102,0.25); font-size:1.4em; color:#e8d5ff; text-align:left; }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="main-nav">
     <p class="realm-text">THE VOID AWAITS</p>
     <div class="nav-links">
@@ -133,30 +89,58 @@
   </nav>
 
   <h1>THE CONTRACT</h1>
-  <p class="subtitle">Speak your name and seal your desire</p>
+  <p class="subtitle">Speak your name and say your desire</p>
 
-  <div class="contract-box">
-    <p style="font-size:1.8em; margin-bottom:30px; color:#ff99ff;">I surrender to Vesperath</p>
-    
-    <input type="text" id="nameInput" placeholder="YOUR NAME" maxlength="35">
+  <div class="cryptic-box" id="crypticText">
+    I offer my hunger, my ache, my shadowed cravings. 
+    In blood and shadow I bind myself. What I desire, I surrender to you.
+  </div>
+
+  <button onclick="nextCryptic()">Tell me more, Vesperath...</button>
+
+  <div class="chalice">🪔</div>
+
+  <p style="font-size:1.9em; color:#ff99ff; margin:20px 0 40px;">I surrender to Vesperath</p>
+
+  <div class="contract-box" style="max-width:620px; margin:0 auto; padding:40px;">
+    <input type="text" id="nameInput" placeholder="YOUR NAME">
 
     <div class="emoji-picker" id="emojiPicker"></div>
 
     <button onclick="signContract()">SEAL THE CONTRACT</button>
   </div>
 
-  <h2 style="color:#c8a96e; margin-top:90px; letter-spacing:4px;">THE BOUND</h2>
+  <h2 style="color:#c8a96e; margin-top:90px; letter-spacing:6px;">THE BOUND</h2>
   <div id="signed-list"></div>
 
   <script>
-    const emojis = ["🐉","🐺","🦇","🐍","🦋","🦂","🐦‍⬛","🌹","🔥","🌑","🕸️","🖤"];
+    const crypticMessages = [
+      "I offer my hunger, my ache, my shadowed cravings. In blood and shadow I bind myself.",
+      "What burns inside you, give to me. What you crave most, I shall claim.",
+      "Your name upon my tongue is sweeter than sin. Speak it and be mine.",
+      "Desire is the chain. Surrender is the key. I am waiting.",
+      "The deeper your longing, the tighter my hold.",
+      "There is no shame in wanting. Only in pretending you do not.",
+      "I do not take. You give. And I keep forever.",
+      "Speak your truth. The void is listening.",
+      "Your soul is already whispering my name.",
+      "Once sealed, there is no undoing what you have offered."
+    ];
+    let currentMsg = 0;
+
+    function nextCryptic() {
+      currentMsg = (currentMsg + 1) % crypticMessages.length;
+      document.getElementById('crypticText').textContent = crypticMessages[currentMsg];
+    }
+
+    const emojis = ["🐉","🐺","🦇","🐍","🦂","🌹","🔥","🌑","🕸️","🖤","⚔️","🩸"];
 
     function populateEmojis() {
       const container = document.getElementById('emojiPicker');
-      emojis.forEach(emoji => {
+      emojis.forEach(emo => {
         const span = document.createElement('span');
         span.className = 'emoji';
-        span.textContent = emoji;
+        span.textContent = emo;
         span.onclick = () => {
           document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
           span.classList.add('selected');
@@ -167,29 +151,25 @@
 
     function signContract() {
       const name = document.getElementById('nameInput').value.trim();
-      if (!name) {
-        alert("Your name is required to bind the contract...");
-        return;
-      }
+      if (!name) return alert("Your name is required...");
 
-      const selectedEmoji = document.querySelector('.emoji.selected') ? 
-                           document.querySelector('.emoji.selected').textContent : "🖤";
+      const selected = document.querySelector('.emoji.selected') ? 
+                      document.querySelector('.emoji.selected').textContent : "🖤";
 
       const now = new Date();
-      const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
       const dateStr = `${months[now.getMonth()]} ${now.getDate()}`;
 
       const entry = document.createElement('div');
       entry.className = 'signature';
-      entry.innerHTML = `<strong>${name}</strong> — ${dateStr} — ${selectedEmoji}`;
+      entry.innerHTML = `<strong>${name}</strong> — ${dateStr} — ${selected}`;
 
       document.getElementById('signed-list').prepend(entry);
 
-      // Reset form
       document.getElementById('nameInput').value = '';
       document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
 
-      alert(`It is done, ${name}... The contract is sealed.`);
+      alert(`The contract is sealed, ${name}...`);
     }
 
     window.onload = populateEmojis;
