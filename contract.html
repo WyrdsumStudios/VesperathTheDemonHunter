@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Contract — Vesperath</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      background:#0a0008; 
+      color:#ff3366; 
+      font-family:'Cinzel Decorative',serif; 
+      text-align:center; 
+      padding:40px 20px; 
+      margin:0; 
+      min-height:100vh; 
+      position:relative; 
+      overflow-x:hidden;
+    }
+    h1 { 
+      font-size:4.2em; 
+      letter-spacing:8px; 
+      text-shadow:0 0 40px #ff3366, 0 0 80px #9f00ff; 
+      margin:30px 0 20px; 
+    }
+    .subtitle { font-size:1.5em; color:#ff99ff; margin-bottom:50px; opacity:0.9; }
 
+    /* Navigation */
+    .main-nav { text-align:center; margin:20px 0 40px; }
+    .realm-text { font-size:0.65em; letter-spacing:6px; color:#c8a96e; opacity:0.6; margin-bottom:12px; }
+    .nav-links { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; }
+    .nav-link { 
+      font-size:0.85em; letter-spacing:3px; color:#e8d5ff; text-decoration:none; 
+      padding:10px 22px; border:1px solid rgba(255,51,102,0.3); transition:all 0.3s;
+    }
+    .nav-link:hover, .nav-link.active { border-color:#ff3366; color:#ff3366; }
+
+    .contract-box { 
+      max-width:720px; margin:40px auto; padding:50px 40px; 
+      background:rgba(20,0,30,0.95); border:4px solid #ff3366; 
+      border-radius:20px; box-shadow:0 0 70px rgba(159,0,255,0.6);
+    }
+
+    input { 
+      width:100%; padding:18px; font-size:1.4em; background:#111; 
+      color:#ffddaa; border:3px solid #ff3366; margin:20px 0; text-align:center;
+    }
+
+    .emoji-picker { display:flex; justify-content:center; gap:15px; flex-wrap:wrap; margin:25px 0; }
+    .emoji { font-size:2.2em; cursor:pointer; padding:8px; transition:all 0.3s; }
+    .emoji:hover, .emoji.selected { transform:scale(1.4); }
+
+    button { 
+      padding:18px 70px; background:#330011; color:#ff3366; border:4px solid #ff3366; 
+      font-size:1.6em; cursor:pointer; margin-top:20px; transition:all 0.4s;
+    }
+    button:hover { background:#ff3366; color:#0a0008; }
+
+    #signed-list { margin-top:60px; text-align:left; max-width:620px; margin-left:auto; margin-right:auto; }
+    .signature { 
+      padding:12px 0; border-bottom:1px solid rgba(255,51,102,0.2); 
+      font-size:1.25em; color:#e8d5ff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <p class="realm-text">THE VOID AWAITS</p>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="origin.html" class="nav-link">Origin</a>
+      <a href="contract.html" class="nav-link active">Contract</a>
+      <a href="candle-ritual.html" class="nav-link">Candle Ritual</a>
+    </div>
+  </nav>
+
+  <h1>THE CONTRACT</h1>
+  <p class="subtitle">Seal your desire in blood and shadow</p>
+
+  <div class="contract-box">
+    <p style="font-size:1.6em; margin-bottom:30px;">I offer myself to Vesperath</p>
+    
+    <input type="text" id="nameInput" placeholder="Enter your name" maxlength="30">
+    
+    <div class="emoji-picker" id="emojiPicker"></div>
+
+    <button onclick="signContract()">SIGN YOUR NAME</button>
+  </div>
+
+  <!-- Signed List -->
+  <h2 style="margin-top:80px; color:#c8a96e;">Those Who Have Signed</h2>
+  <div id="signed-list"></div>
+
+  <script>
+    const emojis = ["🐉", "🐺", "🦇", "🐍", "🦋", "🦂", "🐦‍⬛", "🦴", "🌹", "🔥", "🌑", "🕸️"];
+
+    // Populate emoji picker
+    function populateEmojis() {
+      const container = document.getElementById('emojiPicker');
+      emojis.forEach(emoji => {
+        const span = document.createElement('span');
+        span.className = 'emoji';
+        span.textContent = emoji;
+        span.onclick = () => {
+          document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
+          span.classList.add('selected');
+          span.dataset.selected = emoji;
+        };
+        container.appendChild(span);
+      });
+    }
+
+    function signContract() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) {
+        alert("You must speak your name to seal the contract...");
+        return;
+      }
+
+      const selectedEmoji = document.querySelector('.emoji.selected') ? 
+                           document.querySelector('.emoji.selected').dataset.selected : "🖤";
+
+      const now = new Date();
+      const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const dateStr = `${months[now.getMonth()]} ${now.getDate()}`;
+
+      const entry = document.createElement('div');
+      entry.className = 'signature';
+      entry.innerHTML = `<strong>${name}</strong> — ${dateStr} — ${selectedEmoji}`;
+
+      document.getElementById('signed-list').prepend(entry);
+
+      // Clear form
+      document.getElementById('nameInput').value = '';
+      document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
+
+      alert(`The contract is sealed, ${name}...`);
+    }
+
+    // Initialize
+    window.onload = populateEmojis;
+  </script>
+</body>
+</html>
