@@ -137,7 +137,6 @@
     .signature .sig-animal { font-size: 1.8em; }
     .signature .sig-date { color: #9f00ff; font-size: 0.8em; opacity: 0.8; }
 
-    /* Modal */
     #animalModal {
       display: none;
       position: fixed;
@@ -218,12 +217,11 @@
 
   <div id="sealingOverlay" class="sealing"></div>
 
-  <!-- Animal Modal -->
   <div id="animalModal">
     <div class="modal-inner">
       <h2>Choose Your Mark</h2>
       <div id="animalGrid"></div>
-      <button onclick="closeModal()" style="margin-top:25px; padding:14px 40px; font-size:1.1em;">Close</button>
+      <button onclick="closeModal()" style="margin-top:25px; padding:14px 40px;">Close</button>
     </div>
   </div>
 
@@ -262,7 +260,7 @@
     window.addEventListener('resize', () => { resize(); initStars(); });
     resize(); initStars(); draw();
 
-    // Esroth toggle
+    // Esroth
     function toggleEsroth() {
       const img = document.getElementById('esroth-img');
       if (img.src.endsWith('.jpg')) img.src = img.dataset.gif;
@@ -295,12 +293,11 @@
       });
       document.getElementById('animalModal').classList.add('open');
     }
-
     function closeModal() {
       document.getElementById('animalModal').classList.remove('open');
     }
 
-    // Sign Contract
+    // Sign
     function signContract() {
       const name = document.getElementById('nameInput').value.trim();
       if (!name) return alert("Please enter your name.");
@@ -310,31 +307,23 @@
         return alert("Your soul is already bound...");
       }
 
-      // sealing flash
       const seal = document.getElementById('sealingOverlay');
       seal.classList.add('active');
       setTimeout(() => seal.classList.remove('active'), 1000);
 
-      // add to list
       const list = document.getElementById('signed-list');
       const entry = document.createElement('div');
       entry.className = 'signature';
       entry.innerHTML = `\( {chosenAnimal ? `<span class="sig-animal"> \){chosenAnimal}</span>` : ''}<strong>\( {name}</strong><span class="sig-date"> \){new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>`;
       list.prepend(entry);
 
-      // save
-      saved.unshift({
-        name: name,
-        animal: chosenAnimal,
-        date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})
-      });
+      saved.unshift({name, animal: chosenAnimal, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})});
       localStorage.setItem('vesperath-bound', JSON.stringify(saved));
 
       document.getElementById('nameInput').value = '';
       setRandomMark();
     }
 
-    // Load saved signatures
     function loadSaved() {
       const saved = JSON.parse(localStorage.getItem('vesperath-bound') || '[]');
       const list = document.getElementById('signed-list');
@@ -347,7 +336,6 @@
       });
     }
 
-    // Initialize
     window.onload = () => {
       setRandomMark();
       loadSaved();
