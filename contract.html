@@ -11,86 +11,61 @@
       color:#ff3366; 
       font-family:'Cinzel Decorative',serif; 
       text-align:center; 
-      padding:0; 
       margin:0; 
+      padding:0; 
       min-height:100vh; 
       overflow-x:hidden;
     }
 
-    .main-nav { 
-      text-align:center; padding:25px 0; 
-      background:rgba(10,0,8,0.95); 
-      border-bottom:1px solid #330011; 
-    }
-    .nav-links { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
-    .nav-link { 
-      padding:12px 28px; color:#e8d5ff; text-decoration:none; 
-      border:1px solid rgba(255,51,102,0.3); font-size:0.95em; letter-spacing:3px;
-      transition:all 0.4s;
-    }
+    .main-nav { text-align:center; padding:25px 0; background:rgba(10,0,8,0.95); border-bottom:1px solid #330011; }
+    .nav-link { padding:12px 28px; color:#e8d5ff; text-decoration:none; border:1px solid rgba(255,51,102,0.3); margin:0 8px; transition:all 0.4s; }
     .nav-link:hover, .nav-link.active { border-color:#ff3366; color:#ff3366; }
 
-    h1 { 
-      font-size:4.5em; 
-      letter-spacing:12px; 
-      margin:60px 0 20px; 
-      text-shadow:0 0 30px #ff3366;
+    h1 { font-size:4.2em; letter-spacing:12px; margin:60px 0 30px; text-shadow:0 0 30px #ff3366; }
+
+    /* Esroth Section */
+    .esroth-container { margin:40px auto; max-width:800px; cursor:pointer; }
+    .esroth { width:100%; max-height:420px; object-fit:contain; filter: drop-shadow(0 0 40px #9f00ff); }
+
+    .cryptic-grid { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); 
+      gap:25px; 
+      max-width:900px; 
+      margin:60px auto; 
+      padding:0 20px;
     }
 
-    .cryptic-box { 
-      max-width:680px; 
+    .chalice { font-size:14em; margin:50px 0 30px; filter: drop-shadow(0 0 60px #ff3366); }
+
+    .document-box { 
+      max-width:780px; 
       margin:40px auto; 
-      padding:40px 50px; 
-      background:rgba(15,0,20,0.85); 
-      border:2px solid #660022; 
+      padding:50px; 
+      background:rgba(15,0,20,0.9); 
+      border:3px solid #660022; 
       border-radius:12px; 
-      font-size:1.45em; 
+      text-align:left; 
       line-height:1.9; 
+      font-size:1.25em; 
       color:#e8d5ff;
     }
 
-    .chalice { 
-      font-size:12em; 
-      margin:40px 0 30px; 
-      filter: drop-shadow(0 0 50px #ff3366); 
-      line-height:1;
-    }
-
-    .surrender { 
-      font-size:2.1em; 
-      color:#ff99ff; 
-      margin:20px 0 50px; 
-      letter-spacing:4px;
-    }
-
     input { 
-      width:100%; max-width:520px; 
-      padding:22px; 
-      font-size:1.8em; 
-      background:#0f0a14; 
-      color:#ffddaa; 
-      border:4px solid #ff3366; 
-      border-radius:8px; 
-      text-align:center;
+      width:100%; max-width:520px; padding:22px; font-size:1.8em; 
+      background:#0f0a14; color:#ffddaa; border:4px solid #ff3366; 
+      margin:40px 0 20px; text-align:center; border-radius:8px;
     }
-
-    .emoji-picker { 
-      display:flex; justify-content:center; gap:22px; flex-wrap:wrap; margin:35px 0 40px; 
-    }
-    .emoji { font-size:3.2em; cursor:pointer; padding:8px; transition:all 0.3s; }
-    .emoji:hover, .emoji.selected { transform:scale(1.45); }
 
     button { 
-      padding:24px 90px; 
-      background:transparent; 
-      color:#ff3366; 
-      border:4px solid #ff3366; 
-      font-size:1.85em; 
-      letter-spacing:4px; 
-      cursor:pointer; 
-      transition:all 0.4s;
+      padding:22px 80px; background:transparent; color:#ff3366; 
+      border:4px solid #ff3366; font-size:1.7em; cursor:pointer; 
+      transition:all 0.4s; margin:20px;
     }
     button:hover { background:#ff3366; color:#0a0008; }
+
+    #signed-list { margin-top:80px; max-width:700px; margin-left:auto; margin-right:auto; }
+    .signature { padding:18px 0; border-bottom:1px dashed rgba(255,51,102,0.3); font-size:1.4em; color:#e8d5ff; }
   </style>
 </head>
 <body>
@@ -106,77 +81,79 @@
 
   <h1>THE CONTRACT</h1>
 
-  <div class="cryptic-box" id="crypticText">
-    Your soul is already whispering my name...
+  <!-- Esroth Image -->
+  <div class="esroth-container" onclick="alert('Esroth animation would play here...')">
+    <img src="https://via.placeholder.com/800x420/1a001a/9f00ff?text=ESROTH" alt="Esroth" class="esroth">
   </div>
-
-  <button onclick="nextCryptic()">Tell me more, Vesperath...</button>
 
   <div class="chalice">🩸</div>
 
-  <p class="surrender">I SURRENDER TO VESPERATH</p>
+  <!-- Document / PDF-style box -->
+  <div class="document-box" id="documentBox">
+    <p>Your soul has already been whispering my name in the dark.</p>
+    <p>I do not take what is not offered. I only claim what is willingly given.</p>
+    <p>Desire is the chain. Surrender is the key.</p>
+    <p>Sign below and become mine.</p>
+  </div>
 
   <input type="text" id="nameInput" placeholder="YOUR NAME">
 
-  <div class="emoji-picker" id="emojiPicker"></div>
-
+  <button onclick="showAnimalPicker()">CHOOSE YOUR ANIMAL</button>
   <button onclick="signContract()">SEAL THE CONTRACT</button>
 
-  <h2 style="margin-top:100px; color:#c8a96e; letter-spacing:6px;">THE BOUND</h2>
-  <div id="signed-list" style="max-width:700px; margin:30px auto; padding:0 20px;"></div>
+  <h2 style="margin-top:90px; color:#c8a96e;">THE BOUND</h2>
+  <div id="signed-list"></div>
+
+  <!-- Animal Picker Modal -->
+  <div id="animalModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(10,0,8,0.95); z-index:1000; align-items:center; justify-content:center;">
+    <div style="background:#1a0033; padding:40px; border:4px solid #ff3366; max-width:700px; border-radius:16px;">
+      <h2 style="color:#ff99ff;">Choose Your Mark</h2>
+      <div id="animalGrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin:30px 0;"></div>
+      <button onclick="closeModal()" style="margin-top:20px;">Close</button>
+    </div>
+  </div>
 
   <script>
-    const messages = [
-      "Your soul is already whispering my name...",
-      "Desire is the chain. Surrender is the key.",
-      "The deeper your craving, the tighter my hold.",
-      "There is no shame in wanting. Only in denying it.",
-      "Speak your truth. The void is listening.",
-      "Once you sign, there is no undoing what you offer."
-    ];
-    let index = 0;
+    const animals = ["🐉","🐺","🦇","🐍","🦂","🌹","🔥","🦋","🕸️","🖤","⚔️","🩸"];
 
-    function nextCryptic() {
-      index = (index + 1) % messages.length;
-      document.getElementById('crypticText').textContent = messages[index];
+    function showAnimalPicker() {
+      const modal = document.getElementById('animalModal');
+      const grid = document.getElementById('animalGrid');
+      grid.innerHTML = '';
+      
+      animals.forEach(animal => {
+        const div = document.createElement('div');
+        div.style.fontSize = '3.5em';
+        div.style.cursor = 'pointer';
+        div.style.padding = '15px';
+        div.style.textAlign = 'center';
+        div.textContent = animal;
+        div.onclick = () => {
+          alert(`You chose ${animal}`);
+          closeModal();
+        };
+        grid.appendChild(div);
+      });
+      
+      modal.style.display = 'flex';
     }
 
-    const emojis = ["🐉","🐺","🦇","🐍","🦂","🌹","🔥","🌑","🕸️","🖤","🩸","⚔️"];
-    function populateEmojis() {
-      const container = document.getElementById('emojiPicker');
-      emojis.forEach(emo => {
-        const span = document.createElement('span');
-        span.className = 'emoji';
-        span.textContent = emo;
-        span.onclick = () => {
-          document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
-          span.classList.add('selected');
-        };
-        container.appendChild(span);
-      });
+    function closeModal() {
+      document.getElementById('animalModal').style.display = 'none';
     }
 
     function signContract() {
       const name = document.getElementById('nameInput').value.trim();
       if (!name) return alert("Your name is required...");
 
-      const emoji = document.querySelector('.emoji.selected') ? 
-                   document.querySelector('.emoji.selected').textContent : "🖤";
-
-      const now = new Date();
-      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      const date = `${months[now.getMonth()]} ${now.getDate()}`;
-
       const entry = document.createElement('div');
-      entry.style = "padding:16px 0; border-bottom:1px dashed rgba(255,51,102,0.3); font-size:1.4em;";
-      entry.innerHTML = `<strong>${name}</strong> — ${date} — ${emoji}`;
+      entry.className = 'signature';
+      entry.innerHTML = `<strong>${name}</strong> — ${new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'})}`;
       document.getElementById('signed-list').prepend(entry);
 
       document.getElementById('nameInput').value = '';
-      document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
+      alert(`Contract sealed, ${name}...`);
     }
-
-    window.onload = populateEmojis;
   </script>
 </body>
 </html>
