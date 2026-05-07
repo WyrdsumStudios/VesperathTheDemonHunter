@@ -4,19 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Contract — Vesperath</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
-    /* ── NAV (unchanged) ── */
+    :root {
+      --blood-red: #ff1a4d;
+      --deep-pink: #ff3399;
+      --ice-blue: #99ddff;
+      --dark-bg: #0a0008;
+    }
+
+    /* ── NAV ── */
     .main-nav {
       text-align: center;
       margin: 20px 0 30px;
     }
     .realm-text {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 0.6em;
-      letter-spacing: 0.4em;
+      font-family: 'UnifrakturMaguntia', serif;
+      font-size: 0.65em;
+      letter-spacing: 0.5em;
       color: #c8a96e;
-      opacity: 0.6;
+      opacity: 0.7;
       margin-bottom: 18px;
     }
     .nav-links {
@@ -26,32 +33,33 @@
       gap: 14px;
     }
     .nav-link {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 0.58em;
-      letter-spacing: 0.25em;
+      font-family: 'UnifrakturMaguntia', serif;
+      font-size: 0.6em;
+      letter-spacing: 0.3em;
       color: #e8d5ff;
       text-decoration: none;
-      border: 1px solid rgba(204,26,58,0.4);
-      padding: 10px 22px;
+      border: 1px solid rgba(255,26,77,0.4);
+      padding: 10px 24px;
       transition: all 0.3s;
     }
     .nav-link:hover,
     .nav-link.active {
-      border-color: #ff3366;
-      color: #ff3366;
+      border-color: var(--blood-red);
+      color: var(--deep-pink);
+      text-shadow: 0 0 15px var(--ice-blue);
     }
     .nav-divider {
-      width: 180px;
+      width: 200px;
       height: 1px;
-      background: linear-gradient(to right, transparent, #cc1a3a, transparent);
+      background: linear-gradient(to right, transparent, var(--blood-red), transparent);
       margin: 24px auto 0;
     }
 
     /* ── BASE ── */
     body {
-      background: #0a0008;
-      color: #ff3366;
-      font-family: monospace;
+      background: var(--dark-bg);
+      color: var(--blood-red);
+      font-family: 'UnifrakturMaguntia', serif;
       text-align: center;
       padding: 40px 20px;
       margin: 0;
@@ -60,12 +68,20 @@
       overflow-x: hidden;
     }
 
+    /* MASSIVE COOL TITLE */
     h1 {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 3.8em;
-      letter-spacing: 8px;
-      text-shadow: 0 0 30px #ff3366, 0 0 70px #9f00ff;
-      margin-bottom: 10px;
+      font-family: 'UnifrakturMaguntia', serif;
+      font-size: 4.8em;
+      letter-spacing: 12px;
+      background: linear-gradient(90deg, var(--blood-red), var(--deep-pink), var(--ice-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 
+        0 0 20px var(--blood-red),
+        0 0 40px var(--deep-pink),
+        0 0 80px #000;
+      margin: 20px 0 10px;
+      line-height: 1;
     }
 
     /* ── ESROTH ── */
@@ -83,13 +99,13 @@
       transition: filter 0.4s;
     }
     .esroth:hover {
-      filter: drop-shadow(0 0 70px #ff3366);
+      filter: drop-shadow(0 0 70px var(--blood-red));
     }
 
     .chalice {
-      font-size: 10em;
-      margin: 40px 0 20px;
-      filter: drop-shadow(0 0 60px #ff3366);
+      font-size: 9em;
+      margin: 30px 0 25px;
+      filter: drop-shadow(0 0 50px var(--blood-red));
       display: block;
     }
 
@@ -98,36 +114,53 @@
       max-width: 780px;
       margin: 40px auto;
       padding: 50px;
-      background: rgba(15, 0, 20, 0.9);
+      background: rgba(15, 0, 20, 0.92);
       border: 3px solid #660022;
       border-radius: 12px;
       text-align: left;
       line-height: 1.9;
-      font-size: 1.1em;
+      font-size: 1.15em;
       color: #e8d5ff;
-      font-family: 'Cinzel Decorative', serif;
-      box-shadow: 0 0 50px rgba(159,0,255,0.3), inset 0 0 30px rgba(255,51,102,0.08);
+      box-shadow: 0 0 60px rgba(255,51,102,0.3), inset 0 0 30px rgba(153,221,255,0.1);
     }
-    .document-box p {
-      margin: 0 0 18px;
+
+    /* ── MARK DISPLAY ── */
+    .mark-display {
+      font-size: 6.5em;
+      margin: 20px auto 15px;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,26,77,0.08);
+      border: 4px solid var(--deep-pink);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.4s;
+      box-shadow: 0 0 40px rgba(255,51,153,0.4);
+    }
+    .mark-display:hover {
+      transform: scale(1.12) rotate(8deg);
+      box-shadow: 0 0 60px var(--ice-blue);
+      border-color: var(--ice-blue);
     }
 
     /* ── FORM ── */
     .contract-form {
-      margin: 40px auto;
-      max-width: 600px;
+      margin: 30px auto;
+      max-width: 520px;
     }
 
     input[type="text"] {
       width: 100%;
-      max-width: 520px;
-      padding: 22px;
-      font-size: 1.4em;
-      font-family: 'Cinzel Decorative', serif;
+      padding: 16px;
+      font-size: 1.35em;
+      font-family: 'UnifrakturMaguntia', serif;
       background: #0f0a14;
       color: #ffddaa;
-      border: 4px solid #ff3366;
-      margin: 0 0 20px;
+      border: 3px solid var(--blood-red);
+      margin: 15px 0 25px;
       text-align: center;
       border-radius: 8px;
       box-sizing: border-box;
@@ -135,82 +168,75 @@
       transition: all 0.3s;
     }
     input[type="text"]:focus {
-      box-shadow: 0 0 30px rgba(255,51,102,0.5);
-    }
-
-    .chosen-animal-display {
-      font-size: 3.2em;
-      margin: 10px 0 25px;
-      min-height: 1.4em;
-      transition: transform 0.4s ease;
+      border-color: var(--ice-blue);
+      box-shadow: 0 0 25px var(--ice-blue);
     }
 
     .btn-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 16px;
-      margin: 10px 0;
+      gap: 20px;
     }
 
     button {
-      padding: 18px 40px;
+      padding: 22px 52px;
       background: transparent;
-      color: #ff3366;
-      border: 3px solid #ff3366;
-      font-size: 1em;
-      font-family: 'Cinzel Decorative', serif;
-      letter-spacing: 2px;
+      color: var(--deep-pink);
+      border: 4px solid var(--deep-pink);
+      font-family: 'UnifrakturMaguntia', serif;
+      font-size: 1.35em;
+      letter-spacing: 4px;
       cursor: pointer;
-      transition: all 0.4s;
+      transition: all 0.5s;
       border-radius: 8px;
+      text-shadow: 0 0 15px var(--blood-red);
     }
     button:hover {
-      background: #ff3366;
+      background: linear-gradient(to bottom, var(--blood-red), #cc0033);
       color: #0a0008;
-      box-shadow: 0 0 40px #ff3366;
+      box-shadow: 0 0 50px var(--deep-pink),
+                  0 0 80px var(--ice-blue);
+      transform: scale(1.05);
     }
 
     /* ── SIGNED LIST ── */
     .signed-section {
-      margin-top: 80px;
+      margin-top: 90px;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
     .signed-section h2 {
-      font-family: 'Cinzel Decorative', serif;
-      color: #c8a96e;
-      letter-spacing: 6px;
-      margin-bottom: 30px;
+      font-family: 'UnifrakturMaguntia', serif;
+      color: var(--ice-blue);
+      letter-spacing: 8px;
+      margin-bottom: 35px;
+      font-size: 2.2em;
     }
     .signature {
-      padding: 18px 0;
-      border-bottom: 1px dashed rgba(255, 51, 102, 0.3);
-      font-size: 1.1em;
+      padding: 20px 0;
+      border-bottom: 1px dashed rgba(255, 51, 102, 0.4);
+      font-size: 1.25em;
       color: #e8d5ff;
-      font-family: 'Cinzel Decorative', serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInSig 0.8s forwards;
+      gap: 16px;
+      animation: fadeInSig 0.9s forwards;
     }
     @keyframes fadeInSig {
       to { opacity: 1; transform: translateY(0); }
     }
-    .signature .sig-animal { font-size: 1.6em; }
-    .signature .sig-date { color: #9f00ff; font-size: 0.75em; opacity: 0.8; }
+    .signature .sig-animal { font-size: 1.8em; }
+    .signature .sig-date { color: var(--ice-blue); font-size: 0.8em; opacity: 0.85; }
 
-    /* ── ANIMAL MODAL ── */
+    /* ── MODAL ── */
     #animalModal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(10,0,8,0.96);
+      inset: 0;
+      background: rgba(10,0,8,0.97);
       z-index: 1000;
       align-items: center;
       justify-content: center;
@@ -218,71 +244,68 @@
     #animalModal.open { display: flex; }
     .modal-inner {
       background: #1a0033;
-      padding: 40px;
-      border: 4px solid #ff3366;
-      max-width: 600px;
-      width: 90%;
+      padding: 45px;
+      border: 5px solid var(--blood-red);
+      max-width: 620px;
+      width: 92%;
       border-radius: 16px;
-      box-shadow: 0 0 80px rgba(159,0,255,0.6);
+      box-shadow: 0 0 90px rgba(153,221,255,0.5);
     }
     .modal-inner h2 {
-      font-family: 'Cinzel Decorative', serif;
-      color: #ff99ff;
-      margin-bottom: 24px;
-      letter-spacing: 4px;
+      font-family: 'UnifrakturMaguntia', serif;
+      color: var(--deep-pink);
+      margin-bottom: 30px;
+      letter-spacing: 6px;
+      font-size: 2.4em;
     }
     #animalGrid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 0 0 30px;
+      gap: 18px;
+      margin-bottom: 30px;
     }
     .animal-option {
-      font-size: 3em;
+      font-size: 3.4em;
       cursor: pointer;
-      padding: 12px;
+      padding: 16px;
       text-align: center;
-      border-radius: 10px;
-      border: 2px solid transparent;
-      transition: all 0.25s;
+      border-radius: 12px;
+      border: 3px solid transparent;
+      transition: all 0.3s;
     }
     .animal-option:hover {
-      border-color: #ff3366;
-      background: rgba(255,51,102,0.15);
-      transform: scale(1.15);
+      border-color: var(--blood-red);
+      background: rgba(255,51,102,0.2);
+      transform: scale(1.2);
     }
     .animal-option.selected {
-      border-color: #9f00ff;
-      background: rgba(159,0,255,0.25);
+      border-color: var(--ice-blue);
+      background: rgba(153,221,255,0.2);
     }
 
-    /* Sealing Effect */
+    /* Sealing Overlay */
     .sealing {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(circle at center, rgba(255,51,102,0.25) 0%, transparent 70%);
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,26,77,0.35) 0%, transparent 65%);
       pointer-events: none;
       opacity: 0;
       z-index: 2000;
-      transition: opacity 1.2s;
+      transition: opacity 1.4s;
     }
-    .sealing.active {
-      opacity: 1;
-    }
+    .sealing.active { opacity: 1; }
 
-    /* MOBILE */
     @media (max-width: 600px) {
-      h1 { font-size: 2.6em; letter-spacing: 4px; }
-      .document-box { padding: 28px 20px; font-size: 0.95em; }
-      #animalGrid { grid-template-columns: repeat(3, 1fr); }
-      .chalice { font-size: 7em; }
+      h1 { font-size: 3.4em; letter-spacing: 6px; }
+      .mark-display { font-size: 5em; width: 110px; height: 110px; }
+      .document-box { padding: 30px 18px; }
+      button { padding: 18px 40px; font-size: 1.1em; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Stars Background -->
+  <!-- Stars -->
   <canvas id="stars-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
 
   <!-- Navigation -->
@@ -306,7 +329,7 @@
 
   <span class="chalice">🩸</span>
 
-  <!-- Contract Document -->
+  <!-- Contract Text -->
   <div class="document-box">
     <p>Your soul has already been whispering my name in the dark.</p>
     <p>I do not take what is not offered. I only claim what is willingly given.</p>
@@ -316,11 +339,12 @@
 
   <!-- Form -->
   <div class="contract-form">
+    <div class="mark-display" id="randomMark" onclick="openModal()"></div>
+    
     <input type="text" id="nameInput" placeholder="YOUR NAME" maxlength="60"/>
-    <div class="chosen-animal-display" id="chosenAnimalDisplay"></div>
+
     <div class="btn-row">
-      <button onclick="openModal()">⚰️ CHOOSE YOUR MARK</button>
-      <button onclick="signContract()">🩸 SEAL THE CONTRACT</button>
+      <button onclick="signContract()">🩸 SEAL THE CONTRACT 🩸</button>
     </div>
   </div>
 
@@ -333,21 +357,20 @@
   <!-- Sealing Overlay -->
   <div id="sealingOverlay" class="sealing"></div>
 
-  <!-- Animal Picker Modal -->
+  <!-- Animal Modal -->
   <div id="animalModal">
     <div class="modal-inner">
-      <h2>Choose Your Mark</h2>
+      <h2>Choose Thy Mark</h2>
       <div id="animalGrid"></div>
       <button onclick="closeModal()">Close</button>
     </div>
   </div>
 
   <script>
-    // ── Stars ──
+    // Stars (unchanged)
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
-
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -374,7 +397,7 @@
         const alpha = 0.5 + Math.sin(star.twinkle) * 0.5;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(232, 213, 255, ${alpha})`;
+        ctx.fillStyle = `rgba(153, 221, 255, ${alpha})`;
         ctx.fill();
         if (star.y > canvas.height) star.y = 0;
       });
@@ -385,7 +408,7 @@
     initStars();
     drawStars();
 
-    // ── Esroth toggle ──
+    // Esroth toggle
     const esrothImg = document.getElementById('esroth-img');
     function toggleEsroth() {
       const src = esrothImg.src;
@@ -397,10 +420,18 @@
       }
     }
 
-    // ── Animal Picker ──
+    // Animals
     const animals = ["🐉","🐺","🦇","🐍","🦂","🌹","🔥","🦋","🕸️","🖤","⚔️","🩸"];
     let chosenAnimal = '';
 
+    // Random mark on load
+    function setRandomMark() {
+      const random = animals[Math.floor(Math.random() * animals.length)];
+      chosenAnimal = random;
+      document.getElementById('randomMark').textContent = random;
+    }
+
+    // Modal
     function openModal() {
       const grid = document.getElementById('animalGrid');
       grid.innerHTML = '';
@@ -418,54 +449,45 @@
       chosenAnimal = animal;
       document.querySelectorAll('.animal-option').forEach(d => d.classList.remove('selected'));
       el.classList.add('selected');
-
-      const display = document.getElementById('chosenAnimalDisplay');
-      display.textContent = animal;
-      display.style.transform = 'scale(1.6)';
-      setTimeout(() => display.style.transform = 'scale(1)', 280);
-
-      setTimeout(closeModal, 420);
+      document.getElementById('randomMark').textContent = animal;
+      setTimeout(closeModal, 350);
     }
 
     function closeModal() {
       document.getElementById('animalModal').classList.remove('open');
     }
 
-    // ── Sign Contract with sealing effect ──
+    // Sign Contract
     function signContract() {
-      const nameInput = document.getElementById('nameInput');
-      const name = nameInput.value.trim();
-
+      const name = document.getElementById('nameInput').value.trim();
       if (!name) {
-        nameInput.style.borderColor = '#9f00ff';
-        nameInput.placeholder = 'YOUR NAME IS REQUIRED...';
+        const input = document.getElementById('nameInput');
+        input.style.borderColor = '#99ddff';
+        input.placeholder = 'NAME IS REQUIRED...';
         setTimeout(() => {
-          nameInput.style.borderColor = '#ff3366';
-          nameInput.placeholder = 'YOUR NAME';
+          input.style.borderColor = '#ff1a4d';
+          input.placeholder = 'YOUR NAME';
         }, 1600);
         return;
       }
 
-      // Check for duplicate
       const saved = JSON.parse(localStorage.getItem('vesperath-bound') || '[]');
       if (saved.some(entry => entry.name.toLowerCase() === name.toLowerCase())) {
-        alert("Your soul is already bound to Vesperath...");
+        alert("Your soul is already bound...");
         return;
       }
 
-      // Sealing animation
+      // Sealing effect
       const overlay = document.getElementById('sealingOverlay');
       overlay.classList.add('active');
-      setTimeout(() => overlay.classList.remove('active'), 1200);
+      setTimeout(() => overlay.classList.remove('active'), 1400);
 
-      // Create signature entry
+      // Add signature
       const list = document.getElementById('signed-list');
       const entry = document.createElement('div');
       entry.className = 'signature';
-
       const animalSpan = chosenAnimal ? `<span class="sig-animal">${chosenAnimal}</span>` : '';
       const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
       entry.innerHTML = `\( {animalSpan}<strong> \){name}</strong><span class="sig-date">${date}</span>`;
       list.prepend(entry);
 
@@ -473,18 +495,16 @@
       saved.unshift({ name, animal: chosenAnimal, date });
       localStorage.setItem('vesperath-bound', JSON.stringify(saved));
 
-      // Reset form
-      nameInput.value = '';
-      chosenAnimal = '';
-      document.getElementById('chosenAnimalDisplay').textContent = '';
+      // Reset
+      document.getElementById('nameInput').value = '';
+      setRandomMark();
     }
 
-    // ── Load saved signatures ──
+    // Load saved
     function loadSaved() {
       const saved = JSON.parse(localStorage.getItem('vesperath-bound') || '[]');
       const list = document.getElementById('signed-list');
-      list.innerHTML = ''; // clear before re-adding
-
+      list.innerHTML = '';
       saved.forEach(({ name, animal, date }) => {
         const entry = document.createElement('div');
         entry.className = 'signature';
@@ -494,8 +514,11 @@
       });
     }
 
-    // Initialize
-    window.onload = loadSaved;
+    // Initialize everything
+    window.onload = () => {
+      setRandomMark();
+      loadSaved();
+    };
   </script>
 </body>
 </html>
