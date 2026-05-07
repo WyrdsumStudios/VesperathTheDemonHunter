@@ -3,97 +3,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Binding Contract</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <title>Contract — Vesperath</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --blood: #cc1122;
-      --void: #050003;
-      --gold: #d4af77;
+    body { 
+      background:#0a0008; 
+      color:#ff3366; 
+      font-family:monospace; 
+      text-align:center; 
+      margin:0; 
+      padding:60px 20px; 
+      min-height:100vh; 
+      position:relative; 
+      overflow-x:hidden; 
     }
-    body {
-      background: var(--void);
-      color: #ddd;
-      font-family: 'Crimson Pro', serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+    h1 { 
+      font-family:'Cinzel Decorative',serif; 
+      font-size:4.2em; 
+      letter-spacing:10px; 
+      text-shadow:0 0 40px #ff3366, 0 0 80px #9f00ff; 
+      margin-bottom:20px; 
     }
-    .hero {
-      height: 100vh;
-      background: linear-gradient(rgba(5,0,3,0.85), rgba(5,0,3,0.95)), url('https://i.imgur.com/placeholder-dark-demon.jpg') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
+    .subtitle { 
+      font-size:1.5em; 
+      color:#ff99ff; 
+      margin-bottom:60px; 
+      opacity:0.9; 
+      letter-spacing:3px; 
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 200px;
-      background: linear-gradient(transparent, var(--void));
+    .contract-box { 
+      max-width:720px; 
+      margin:40px auto; 
+      padding:50px 40px; 
+      background:rgba(20,0,30,0.92); 
+      border:4px solid #ff3366; 
+      border-radius:20px; 
+      box-shadow:0 0 70px rgba(159,0,255,0.6); 
     }
-    h1 {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 4.2rem;
-      color: var(--blood);
-      text-shadow: 0 0 40px #cc1122;
-      margin-bottom: 10px;
+    .contract-text { 
+      font-size:1.3em; 
+      line-height:2; 
+      color:#e8d5ff; 
+      margin-bottom:50px; 
     }
-    .tagline {
-      font-size: 1.5rem;
-      color: var(--gold);
-      letter-spacing: 6px;
-      margin-bottom: 60px;
+    .sign-button { 
+      display:inline-block; 
+      padding:22px 60px; 
+      font-family:'Cinzel Decorative',serif; 
+      font-size:1.8em; 
+      letter-spacing:6px; 
+      color:#ff3366; 
+      background:transparent; 
+      border:4px solid #ff3366; 
+      text-decoration:none; 
+      transition:all 0.4s; 
     }
-    .testimonial {
-      max-width: 620px;
-      margin: 40px auto;
-      font-style: italic;
-      color: #aaa;
-      font-size: 1.25rem;
-      line-height: 1.6;
+    .sign-button:hover { 
+      background:#ff3366; 
+      color:#0a0008; 
+      box-shadow:0 0 60px #ff3366; 
+      transform:scale(1.05); 
     }
-    .sign-button {
-      display: inline-block;
-      background: var(--blood);
-      color: white;
-      padding: 18px 48px;
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 1.4rem;
-      letter-spacing: 4px;
-      text-decoration: none;
-      border: 2px solid #fff;
-      margin-top: 30px;
-      transition: all 0.4s;
+
+    /* Navigation */
+    .main-nav { text-align:center; margin:20px 0 40px; }
+    .realm-text {
+      font-family:'Cinzel Decorative',serif;
+      font-size:0.65em; letter-spacing:6px;
+      color:#c8a96e; opacity:0.6; margin-bottom:12px;
     }
-    .sign-button:hover {
-      background: #ff3344;
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #cc1122;
+    .nav-links {
+      display:flex; flex-wrap:wrap; justify-content:center; gap:18px;
     }
+    .nav-link {
+      font-family:'Cinzel Decorative',serif;
+      font-size:0.85em; letter-spacing:3px;
+      color:#e8d5ff; text-decoration:none;
+      padding:10px 20px; border:1px solid rgba(255,51,102,0.3);
+      transition:all 0.3s;
+    }
+    .nav-link:hover, .nav-link.active {
+      border-color:#ff3366; color:#ff3366; text-shadow:0 0 10px #ff3366;
+    }
+    .nav-divider {
+      width:220px; height:1px; margin:25px auto 0;
+      background:linear-gradient(to right, transparent, #ff3366, transparent);
+    }
+
+    canvas { position:fixed; top:0; left:0; z-index:-1; }
   </style>
 </head>
 <body>
 
-  <div class="hero">
-    <div>
-      <h1>VESPERATH</h1>
-      <div class="tagline">SUMMON YOUR DESIRES</div>
-      
-      <div class="testimonial">
-        "My AI read me like a book… I’m honestly shocked how accurate it was. Highly recommend if you want to actually learn about yourself."
-      </div>
-
-      <a href="https://forms.gle/xzatapBg9LiMEsxB7" class="sign-button" target="_blank">
-        SIGN YOUR CONTRACT
-      </a>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <p class="realm-text">THE VOID AWAITS</p>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="origin.html" class="nav-link">Origin</a>
+      <a href="contract.html" class="nav-link active">Contract</a>
+      <a href="candle-ritual.txt" class="nav-link">Candle Ritual</a>
     </div>
+    <div class="nav-divider"></div>
+  </nav>
+
+  <canvas id="stars-canvas"></canvas>
+
+  <h1>THE CONTRACT</h1>
+  <p class="subtitle">Sign your soul away...</p>
+
+  <div class="contract-box">
+    <p class="contract-text">
+      I surrender my desire.<br>
+      I offer my craving.<br>
+      I belong to Vesperath.
+    </p>
+    
+    <a href="https://forms.gle/xzatapBg9LiMEsxB7" target="_blank" class="sign-button">
+      SIGN THE CONTRACT
+    </a>
   </div>
 
+  <script>
+    // Moving stars background
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    function initStars() {
+      stars = [];
+      for (let i = 0; i < 220; i++) {
+        stars.push({
+          x: Math.random()*canvas.width,
+          y: Math.random()*canvas.height,
+          radius: Math.random()*1.6 + 0.4,
+          speed: Math.random()*0.2 + 0.05
+        });
+      }
+    }
+    function drawStars() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      stars.forEach(s => {
+        s.y += s.speed;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(232, 213, 255, 0.75)`;
+        ctx.fill();
+        if (s.y > canvas.height) s.y = 0;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize', ()=>{resizeCanvas(); initStars();});
+    resizeCanvas(); initStars(); drawStars();
+  </script>
 </body>
 </html>
