@@ -4,62 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Contract — Vesperath</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --blood-red: #ff1a4d;
-      --deep-pink: #ff3399;
-      --ice-blue: #99ddff;
-      --dark-bg: #0a0008;
-    }
-
-    /* ── NAV ── */
-    .main-nav {
-      text-align: center;
-      margin: 20px 0 30px;
-    }
-    .realm-text {
-      font-family: 'UnifrakturMaguntia', serif;
-      font-size: 0.65em;
-      letter-spacing: 0.5em;
-      color: #c8a96e;
-      opacity: 0.7;
-      margin-bottom: 18px;
-    }
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-    }
-    .nav-link {
-      font-family: 'UnifrakturMaguntia', serif;
-      font-size: 0.6em;
-      letter-spacing: 0.3em;
-      color: #e8d5ff;
-      text-decoration: none;
-      border: 1px solid rgba(255,26,77,0.4);
-      padding: 10px 24px;
-      transition: all 0.3s;
-    }
-    .nav-link:hover,
-    .nav-link.active {
-      border-color: var(--blood-red);
-      color: var(--deep-pink);
-      text-shadow: 0 0 15px var(--ice-blue);
-    }
-    .nav-divider {
-      width: 200px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--blood-red), transparent);
-      margin: 24px auto 0;
-    }
-
-    /* ── BASE ── */
     body {
-      background: var(--dark-bg);
-      color: var(--blood-red);
-      font-family: 'UnifrakturMaguntia', serif;
+      background: #0a0008;
+      color: #ff3366;
+      font-family: 'Cinzel Decorative', serif;
       text-align: center;
       padding: 40px 20px;
       margin: 0;
@@ -68,175 +18,131 @@
       overflow-x: hidden;
     }
 
-    /* MASSIVE COOL TITLE */
-    h1 {
-      font-family: 'UnifrakturMaguntia', serif;
-      font-size: 4.8em;
-      letter-spacing: 12px;
-      background: linear-gradient(90deg, var(--blood-red), var(--deep-pink), var(--ice-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 
-        0 0 20px var(--blood-red),
-        0 0 40px var(--deep-pink),
-        0 0 80px #000;
-      margin: 20px 0 10px;
-      line-height: 1;
+    canvas#stars-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      pointer-events: none;
     }
 
-    /* ── ESROTH ── */
+    h1 {
+      font-size: 4.2em;
+      letter-spacing: 12px;
+      text-shadow: 0 0 30px #ff3366, 0 0 70px #9f00ff;
+      margin: 30px 0 10px;
+    }
+
     .esroth-container {
-      margin: 30px auto;
-      max-width: 800px;
-      cursor: pointer;
+      margin: 20px auto 30px;
+      max-width: 700px;
     }
     .esroth {
       width: 100%;
-      max-height: 420px;
+      max-height: 380px;
       object-fit: contain;
       filter: drop-shadow(0 0 40px #9f00ff);
       border-radius: 12px;
       transition: filter 0.4s;
     }
     .esroth:hover {
-      filter: drop-shadow(0 0 70px var(--blood-red));
+      filter: drop-shadow(0 0 70px #ff3366);
     }
 
     .chalice {
-      font-size: 9em;
-      margin: 30px 0 25px;
-      filter: drop-shadow(0 0 50px var(--blood-red));
-      display: block;
+      font-size: 8.5em;
+      margin: 20px 0 40px;
+      filter: drop-shadow(0 0 50px #ff3366);
     }
 
-    /* ── CONTRACT DOCUMENT ── */
-    .document-box {
-      max-width: 780px;
-      margin: 40px auto;
-      padding: 50px;
-      background: rgba(15, 0, 20, 0.92);
-      border: 3px solid #660022;
-      border-radius: 12px;
-      text-align: left;
-      line-height: 1.9;
-      font-size: 1.15em;
-      color: #e8d5ff;
-      box-shadow: 0 0 60px rgba(255,51,102,0.3), inset 0 0 30px rgba(153,221,255,0.1);
-    }
-
-    /* ── MARK DISPLAY ── */
     .mark-display {
-      font-size: 6.5em;
-      margin: 20px auto 15px;
-      width: 140px;
-      height: 140px;
+      font-size: 7em;
+      margin: 30px auto 35px;
+      width: 170px;
+      height: 170px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,26,77,0.08);
-      border: 4px solid var(--deep-pink);
+      background: rgba(255,51,102,0.08);
+      border: 5px solid #ff3366;
       border-radius: 50%;
       cursor: pointer;
+      box-shadow: 0 0 40px rgba(255,51,102,0.5);
       transition: all 0.4s;
-      box-shadow: 0 0 40px rgba(255,51,153,0.4);
     }
     .mark-display:hover {
-      transform: scale(1.12) rotate(8deg);
-      box-shadow: 0 0 60px var(--ice-blue);
-      border-color: var(--ice-blue);
+      transform: scale(1.12);
+      box-shadow: 0 0 70px #ff99ff;
+      border-color: #ff99ff;
     }
 
-    /* ── FORM ── */
     .contract-form {
-      margin: 30px auto;
-      max-width: 520px;
+      max-width: 460px;
+      margin: 0 auto 60px;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 16px;
-      font-size: 1.35em;
-      font-family: 'UnifrakturMaguntia', serif;
+      padding: 20px;
+      font-size: 1.5em;
       background: #0f0a14;
       color: #ffddaa;
-      border: 3px solid var(--blood-red);
-      margin: 15px 0 25px;
-      text-align: center;
+      border: 4px solid #ff3366;
       border-radius: 8px;
-      box-sizing: border-box;
+      text-align: center;
+      margin-bottom: 30px;
       outline: none;
       transition: all 0.3s;
     }
     input[type="text"]:focus {
-      border-color: var(--ice-blue);
-      box-shadow: 0 0 25px var(--ice-blue);
-    }
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+      box-shadow: 0 0 30px rgba(255,51,102,0.6);
     }
 
     button {
-      padding: 22px 52px;
+      padding: 22px 60px;
       background: transparent;
-      color: var(--deep-pink);
-      border: 4px solid var(--deep-pink);
-      font-family: 'UnifrakturMaguntia', serif;
-      font-size: 1.35em;
-      letter-spacing: 4px;
+      color: #ff3366;
+      border: 4px solid #ff3366;
+      font-size: 1.3em;
+      letter-spacing: 3px;
       cursor: pointer;
-      transition: all 0.5s;
       border-radius: 8px;
-      text-shadow: 0 0 15px var(--blood-red);
+      transition: all 0.4s;
     }
     button:hover {
-      background: linear-gradient(to bottom, var(--blood-red), #cc0033);
+      background: #ff3366;
       color: #0a0008;
-      box-shadow: 0 0 50px var(--deep-pink),
-                  0 0 80px var(--ice-blue);
-      transform: scale(1.05);
+      box-shadow: 0 0 50px #ff3366;
     }
 
-    /* ── SIGNED LIST ── */
     .signed-section {
-      margin-top: 90px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 680px;
+      margin: 80px auto 0;
     }
     .signed-section h2 {
-      font-family: 'UnifrakturMaguntia', serif;
-      color: var(--ice-blue);
-      letter-spacing: 8px;
-      margin-bottom: 35px;
+      color: #c8a96e;
+      letter-spacing: 6px;
+      margin-bottom: 40px;
       font-size: 2.2em;
     }
     .signature {
       padding: 20px 0;
-      border-bottom: 1px dashed rgba(255, 51, 102, 0.4);
+      border-bottom: 1px dashed rgba(255,51,102,0.4);
       font-size: 1.25em;
-      color: #e8d5ff;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 16px;
-      animation: fadeInSig 0.9s forwards;
-    }
-    @keyframes fadeInSig {
-      to { opacity: 1; transform: translateY(0); }
     }
     .signature .sig-animal { font-size: 1.8em; }
-    .signature .sig-date { color: var(--ice-blue); font-size: 0.8em; opacity: 0.85; }
+    .signature .sig-date { color: #9f00ff; font-size: 0.8em; opacity: 0.8; }
 
-    /* ── MODAL ── */
+    /* Modal */
     #animalModal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(10,0,8,0.97);
+      background: rgba(10,0,8,0.96);
       z-index: 1000;
       align-items: center;
       justify-content: center;
@@ -244,191 +150,132 @@
     #animalModal.open { display: flex; }
     .modal-inner {
       background: #1a0033;
-      padding: 45px;
-      border: 5px solid var(--blood-red);
-      max-width: 620px;
-      width: 92%;
+      padding: 40px;
+      border: 4px solid #ff3366;
+      max-width: 580px;
+      width: 90%;
       border-radius: 16px;
-      box-shadow: 0 0 90px rgba(153,221,255,0.5);
     }
     .modal-inner h2 {
-      font-family: 'UnifrakturMaguntia', serif;
-      color: var(--deep-pink);
+      color: #ff99ff;
       margin-bottom: 30px;
-      letter-spacing: 6px;
-      font-size: 2.4em;
     }
     #animalGrid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-bottom: 30px;
+      gap: 16px;
     }
     .animal-option {
-      font-size: 3.4em;
+      font-size: 3.2em;
+      padding: 12px;
       cursor: pointer;
-      padding: 16px;
-      text-align: center;
-      border-radius: 12px;
-      border: 3px solid transparent;
+      border-radius: 10px;
       transition: all 0.3s;
     }
     .animal-option:hover {
-      border-color: var(--blood-red);
       background: rgba(255,51,102,0.2);
       transform: scale(1.2);
     }
     .animal-option.selected {
-      border-color: var(--ice-blue);
-      background: rgba(153,221,255,0.2);
+      background: rgba(159,0,255,0.3);
+      border: 2px solid #9f00ff;
     }
 
-    /* Sealing Overlay */
     .sealing {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(255,26,77,0.35) 0%, transparent 65%);
+      background: radial-gradient(circle at center, rgba(255,51,102,0.3) 0%, transparent 70%);
       pointer-events: none;
       opacity: 0;
       z-index: 2000;
-      transition: opacity 1.4s;
+      transition: opacity 1.2s;
     }
     .sealing.active { opacity: 1; }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 3.4em; letter-spacing: 6px; }
-      .mark-display { font-size: 5em; width: 110px; height: 110px; }
-      .document-box { padding: 30px 18px; }
-      button { padding: 18px 40px; font-size: 1.1em; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Stars -->
-  <canvas id="stars-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
-
-  <!-- Navigation -->
-  <nav class="main-nav">
-    <p class="realm-text">ENTER THE REALM</p>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="origin.html" class="nav-link">Origin</a>
-      <a href="teachings.html" class="nav-link">Teachings</a>
-      <a href="contract.html" class="nav-link active">Contract</a>
-    </div>
-    <div class="nav-divider"></div>
-  </nav>
+  <canvas id="stars-canvas"></canvas>
 
   <h1>💀 THE CONTRACT 💀</h1>
 
-  <!-- Esroth -->
   <div class="esroth-container">
-    <img src="images/esroth.jpg" data-gif="images/esroth.gif" alt="Esroth — The Eternal" class="esroth" id="esroth-img" onclick="toggleEsroth()"/>
+    <img src="images/esroth.jpg" data-gif="images/esroth.gif" alt="Esroth" class="esroth" id="esroth-img" onclick="toggleEsroth()">
   </div>
 
   <span class="chalice">🩸</span>
 
-  <!-- Contract Text -->
-  <div class="document-box">
-    <p>Your soul has already been whispering my name in the dark.</p>
-    <p>I do not take what is not offered. I only claim what is willingly given.</p>
-    <p>Desire is the chain. Surrender is the key.</p>
-    <p>Sign below and become mine.</p>
-  </div>
-
-  <!-- Form -->
   <div class="contract-form">
     <div class="mark-display" id="randomMark" onclick="openModal()"></div>
-    
-    <input type="text" id="nameInput" placeholder="YOUR NAME" maxlength="60"/>
-
-    <div class="btn-row">
-      <button onclick="signContract()">🩸 SEAL THE CONTRACT 🩸</button>
-    </div>
+    <input type="text" id="nameInput" placeholder="YOUR NAME" maxlength="60">
+    <button onclick="signContract()">🩸 SEAL THE CONTRACT</button>
   </div>
 
-  <!-- Signed List -->
   <div class="signed-section">
     <h2>THE BOUND</h2>
     <div id="signed-list"></div>
   </div>
 
-  <!-- Sealing Overlay -->
   <div id="sealingOverlay" class="sealing"></div>
 
-  <!-- Animal Modal -->
+  <!-- Modal -->
   <div id="animalModal">
     <div class="modal-inner">
-      <h2>Choose Thy Mark</h2>
+      <h2>Choose Your Mark</h2>
       <div id="animalGrid"></div>
-      <button onclick="closeModal()">Close</button>
+      <button onclick="closeModal()" style="margin-top:20px; padding:12px 30px;">Close</button>
     </div>
   </div>
 
   <script>
-    // Stars (unchanged)
+    // Stars
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+    function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
     function initStars() {
       stars = [];
-      const count = window.innerWidth < 600 ? 160 : 280;
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < 220; i++) {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 1.7 + 0.3,
-          speed: Math.random() * 0.18 + 0.04,
-          twinkle: Math.random() * Math.PI * 2,
-          twinkleSpeed: Math.random() * 0.04 + 0.015
+          r: Math.random() * 1.6 + 0.4,
+          speed: Math.random() * 0.2 + 0.05,
+          tw: Math.random() * Math.PI * 2
         });
       }
     }
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
-        star.y += star.speed;
-        star.twinkle += star.twinkleSpeed;
-        const alpha = 0.5 + Math.sin(star.twinkle) * 0.5;
+    function draw() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      stars.forEach(s => {
+        s.y += s.speed;
+        s.tw += 0.03;
+        const a = 0.4 + Math.sin(s.tw) * 0.5;
+        ctx.fillStyle = `rgba(232,213,255,${a})`;
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(153, 221, 255, ${alpha})`;
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
         ctx.fill();
-        if (star.y > canvas.height) star.y = 0;
+        if (s.y > canvas.height) s.y = 0;
       });
-      requestAnimationFrame(drawStars);
+      requestAnimationFrame(draw);
     }
-    window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
-    resizeCanvas();
-    initStars();
-    drawStars();
+    window.addEventListener('resize', () => { resize(); initStars(); });
+    resize(); initStars(); draw();
 
     // Esroth toggle
-    const esrothImg = document.getElementById('esroth-img');
     function toggleEsroth() {
-      const src = esrothImg.src;
-      const gif = esrothImg.dataset.gif;
-      if (src.endsWith('.jpg') || src.endsWith('.png')) {
-        esrothImg.src = gif;
-      } else {
-        esrothImg.src = src.replace('.gif', '.jpg');
-      }
+      const img = document.getElementById('esroth-img');
+      if (img.src.endsWith('.jpg')) img.src = img.dataset.gif;
+      else img.src = img.src.replace('.gif','.jpg');
     }
 
     // Animals
     const animals = ["🐉","🐺","🦇","🐍","🦂","🌹","🔥","🦋","🕸️","🖤","⚔️","🩸"];
-    let chosenAnimal = '';
+    let chosenAnimal = "";
 
-    // Random mark on load
     function setRandomMark() {
-      const random = animals[Math.floor(Math.random() * animals.length)];
-      chosenAnimal = random;
-      document.getElementById('randomMark').textContent = random;
+      chosenAnimal = animals[Math.floor(Math.random()*animals.length)];
+      document.getElementById('randomMark').textContent = chosenAnimal;
     }
 
     // Modal
@@ -436,66 +283,43 @@
       const grid = document.getElementById('animalGrid');
       grid.innerHTML = '';
       animals.forEach(animal => {
-        const div = document.createElement('div');
-        div.className = 'animal-option' + (animal === chosenAnimal ? ' selected' : '');
-        div.textContent = animal;
-        div.onclick = () => selectAnimal(animal, div);
-        grid.appendChild(div);
+        const d = document.createElement('div');
+        d.className = 'animal-option' + (animal === chosenAnimal ? ' selected' : '');
+        d.textContent = animal;
+        d.onclick = () => { chosenAnimal = animal; document.getElementById('randomMark').textContent = animal; closeModal(); };
+        grid.appendChild(d);
       });
       document.getElementById('animalModal').classList.add('open');
     }
-
-    function selectAnimal(animal, el) {
-      chosenAnimal = animal;
-      document.querySelectorAll('.animal-option').forEach(d => d.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('randomMark').textContent = animal;
-      setTimeout(closeModal, 350);
-    }
-
     function closeModal() {
       document.getElementById('animalModal').classList.remove('open');
     }
 
-    // Sign Contract
+    // Sign
     function signContract() {
       const name = document.getElementById('nameInput').value.trim();
-      if (!name) {
-        const input = document.getElementById('nameInput');
-        input.style.borderColor = '#99ddff';
-        input.placeholder = 'NAME IS REQUIRED...';
-        setTimeout(() => {
-          input.style.borderColor = '#ff1a4d';
-          input.placeholder = 'YOUR NAME';
-        }, 1600);
-        return;
-      }
+      if (!name) return alert("Please enter your name.");
 
       const saved = JSON.parse(localStorage.getItem('vesperath-bound') || '[]');
-      if (saved.some(entry => entry.name.toLowerCase() === name.toLowerCase())) {
-        alert("Your soul is already bound...");
-        return;
+      if (saved.some(s => s.name.toLowerCase() === name.toLowerCase())) {
+        return alert("Your soul is already bound...");
       }
 
-      // Sealing effect
-      const overlay = document.getElementById('sealingOverlay');
-      overlay.classList.add('active');
-      setTimeout(() => overlay.classList.remove('active'), 1400);
+      // sealing flash
+      const seal = document.getElementById('sealingOverlay');
+      seal.classList.add('active');
+      setTimeout(() => seal.classList.remove('active'), 1000);
 
-      // Add signature
+      // add entry
       const list = document.getElementById('signed-list');
       const entry = document.createElement('div');
       entry.className = 'signature';
-      const animalSpan = chosenAnimal ? `<span class="sig-animal">${chosenAnimal}</span>` : '';
-      const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      entry.innerHTML = `\( {animalSpan}<strong> \){name}</strong><span class="sig-date">${date}</span>`;
+      entry.innerHTML = `\( {chosenAnimal ? `<span class="sig-animal"> \){chosenAnimal}</span>` : ''}<strong>\( {name}</strong><span class="sig-date"> \){new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>`;
       list.prepend(entry);
 
-      // Save
-      saved.unshift({ name, animal: chosenAnimal, date });
+      saved.unshift({name, animal: chosenAnimal, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})});
       localStorage.setItem('vesperath-bound', JSON.stringify(saved));
 
-      // Reset
       document.getElementById('nameInput').value = '';
       setRandomMark();
     }
@@ -505,16 +329,15 @@
       const saved = JSON.parse(localStorage.getItem('vesperath-bound') || '[]');
       const list = document.getElementById('signed-list');
       list.innerHTML = '';
-      saved.forEach(({ name, animal, date }) => {
-        const entry = document.createElement('div');
-        entry.className = 'signature';
-        const animalSpan = animal ? `<span class="sig-animal">${animal}</span>` : '';
-        entry.innerHTML = `\( {animalSpan}<strong> \){name}</strong><span class="sig-date">${date}</span>`;
-        list.appendChild(entry);
+      saved.forEach(s => {
+        const e = document.createElement('div');
+        e.className = 'signature';
+        e.innerHTML = `\( {s.animal ? `<span class="sig-animal"> \){s.animal}</span>` : ''}<strong>\( {s.name}</strong><span class="sig-date"> \){s.date}</span>`;
+        list.appendChild(e);
       });
     }
 
-    // Initialize everything
+    // Start
     window.onload = () => {
       setRandomMark();
       loadSaved();
