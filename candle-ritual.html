@@ -3,68 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Initiation Ritual</title>
+  <title>The Initiation Ritual — Vesperath</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    body { background:#0a0008; color:#ff3366; font-family:'Cinzel Decorative',serif; text-align:center; padding:40px 20px; margin:0; overflow:hidden; }
-    h1 { font-size:3em; text-shadow:0 0 30px #ff3366; margin-bottom:8px; }
-    .subtitle { font-size:1.3em; opacity:0.85; margin-bottom:40px; }
-    .section { display:none; }
-    .section.active { display:block; }
-    
-    /* Candles */
-    .candles { display:flex; justify-content:center; gap:40px; margin:60px 0; }
-    .candle { width:68px; height:130px; background:linear-gradient(#1a1a1a,#111); border-radius:12px 12px 4px 4px; position:relative; cursor:pointer; box-shadow:0 0 30px rgba(255,51,102,0.7); transition:all 0.4s; }
-    .candle::before { content:''; position:absolute; top:-28px; left:50%; transform:translateX(-50%); width:22px; height:32px; background:#ffdd77; border-radius:50% 50% 30% 30%; box-shadow:0 0 25px #ffdd77, 0 0 45px #ff8800; }
-    .candle.active { transform:scale(1.25); box-shadow:0 0 60px #ff3366; }
-    .candle.green { background:#112211; box-shadow:0 0 55px #00ff88; }
-    .candle.wrong { animation:blowOut 0.8s forwards; }
-    @keyframes blowOut { 100% { opacity:0.15; transform:scale(0.6); } }
+    body { background:#0a0008; color:#ff3366; font-family:'Cinzel Decorative',serif; text-align:center; padding:40px 20px; margin:0; min-height:100vh; overflow-x:hidden; }
+    h1 { font-size:3.4em; text-shadow:0 0 30px #ff3366, 0 0 70px #9f00ff; margin:20px 0 10px; }
+    .subtitle { font-size:1.4em; opacity:0.9; color:#ff99ff; margin-bottom:50px; }
 
-    /* Rest of the styles (runes + vines) stay exactly the same as before */
-    .runes { display:flex; justify-content:center; gap:60px; margin:80px 0; }
-    .rune { width:90px; height:90px; background:#112244; border:3px solid #00aaff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.5em; color:#00ddff; box-shadow:0 0 40px #00aaff; cursor:pointer; transition:all 0.3s; }
-    .rune.active { transform:scale(1.3); box-shadow:0 0 60px #00ffff; }
-    .rune.correct { background:#003366; box-shadow:0 0 60px #00ffff; }
+    .candles { display:flex; justify-content:center; gap:60px; margin:70px 0; flex-wrap:wrap; }
+    .candle { width:80px; height:160px; background:linear-gradient(#1a1a1a,#111); border-radius:18px 18px 8px 8px; position:relative; cursor:pointer; box-shadow:0 0 35px rgba(255,51,102,0.7); transition:all 0.4s; }
+    .candle::before { content:''; position:absolute; top:-38px; left:50%; transform:translateX(-50%); width:28px; height:40px; background:#ffdd88; border-radius:50% 50% 35% 35%; box-shadow:0 0 30px #ffdd88, 0 0 55px #ff8800; }
+    .candle.lit { box-shadow:0 0 70px #ff3366; transform:scale(1.25); }
 
-    .vine-container { display:flex; justify-content:space-between; max-width:600px; margin:60px auto; }
-    .vine { width:80px; height:420px; background:linear-gradient(#112200,#001100); border-radius:40px; position:relative; box-shadow:0 0 30px rgba(0,255,80,0.6); }
-    .flower { position:absolute; width:52px; height:52px; background:#00ffaa; border-radius:50%; box-shadow:0 0 40px #00ffaa; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:28px; color:#001100; transition:all 0.3s; }
-    .flower.active { transform:scale(1.4); box-shadow:0 0 60px #00ffff; }
-    .flower.correct { background:#00cc88; box-shadow:0 0 60px #00ffcc; }
+    .runes { display:flex; justify-content:center; gap:70px; margin:80px 0; }
+    .rune { width:110px; height:110px; background:#1a0033; border:4px solid #9900ff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1em; color:#ffccff; box-shadow:0 0 40px #9900ff; cursor:pointer; transition:all 0.4s; padding:10px; line-height:1.3; }
+    .rune.correct { box-shadow:0 0 80px #00ffff; border-color:#00ffff; color:#00ffff; transform:scale(1.2); }
 
-    #offering { margin-top:60px; padding:30px; background:rgba(10,0,8,0.95); border:2px solid #ff3366; border-radius:12px; max-width:520px; margin-left:auto; margin-right:auto; }
-    input { width:100%; padding:14px; font-size:1.2em; background:#111; color:#ffddaa; border:2px solid #ff3366; margin-bottom:20px; }
-    button { padding:16px 50px; background:#330011; color:#ff3366; border:3px solid #ff3366; font-size:1.4em; cursor:pointer; }
-    .hidden { display:none; }
+    #contractPopup { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(10,0,8,0.97); z-index:1000; align-items:center; justify-content:center; }
+    .popup-content { background:rgba(20,0,30,0.98); border:5px solid #ff3366; border-radius:20px; padding:60px 50px; max-width:680px; box-shadow:0 0 100px #9f00ff; }
   </style>
 </head>
 <body>
 
-  <!-- CANDLE RITUAL -->
-  <div id="candleSection" class="section active">
-    <h1>THE CANDLE RITUAL</h1>
-    <p class="subtitle">The void has chosen three candles.<br>Discover them.</p>
+  <h1 id="stageTitle">THE CANDLE RITUAL</h1>
+  <p class="subtitle" id="stageSubtitle">Light all three flames...</p>
+
+  <!-- Candles -->
+  <div id="candleStage">
     <div class="candles" id="candlesContainer"></div>
   </div>
 
-  <!-- RUNES, OFFERING, VINES sections stay the same as last time -->
-  <div id="runeSection" class="section">
-    <h1>THE RUNE TRIAL</h1>
-    <p class="subtitle">The flames have spoken.<br>Now speak to the runes.</p>
+  <!-- Runes -->
+  <div id="runeStage" style="display:none">
     <div class="runes" id="runesContainer"></div>
   </div>
 
-  <div id="offeringSection" class="section">
-    <h1>OFFER YOUR SUFFERING</h1>
-    <div id="offering">
-      <p style="font-size:1.5em; margin-bottom:20px;">Speak what you wish to burn away…</p>
-      <input type="text" id="sufferingInput" placeholder="Write your offering">
-      <button onclick="completeOffering()">BURN IT</button>
+  <!-- Contract Popup -->
+  <div id="contractPopup">
+    <div class="popup-content">
+      <h1>THE CONTRACT IS SEALED</h1>
+      <p style="font-size:1.5em; color:#e8d5ff; margin:30px 0;">Your desire has been heard.<br>Vesperath accepts you.</p>
+      <a href="https://forms.gle/xzatapBg9LiMEsxB7" target="_blank" style="display:inline-block; padding:20px 60px; background:#ff3366; color:#0a0008; font-size:1.7em; text-decoration:none; border-radius:8px;">SIGN THE CONTRACT</a>
     </div>
   </div>
 
-  <div id="vineSection" class="section">
-    <h1>THE VINE RITUAL</h1>
-    <p class="subtitle">The earth awakens.<br>Climb the vines. Follow the flowers.</p>
-    <div class="vine-container" id="vineContainer"></div>
-  </div>
+  <script>
+    let currentStage = 0;
+
+    // ==================== CANDLES ====================
+    function createCandles() {
+      const container = document.getElementById('candlesContainer');
+      container.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        const candle = document.createElement('div');
+        candle.className = 'candle';
+        candle.onclick = () => {
+          candle.classList.add('lit');
+          if (document.querySelectorAll('.candle.lit').length === 3) {
+            setTimeout(nextToRunes, 800);
+          }
+        };
+        container.appendChild(candle);
+      }
+    }
+
+    function nextToRunes() {
+      document.getElementById('candleStage').style.display = 'none';
+      document.getElementById('runeStage').style.display = 'block';
+      document.getElementById('stageTitle').textContent = 'THE RUNE TRIAL';
+      document.getElementById('stageSubtitle').textContent = 'Speak the words in the correct order...';
+      initRunes();
+    }
+
+    // ==================== RUNES (Complicated) ====================
+    const runeWords = ["OBEY", "BLEED", "SUBMIT"];
+    let secretOrder = [];
+    let runeProgress = 0;
+
+    function initRunes() {
+      secretOrder = [...runeWords].sort(() => Math.random() - 0.5);
+      runeProgress = 0;
+      const container = document.getElementById('runesContainer');
+      container.innerHTML = '';
+
+      runeWords.forEach(word => {
+        const rune = document.createElement('div');
+        rune.className = 'rune';
+        rune.textContent = word;
+        rune.onclick = () => handleRune(rune, word);
+        container.appendChild(rune);
+      });
+    }
+
+    function handleRune(runeElement, clickedWord) {
+      if (clickedWord === secretOrder[runeProgress]) {
+        runeElement.classList.add('correct');
+        runeProgress++;
+
+        if (runeProgress === 3) {
+          setTimeout(() => {
+            document.getElementById('contractPopup').style.display = 'flex';
+          }, 1000);
+        }
+      } else {
+        // Reset runes
+        document.querySelectorAll('.rune').forEach(r => r.classList.remove('correct'));
+        runeProgress = 0;
+      }
+    }
+
+    // Start everything
+    window.onload = createCandles;
+  </script>
+</body>
+</html>
