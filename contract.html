@@ -218,12 +218,12 @@
 
   <div id="sealingOverlay" class="sealing"></div>
 
-  <!-- Modal -->
+  <!-- Animal Modal -->
   <div id="animalModal">
     <div class="modal-inner">
       <h2>Choose Your Mark</h2>
       <div id="animalGrid"></div>
-      <button onclick="closeModal()" style="margin-top:20px; padding:12px 30px;">Close</button>
+      <button onclick="closeModal()" style="margin-top:25px; padding:14px 40px; font-size:1.1em;">Close</button>
     </div>
   </div>
 
@@ -286,16 +286,21 @@
         const d = document.createElement('div');
         d.className = 'animal-option' + (animal === chosenAnimal ? ' selected' : '');
         d.textContent = animal;
-        d.onclick = () => { chosenAnimal = animal; document.getElementById('randomMark').textContent = animal; closeModal(); };
+        d.onclick = () => {
+          chosenAnimal = animal;
+          document.getElementById('randomMark').textContent = animal;
+          closeModal();
+        };
         grid.appendChild(d);
       });
       document.getElementById('animalModal').classList.add('open');
     }
+
     function closeModal() {
       document.getElementById('animalModal').classList.remove('open');
     }
 
-    // Sign
+    // Sign Contract
     function signContract() {
       const name = document.getElementById('nameInput').value.trim();
       if (!name) return alert("Please enter your name.");
@@ -310,21 +315,26 @@
       seal.classList.add('active');
       setTimeout(() => seal.classList.remove('active'), 1000);
 
-      // add entry
+      // add to list
       const list = document.getElementById('signed-list');
       const entry = document.createElement('div');
       entry.className = 'signature';
       entry.innerHTML = `\( {chosenAnimal ? `<span class="sig-animal"> \){chosenAnimal}</span>` : ''}<strong>\( {name}</strong><span class="sig-date"> \){new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>`;
       list.prepend(entry);
 
-      saved.unshift({name, animal: chosenAnimal, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})});
+      // save
+      saved.unshift({
+        name: name,
+        animal: chosenAnimal,
+        date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})
+      });
       localStorage.setItem('vesperath-bound', JSON.stringify(saved));
 
       document.getElementById('nameInput').value = '';
       setRandomMark();
     }
 
-    // Load saved
+    // Load saved signatures
     function loadSaved() {
       const saved = JSON.parse(localStorage.getItem('vesperath-bound') || '[]');
       const list = document.getElementById('signed-list');
@@ -337,7 +347,7 @@
       });
     }
 
-    // Start
+    // Initialize
     window.onload = () => {
       setRandomMark();
       loadSaved();
