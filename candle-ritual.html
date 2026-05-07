@@ -79,6 +79,7 @@
       container.innerHTML = '';
       currentIndex = 0;
 
+      // Create 5 candles
       for (let i = 0; i < 5; i++) {
         const candle = document.createElement('div');
         candle.className = 'candle';
@@ -87,10 +88,12 @@
         container.appendChild(candle);
       }
 
+      // Pick 3 random candles and set the order
       const allCandles = Array.from(container.children);
-      const chosen = allCandles.sort(() => Math.random() - 0.5).slice(0,3);
+      const chosen = allCandles.sort(() => Math.random() - 0.5).slice(0, 3);
       sequence = .sort(() => Math.random() - 0.5);
 
+      // Make the correct ones glow green
       chosen.forEach(c => c.classList.add('glow'));
     }
 
@@ -103,22 +106,17 @@
         currentIndex++;
 
         if (currentIndex === 3) {
-          document.getElementById('stage-title').textContent = "The flames accept you...";
+          document.getElementById('stage-title').innerHTML = "The flames accept you...<br>The path is open.";
           setTimeout(() => {
-            document.getElementById('candleStage').style.display = 'none';
-            document.getElementById('runeStage').style.display = 'block';
-          }, 1200);
+            document.getElementById('candlesContainer').style.display = 'none';
+            // Add your next stage here later
+          }, 1500);
         }
       } else {
+        // Wrong click - reset
         document.querySelectorAll('.candle').forEach(c => c.classList.add('wrong'));
-        setTimeout(createCandles, 900);
+        setTimeout(createCandles, 800);
       }
-    }
-
-    function submitDesire() {
-      const input = document.getElementById('desireInput').value.trim();
-      if (input.length < 4) return alert("Your desire must be worthy...");
-      alert("🔥 Your desire has been accepted.");
     }
 
     window.onload = createCandles;
